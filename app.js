@@ -481,43 +481,15 @@ function adminTab(tab) {
   if (tab === 'withdrawals') renderAdminWithdrawals();
   if (tab === 'dashboard') renderAdminDashboard();
 }
-
-function renderAdminPanel() {
-  if (currentUser?.email !== ADMIN_EMAIL) return;
-  renderAdminDashboard();
-}
-
 Function renderAdminDashboard() {
   const users = getUsers();
   const subs = getSubmissions();
   const wds = getWithdrawals().filter(w => w.status === 'pending' || w.status === 'pending-activation');
-  
   document.getElementById('stat-users').textContent = users.length;
   document.getElementById('stat-active').textContent = users.filter(u=>u.active).length;
   document.getElementById('stat-jobs').textContent = subs.length;
   document.getElementById('stat-pending').textContent = wds.length;
-
-  // বাটনগুলো এখানে যোগ করা হলো
-  const container = document.getElementById('admin-dashboard'); 
-  // যদি আপনার ড্যাশবোর্ডের মূল কন্টেইনারের আইডি 'admin-dashboard' না হয়, তবে সঠিক আইডিটি বসান
-  
-  const buttonHTML = `
-    <div style="margin: 20px 0; padding: 10px; border: 1px solid #ddd;">
-        <button class="btn-sm-green" onclick="copyJobData('facebook')">Copy Facebook</button>
-        <button class="btn-sm-green" onclick="copyJobData('gmail')">Copy Gmail</button>
-        <button class="btn-sm-green" onclick="copyJobData('instagram')">Copy Insta</button>
-    </div>
-  `;
-  
-  // বাটনগুলো ড্যাশবোর্ডে ইনজেক্ট করা হচ্ছে
-  if(document.getElementById('admin-dashboard')) {
-      document.getElementById('admin-dashboard').insertAdjacentHTML('beforeend', buttonHTML);
-  }
-
   renderGiftCodes();
-}
-আবার আপনি এখানে বাংলা এড করে দিয়েছেন বাংলা অফ করে দিবেন
-}
 
 }
 
