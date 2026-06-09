@@ -230,3 +230,24 @@ a{text-decoration:none;color:inherit}
 /* TOAST */
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a202c;color:#fff;padding:12px 20px;border-radius:30px;font-size:14px;font-weight:500;z-index:400;opacity:0;transition:.3s;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1}
+.payment-box {
+  background: #f4f4f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 20px 0;
+  max-width: 500px;
+}
+.payment-box textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  display: block;
+}
+.btn-green {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
