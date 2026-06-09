@@ -24,7 +24,7 @@ const JOB_DEFAULTS = [
   { id:'facebook', name:'Facebook Sell', icon:'<i class="fa-brands fa-facebook"></i>', iconBg:'#1877f2', rate:14, password:'', locked:false, notice:'ফেসবুকের আপডেটের কারণে কাজ বন্ধ করা হলো আপডেট শেষ হলে আবার চালু করা হবে ❌' },
   { id:'gmail',    name:'Gmail Sell',    icon:'<i class="fa-brands fa-google"></i>', iconBg:'#e53e3e', rate:18, password:'@shanto@#&', locked:false, notice:'' },
   { id:'instagram',name:'Insta Sell',    icon:'<i class="fa-brands fa-instagram"></i>',iconBg:'linear-gradient(135deg,#833ab4,#e1306c)', rate:3, password:'@topearn08', locked:false, notice:'' },
-  { id:'refer',    name:'রেফার',         icon:'gift-refer-icon', iconBg:'#8b5cf6', rate:0, locked:false, notice:'' },
+  { id:'refer',    name:'রেফার',         icon:'<i class="fa-solid fa-gift"></i>', iconBg:'#8b5cf6', rate:0, locked:false, notice:'' },
   
 ];
 
