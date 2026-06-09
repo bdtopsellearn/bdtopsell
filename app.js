@@ -5,34 +5,27 @@ const ADMIN_EMAIL = 'mdjobayerislam2580@gmail.com';
 
 // DEFAULT SETTINGS
 const DEFAULT_SETTINGS = {
-  activationFee: 30,
-  referralBonus: 20,
-  activationBonus: 20,
+  activationFee: 20,
+  referralBonus: 15,
+  activationBonus: 10,
   minWithdrawal: 50,
-  launchDate: '2026-04-30',
+  launchDate: '2026-04-28',
   noticeTicker: 'গিফট কোড বোনাস দেওয়া হয় — টেলিগ্রাম জয়েন করুন।',
-  admin1link: '',
-  admin2link: '',
-  tgchannel: '',
+  admin1link: 't.me/James_admin_BD',
+  admin2link: 't.me/James_admin_BD',
+  tgchannel: 'https://t.me/bd_unlimited_earn',
   fbpage: '',
   ytchannel: '',
   bkashNum: '01XXXXXXXXX',
-  nagadNum: '01XXXXXXXXX',
+  nagadNum: '01619789895',
 };
 
 const JOB_DEFAULTS = [
-  { id:'facebook', name:'Facebook Sell', icon:'f', iconBg:'#1877f2', rate:14, password:'', locked:false, notice:'ফেসবুকের আপডেটের কারণে কাজ বন্ধ করা হলো আপডেট শেষ হলে আবার চালু করা হবে ❌' },
-  { id:'gmail',    name:'Gmail Sell',    icon:'✉', iconBg:'#e53e3e', rate:18, password:'@shanto@#&', locked:false, notice:'' },
-  { id:'instagram',name:'Insta Sell',    icon:'📷',iconBg:'linear-gradient(135deg,#833ab4,#e1306c)', rate:3, password:'@topearn08', locked:false, notice:'' },
-  { id:'jobpost',  name:'Job Post',      icon:'💼', iconBg:'linear-gradient(135deg,#6c5ce7,#e91e8c)', rate:0, locked:true, notice:'' },
-  { id:'leadership',name:'লিডারশিপ',   icon:'👑', iconBg:'#f59e0b', rate:0, locked:false, notice:'' },
-  { id:'target',   name:'টার্গেট বোনাস',icon:'🎯', iconBg:'#e53e3e', rate:0, locked:false, notice:'' },
-  { id:'refer',    name:'রেফার',         icon:'👥', iconBg:'#8b5cf6', rate:0, locked:false, notice:'' },
-  { id:'giftcode', name:'গিফট কোড',     icon:'🎁', iconBg:'#ec4899', rate:0, locked:true, notice:'' },
-  { id:'calculator',name:'অংক করুন',    icon:'🔢', iconBg:'#06b6d4', rate:0, locked:true, notice:'' },
-  { id:'microjob', name:'মাইক্রো জব',   icon:'📋', iconBg:'#10b981', rate:0, locked:true, notice:'' },
-  { id:'typing',   name:'টাইপিং জব',    icon:'⌨', iconBg:'#8b5cf6', rate:0, locked:true, notice:'' },
-  { id:'adsview',  name:'ADS VIEW',      icon:'📢', iconBg:'#3b82f6', rate:0, locked:true, notice:'' },
+  { id:'facebook', name:'Facebook Sell', icon:'official-facebook-logo', iconBg:'#1877f2', rate:14, password:'', locked:false, notice:'ফেসবুকের আপডেটের কারণে কাজ বন্ধ করা হলো আপডেট শেষ হলে আবার চালু করা হবে ❌' },
+  { id:'gmail',    name:'Gmail Sell',    icon:'official-gmail-logo', iconBg:'#e53e3e', rate:18, password:'@shanto@#&', locked:false, notice:'' },
+  { id:'instagram',name:'Insta Sell',    icon:'official-instagram-logo',iconBg:'linear-gradient(135deg,#833ab4,#e1306c)', rate:3, password:'@topearn08', locked:false, notice:'' },
+  { id:'refer',    name:'রেফার',         icon:'gift-refer-icon', iconBg:'#8b5cf6', rate:0, locked:false, notice:'' },
+  
 ];
 
 // STATE
