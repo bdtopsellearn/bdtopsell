@@ -1,437 +1,489 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Bangladesh Top Earn</title>
-<link rel="stylesheet" href="style.css"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-</head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<body>
+cat > /home/claude/bdtopearn/app.js << 'JSEOF'
+// =========================================================
+// BANGLADESH TOP EARN — Firebase Persistent App
+// All data stored in Firestore — never lost on refresh/logout
+// =========================================================
 
-<!-- AUTH SCREEN -->
-<div id="authScreen" class="screen active">
-  <div class="auth-wrap">
-    <div class="auth-tabs">
-      <button class="auth-tab active" onclick="switchTab('login')">Log In</button>
-      <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
-    </div>
-    <div id="loginForm" class="auth-form active">
-      <div class="auth-logo"><div class="logo-fallback">🏆</div></div>
-      <h2>Welcome Back</h2>
-      <p class="auth-sub">Login to access your dashboard</p>
-      <div class="input-group"><span class="input-icon">✉</span><input type="email" id="loginEmail" placeholder="Email Address"/></div>
-      <div class="input-group"><span class="input-icon">🔒</span><input type="password" id="loginPass" placeholder="Password"/><span class="eye-toggle" onclick="togglePass('loginPass')">👁</span></div>
-      <div class="row-between"><label class="check-label"><input type="checkbox"/> Keep me logged in</label><a href="#" class="link-blue">Forgot Password?</a></div>
-      <button class="btn-main" onclick="doLogin()">LOGIN SECURELY 🛡</button>
-      <p class="auth-foot">New to our platform? <a href="#" class="link-blue" onclick="switchTab('signup')">Create Account</a></p>
-    </div>
-    <div id="signupForm" class="auth-form">
-      <div class="auth-logo"><div class="logo-fallback">🏆</div></div>
-      <h2>Create Account</h2>
-      <p class="auth-sub">Start your journey with Bangladesh Top Earn</p>
-      <div class="input-group"><span class="input-icon">🎁</span><input type="text" id="refId" placeholder="Referral ID (Optional)"/></div>
-      <div class="input-group"><span class="input-icon">👤</span><input type="text" id="regName" placeholder="Full Name"/></div>
-      <div class="input-group"><span class="input-icon">✉</span><input type="email" id="regEmail" placeholder="Email Address"/></div>
-      <div class="input-group"><span class="input-icon">🔒</span><input type="password" id="regPass" placeholder="Password"/><span class="eye-toggle" onclick="togglePass('regPass')">👁</span></div>
-      <div class="input-group"><span class="input-icon">✔</span><input type="password" id="regPass2" placeholder="Confirm Password"/></div>
-      <button class="btn-main" onclick="doRegister()">Register Now →</button>
-    </div>
-  </div>
-</div>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+import {
+  getFirestore, doc, getDoc, setDoc, updateDoc, collection,
+  getDocs, query, where, addDoc, deleteDoc, orderBy, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signOut, onAuthStateChanged, sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-<!-- MAIN APP -->
-<div id="appScreen">
+// ── Firebase Config ──────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyDm6XCdj_Zs6w5rowypsjm-MoF31Sn9tCM",
+  authDomain: "bdtopsellearn.firebaseapp.com",
+  projectId: "bdtopsellearn",
+  storageBucket: "bdtopsellearn.firebasestorage.app",
+  messagingSenderId: "157769457261",
+  appId: "1:157769457261:web:a134db45502f2c31cde964",
+  measurementId: "G-Y8K0VNK0T5"
+};
+const firebaseApp = initializeApp(firebaseConfig);
+const analytics   = getAnalytics(firebaseApp);
+const db          = getFirestore(firebaseApp);
+const auth        = getAuth(firebaseApp);
 
-  <header class="app-header">
-    <button class="hamburger" onclick="openMenu()">☰</button>
-    <span class="header-title">BANGLADESH TOP EARN</span>
-    <button class="bell-btn" onclick="showSection('notifications')">🔔</button>
-  </header>
-  <div class="welcome-bar">
-    <div class="avatar-wrap"><div class="avatar">👤</div></div>
-    <div class="welcome-text"><small>WELCOME BACK,</small><strong id="welcomeName">User</strong></div>
-    <div class="wallet-badge" onclick="showSection('wallet')">💰 ৳<span id="walletBal">0.00</span></div>
-  </div>
-  <div class="notice-bar"><span class="notice-tag">Notice</span><span class="ticker" id="noticeTicker">গিফট কোড বোনাস দেওয়া হয় — টেলিগ্রাম জয়েন করুন।</span></div>
+// ── Constants ────────────────────────────────────────────
+const ADMIN_EMAIL = 'mdjobayerislam2580@gmail.com';
 
-  <div id="pageContent">
+const DEFAULT_SETTINGS = {
+  activationFee: 20,
+  referralBonus: 15,
+  activationBonus: 10,
+  minWithdrawal: 50,
+  launchDate: '2026-04-28',
+  noticeTicker: 'গিফট কোড বোনাস দেওয়া হয় — টেলিগ্রাম জয়েন করুন।',
+  admin1link: 'https://t.me/James_admin_BD',
+  admin2link: 'https://t.me/James_admin_BD',
+  tgchannel:  'https://t.me/bd_unlimited_earn',
+  fbpage: '',
+  ytchannel: '',
+  bkashNum: '01XXXXXXXXX',
+  nagadNum: '01619789895',
+};
 
-    <!-- HOME -->
-    <div id="page-home" class="page active">
-      <div id="inactiveBanner" class="inactive-banner" style="display:none">
-        <div class="banner-icon">⚠️</div>
-        <h3>আপনার একাউন্ট একটিভ নয়!</h3>
-        <p>আপনার একাউন্ট এক্টিভ করে ২০ টাকা বোনাস নিন সাথে সাথে 🎊</p>
-        <button class="btn-active-now" onclick="showActivate()">⚡ Active Now</button>
+const JOB_DEFAULTS = [
+  { id:'facebook',  name:'Facebook Sell', icon:'<i class="fa-brands fa-facebook"></i>', iconBg:'#1877f2', rate:14, password:'', locked:false, notice:'ফেসবুকের আপডেটের কারণে কাজ বন্ধ করা হলো আপডেট শেষ হলে আবার চালু করা হবে ❌' },
+  { id:'gmail',     name:'Gmail Sell',    icon:'<i class="fa-brands fa-google"></i>',   iconBg:'#e53e3e', rate:18, password:'@shanto@#&', locked:false, notice:'' },
+  { id:'instagram', name:'Insta Sell',    icon:'<i class="fa-brands fa-instagram"></i>',iconBg:'linear-gradient(135deg,#833ab4,#e1306c)', rate:3, password:'@topearn08', locked:false, notice:'' },
+  { id:'refer',     name:'রেফার',          icon:'<i class="fa-solid fa-gift"></i>',     iconBg:'#8b5cf6', rate:0, locked:false, notice:'' },
+];
+
+// ── State ────────────────────────────────────────────────
+let currentUser    = null;  // Firestore user doc data
+let currentUid     = null;  // Firebase Auth UID
+let lastPage       = 'home';
+let payingMethod   = '';
+let siteAgeTimer   = null;
+
+// ── Loading Overlay ──────────────────────────────────────
+function showLoading(msg = 'Loading...') {
+  let el = document.getElementById('globalLoader');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'globalLoader';
+    el.style.cssText = 'position:fixed;inset:0;background:rgba(255,255,255,.92);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:15px;font-weight:600;color:#17b2e8;gap:12px';
+    el.innerHTML = '<div class="spinner"></div><span id="loaderMsg"></span>';
+    document.body.appendChild(el);
+  }
+  document.getElementById('loaderMsg').textContent = msg;
+  el.style.display = 'flex';
+}
+function hideLoading() {
+  const el = document.getElementById('globalLoader');
+  if (el) el.style.display = 'none';
+}
+
+// ── Toast ────────────────────────────────────────────────
+function toast(msg, dur = 2500) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ── Firestore Helpers ────────────────────────────────────
+async function fsGet(col, id) {
+  try {
+    const snap = await getDoc(doc(db, col, String(id)));
+    return snap.exists() ? snap.data() : null;
+  } catch(e) { console.error('fsGet', e); return null; }
+}
+async function fsSet(col, id, data) {
+  try { await setDoc(doc(db, col, String(id)), data, { merge: true }); return true; }
+  catch(e) { console.error('fsSet', e); return false; }
+}
+async function fsUpdate(col, id, data) {
+  try { await updateDoc(doc(db, col, String(id)), data); return true; }
+  catch(e) { return fsSet(col, id, data); }
+}
+async function fsGetAll(col) {
+  try {
+    const snap = await getDocs(collection(db, col));
+    return snap.docs.map(d => ({ _id: d.id, ...d.data() }));
+  } catch(e) { console.error('fsGetAll', e); return []; }
+}
+async function fsAdd(col, data) {
+  try { const ref = await addDoc(collection(db, col), { ...data, createdAt: serverTimestamp() }); return ref.id; }
+  catch(e) { console.error('fsAdd', e); return null; }
+}
+async function fsDelete(col, id) {
+  try { await deleteDoc(doc(db, col, String(id))); return true; }
+  catch(e) { console.error('fsDelete', e); return false; }
+}
+
+// ── Settings (cached in localStorage for fast reads) ─────
+function getSettings() {
+  try { return { ...DEFAULT_SETTINGS, ...JSON.parse(localStorage.getItem('bte_settings') || '{}') }; }
+  catch { return { ...DEFAULT_SETTINGS }; }
+}
+async function loadSettingsFromFS() {
+  const s = await fsGet('config', 'settings');
+  if (s) { localStorage.setItem('bte_settings', JSON.stringify({ ...DEFAULT_SETTINGS, ...s })); }
+}
+async function saveSettingsToFS(data) {
+  localStorage.setItem('bte_settings', JSON.stringify(data));
+  await fsSet('config', 'settings', data);
+}
+
+// ── Jobs (cached) ─────────────────────────────────────────
+function getJobs() {
+  try {
+    const stored = JSON.parse(localStorage.getItem('bte_jobs') || 'null');
+    return stored || JOB_DEFAULTS;
+  } catch { return JOB_DEFAULTS; }
+}
+async function loadJobsFromFS() {
+  const j = await fsGet('config', 'jobs');
+  if (j && j.list) { localStorage.setItem('bte_jobs', JSON.stringify(j.list)); }
+}
+async function saveJobsToFS(jobs) {
+  localStorage.setItem('bte_jobs', JSON.stringify(jobs));
+  await fsSet('config', 'jobs', { list: jobs });
+}
+
+// ─────────────────────────────────────────────────────────
+// AUTH LISTENERS & PERSISTENT SESSION
+// ─────────────────────────────────────────────────────────
+onAuthStateChanged(auth, async (firebaseUser) => {
+  if (firebaseUser) {
+    showLoading('লগইন হচ্ছে...');
+    currentUid = firebaseUser.uid;
+    await loadSettingsFromFS();
+    await loadJobsFromFS();
+    const userData = await fsGet('users', firebaseUser.uid);
+    if (userData) {
+      currentUser = userData;
+      hideLoading();
+      launchApp();
+    } else {
+      // Auth exists but no profile — rare edge case
+      hideLoading();
+      showAuthScreen();
+    }
+  } else {
+    currentUid  = null;
+    currentUser = null;
+    hideLoading();
+    showAuthScreen();
+  }
+});
+
+function showAuthScreen() {
+  document.getElementById('authScreen').classList.add('active');
+  document.getElementById('appScreen').classList.remove('active');
+}
+
+// ─────────────────────────────────────────────────────────
+// AUTH FUNCTIONS
+// ─────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((b, i) =>
+    b.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'signup')));
+  document.getElementById('loginForm').classList.toggle('active',  tab === 'login');
+  document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
+  const ff = document.getElementById('forgotForm');
+  if (ff) ff.classList.remove('active');
+}
+
+function showForgotPassword() {
+  document.getElementById('loginForm').classList.remove('active');
+  document.getElementById('signupForm').classList.remove('active');
+  const ff = document.getElementById('forgotForm');
+  if (ff) ff.classList.add('active');
+  document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+}
+
+async function doForgotPassword() {
+  const email = (document.getElementById('forgotEmail')?.value || '').trim().toLowerCase();
+  if (!email) return toast('ইমেইল দিন।');
+  showLoading('পাঠানো হচ্ছে...');
+  try {
+    await sendPasswordResetEmail(auth, email);
+    hideLoading();
+    toast('✅ Password reset email sent! আপনার Gmail চেক করুন।', 4000);
+    switchTab('login');
+  } catch(e) {
+    hideLoading();
+    if (e.code === 'auth/user-not-found') toast('এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট নেই।');
+    else toast('Error: ' + e.message);
+  }
+}
+
+function togglePass(id) {
+  const el = document.getElementById(id);
+  if (el) el.type = el.type === 'password' ? 'text' : 'password';
+}
+
+function generateNumId() { return Math.floor(10000 + Math.random() * 89999); }
+
+async function doRegister() {
+  const refId = (document.getElementById('refId')?.value || '').trim();
+  const name  = (document.getElementById('regName')?.value || '').trim();
+  const email = (document.getElementById('regEmail')?.value || '').trim().toLowerCase();
+  const pass  = document.getElementById('regPass')?.value || '';
+  const pass2 = document.getElementById('regPass2')?.value || '';
+  if (!name || !email || !pass) return toast('সব ঘর পূরণ করুন।');
+  if (pass !== pass2)           return toast('পাসওয়ার্ড মিলছে না।');
+  if (pass.length < 6)          return toast('পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে।');
+
+  showLoading('অ্যাকাউন্ট তৈরি হচ্ছে...');
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    const uid  = cred.user.uid;
+    const numId = generateNumId();
+    const newUser = {
+      uid, numId, name, email,
+      active: false, balance: 0,
+      joinDate: Date.now(),
+      referredBy: refId || null,
+    };
+    await fsSet('users', uid, newUser);
+    currentUid  = uid;
+    currentUser = newUser;
+    hideLoading();
+    toast('✅ অ্যাকাউন্ট তৈরি হয়েছে!');
+    launchApp();
+  } catch(e) {
+    hideLoading();
+    if (e.code === 'auth/email-already-in-use') toast('এই ইমেইল আগেই রেজিস্টার করা।');
+    else if (e.code === 'auth/invalid-email')   toast('ইমেইল ঠিকানা সঠিক নয়।');
+    else toast('Error: ' + e.message);
+  }
+}
+
+async function doLogin() {
+  const email = (document.getElementById('loginEmail')?.value || '').trim().toLowerCase();
+  const pass  = document.getElementById('loginPass')?.value || '';
+  if (!email || !pass) return toast('ইমেইল ও পাসওয়ার্ড দিন।');
+  showLoading('লগইন হচ্ছে...');
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    // onAuthStateChanged will handle the rest
+  } catch(e) {
+    hideLoading();
+    if (e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential')
+      toast('ইমেইল বা পাসওয়ার্ড ভুল।');
+    else toast('Error: ' + e.message);
+  }
+}
+
+async function doLogout() {
+  showLoading('লগআউট...');
+  await signOut(auth);
+  currentUser = null; currentUid = null;
+  closeMenu();
+  hideLoading();
+}
+
+// ─────────────────────────────────────────────────────────
+// APP LAUNCH
+// ─────────────────────────────────────────────────────────
+function launchApp() {
+  document.getElementById('authScreen').classList.remove('active');
+  document.getElementById('appScreen').classList.add('active');
+  updateUserUI();
+  initProjects();
+  startSiteAge();
+  updateNoticeBar();
+  showSection('home');
+  setTimeout(() => { document.getElementById('welcomeModal').style.display = 'flex'; }, 900);
+  document.getElementById('adminMenuItem').style.display =
+    currentUser.email === ADMIN_EMAIL ? 'block' : 'none';
+  updateSupportLinks();
+}
+
+function updateUserUI() {
+  const u = currentUser;
+  if (!u) return;
+  el('welcomeName').textContent = u.name;
+  el('walletBal').textContent   = (u.balance || 0).toFixed(2);
+  el('walletBig').textContent   = (u.balance || 0).toFixed(2);
+  el('sideMenuName').textContent  = u.name;
+  el('sideMenuId').textContent    = 'ID: ' + u.numId;
+  el('sideMenuBal').textContent   = (u.balance || 0).toFixed(2);
+  el('sideMenuSince').textContent = new Date(u.joinDate).toLocaleDateString('en',{month:'short',year:'numeric'});
+  const statusEl = el('sideMenuStatus');
+  if (statusEl) {
+    if (u.active) { statusEl.textContent = '● Active';   statusEl.className = 'side-status active-status'; }
+    else          { statusEl.textContent = '● Inactive'; statusEl.className = 'side-status'; }
+  }
+  el('inactiveBanner').style.display = u.active ? 'none' : 'block';
+  const aw = el('activeWalletWarn');
+  const ws = el('withdrawSection');
+  if (u.active) { if(aw) aw.style.display='none'; if(ws) ws.style.display='block'; }
+  else          { if(aw) aw.style.display='block'; if(ws) ws.style.display='none'; }
+  if (el('profileName'))  el('profileName').value  = u.name;
+  if (el('profileEmail')) el('profileEmail').value = u.email;
+  const rl = el('refLinkBox');
+  if (rl) rl.textContent = window.location.origin + '/?ref=' + u.numId;
+  renderTeamLevels();
+}
+
+function el(id) { return document.getElementById(id); }
+
+function updateNoticeBar() {
+  const s = getSettings();
+  const t = el('noticeTicker');
+  if (t) t.textContent = s.noticeTicker || DEFAULT_SETTINGS.noticeTicker;
+}
+
+async function saveCurrentUser() {
+  if (!currentUid || !currentUser) return;
+  await fsUpdate('users', currentUid, currentUser);
+}
+
+// ─────────────────────────────────────────────────────────
+// PROJECTS GRID
+// ─────────────────────────────────────────────────────────
+function initProjects() {
+  const jobs = getJobs();
+  const grid = el('projectsGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  jobs.forEach(job => {
+    const div = document.createElement('div');
+    div.className = 'project-item';
+    const bgStyle = job.iconBg.includes('gradient') ? `background:${job.iconBg}` : `background:${job.iconBg}`;
+    div.innerHTML = `
+      <div class="proj-icon" style="${bgStyle}">
+        <span>${job.icon}</span>
+        ${job.locked ? '<span class="proj-locked">🔒</span>' : ''}
       </div>
-      <div class="card site-age">
-        <div class="site-age-header">⏰ সাইটের বয়স <span class="live-dot">● Live</span></div>
-        <div class="age-counters" id="siteAge"></div>
-      </div>
-      <div class="card projects-card">
-        <div class="projects-title">🚀 আমাদের প্রজেক্ট সমূহ</div>
-        <div class="projects-grid" id="projectsGrid"></div>
-      </div>
-    </div>
+      <div class="proj-label">${job.name}</div>`;
+    div.onclick = () => handleProjectClick(job);
+    grid.appendChild(div);
+  });
+}
 
-    <!-- WALLET -->
-    <div id="page-wallet" class="page">
-      <div class="card">
-        <h3 class="section-h">💰 My Wallet</h3>
-        <div class="wallet-big">৳<span id="walletBig">0.00</span></div>
-        <div id="activeWalletWarn" class="locked-warn">
-          <div class="locked-icon">🔒</div>
-          <h4>উইথড্র করতে একাউন্ট এক্টিভ করুন</h4>
-          <p>আপনার একাউন্ট এক্টিভ করে ২০ টাকা বোনাস নিন সাথে সাথে 💸</p>
-          <button class="btn-orange" onclick="showActivate()">এক্টিভ করুন</button>
-        </div>
-        <div id="withdrawSection" style="display:none">
-          <div class="input-group mt"><input type="number" id="withdrawAmt" placeholder="Amount (min ৳50)"/></div>
-          <div class="input-group"><input type="text" id="withdrawNum" placeholder="bKash / Nagad Number"/></div>
-          <button class="btn-main" onclick="doWithdraw()">Withdraw</button>
-        </div>
-      </div>
-      <div class="card">
-        <h3 class="section-h">💳 Payment History</h3>
-        <div id="paymentHistory"><p class="empty-msg">No transactions yet.</p></div>
-      </div>
-    </div>
+function handleProjectClick(job) {
+  if (!currentUser.active && job.id !== 'giftcode') { showActivate(); return; }
+  if (job.locked)  { toast('এই ফিচার শীঘ্রই আসছে!'); return; }
+  if (job.id === 'refer')    { showSection('team'); return; }
+  if (job.id === 'giftcode') { showGiftCodeInput(); return; }
+  if (['facebook','gmail','instagram'].includes(job.id)) { showJobPage(job); return; }
+  toast('শীঘ্রই আসছে!');
+}
 
-    <!-- TEAM -->
-    <div id="page-team" class="page">
-      <div class="card">
-        <div class="team-header">
-          <div class="team-icon-big">👥</div>
-          <div><h3 class="blue-h">My Referral Team</h3></div>
-          <div class="team-size">Team Size:<br/><strong id="teamSize">0</strong></div>
-        </div>
-      </div>
-      <div class="card"><div id="teamLevels"></div></div>
-      <div class="card refer-card">
-        <div class="refer-gift">🎁</div>
-        <h4>আপনার বন্ধুকে রেফার করুন 🤝</h4>
-        <p>প্রতি ভেরিফাই রেফারে পাবেন <strong>৳20 টাকা</strong> বোনাস 🎉</p>
-        <div class="ref-link-box" id="refLinkBox">Loading...</div>
-        <button class="btn-copy" onclick="copyRefLink()">📋 লিংক কপি করুন</button>
-        <p class="ref-note">আপনার রেফারেন লিংকটি বন্ধুদের সাথে শেয়ার করুন। তারা একাউন্ট খুলে একাউন্ট একটিভ করলে আপনি বোনাস পাবেন।</p>
-      </div>
-    </div>
+function showJobPage(job) {
+  const rateEl = el('rate-' + job.id);
+  if (rateEl) rateEl.textContent = 'Rate: ৳' + Number(job.rate).toFixed(2);
+  const noticeEl = el('notice-' + job.id);
+  if (noticeEl) {
+    if (job.password) {
+      noticeEl.innerHTML = `🔑 <div><strong>ব্যবহারের পাসওয়ার্ড:</strong>&nbsp;
+        <span style="color:#b45309;font-weight:700">${job.password}</span>&nbsp;
+        <button onclick="navigator.clipboard.writeText('${job.password}');toast('Copied!')"
+          style="background:#444;color:#fff;border:none;padding:2px 10px;border-radius:6px;font-size:11px;cursor:pointer">COPY</button></div>`;
+    } else if (job.notice) {
+      noticeEl.textContent = job.notice;
+    } else {
+      noticeEl.innerHTML = '';
+    }
+  }
+  showSection('job-' + job.id);
+}
 
-    <!-- PROFILE -->
-    <div id="page-profile" class="page">
-      <div class="profile-banner"></div>
-      <div class="profile-avatar-abs"><div class="profile-avatar">👤</div></div>
-      <div class="card profile-card-body">
-        <h3 class="section-h">Account Settings</h3>
-        <label class="field-label">Full Name</label>
-        <div class="input-group"><input type="text" id="profileName" placeholder="Full Name"/></div>
-        <label class="field-label">Email Address</label>
-        <div class="input-group"><input type="email" id="profileEmail" disabled/></div>
-        <small class="muted">Gmail change করা যাবে না।</small>
-        <label class="field-label mt">বর্তমান পাসওয়ার্ড</label>
-        <div class="input-group"><input type="password" id="currentPass" placeholder="বর্তমান পাসওয়ার্ড"/></div>
-        <label class="field-label">নতুন পাসওয়ার্ড</label>
-        <div class="input-group"><input type="password" id="newPass" placeholder="নতুন পাসওয়ার্ড"/></div>
-        <button class="btn-main" onclick="saveProfile()">SAVE SETTINGS</button>
-        <button class="btn-outline mt" onclick="showSection('home')">← Back</button>
-      </div>
-    </div>
+// ─────────────────────────────────────────────────────────
+// GIFT CODE
+// ─────────────────────────────────────────────────────────
+async function showGiftCodeInput() {
+  const code = prompt('গিফট কোড দিন:');
+  if (!code) return;
+  showLoading('যাচাই করা হচ্ছে...');
+  const codes = await fsGetAll('giftcodes');
+  const gc = codes.find(c => c.code?.toUpperCase() === code.toUpperCase() && !c.used);
+  if (!gc) { hideLoading(); toast('কোডটি ভুল অথবা আগেই ব্যবহার হয়েছে!'); return; }
+  await fsUpdate('giftcodes', gc._id, { used: true, usedBy: currentUid, usedAt: Date.now() });
+  currentUser.balance = (currentUser.balance || 0) + gc.amount;
+  await saveCurrentUser();
+  hideLoading();
+  updateUserUI();
+  toast('🎉 গিফট কোড রিডিম! +৳' + gc.amount);
+}
 
-    <!-- HELP -->
-    <div id="page-help" class="page">
-      <div class="card">
-        <h3 class="section-h">Support Channels</h3>
-        <div class="support-list">
-          <a href="#" class="support-item" id="link-fbpage"><div class="support-icon fb-s">f</div><div><strong>Facebook Page</strong><br/><small>Like &amp; Follow us</small></div><span>›</span></a>
-          <a href="#" class="support-item" id="link-tgchannel"><div class="support-icon tg-s">✈</div><div><strong>Telegram Channel</strong><br/><small>Get all updates</small></div><span>›</span></a>
-          <a href="#" class="support-item" id="link-admin1"><div class="support-icon adm-s">👥</div><div><strong>Admin Support</strong><br/><small>ট্রানজেকশন সমস্যা হলে যোগাযোগ করুন</small></div><span>›</span></a>
-          <a href="#" class="support-item" id="link-ytchannel"><div class="support-icon yt-s">▶</div><div><strong>YouTube Channel</strong><br/><small>Official Videos</small></div><span>›</span></a>
-        </div>
-      </div>
-    </div>
+// ─────────────────────────────────────────────────────────
+// SITE AGE COUNTER
+// ─────────────────────────────────────────────────────────
+function startSiteAge() {
+  if (siteAgeTimer) clearInterval(siteAgeTimer);
+  function update() {
+    const s = getSettings();
+    const launch = new Date(s.launchDate || DEFAULT_SETTINGS.launchDate).getTime();
+    const diff = Date.now() - launch;
+    if (diff < 0) { el('siteAge').innerHTML = '<div class="age-box"><div class="age-num">00</div><div class="age-label">দিন</div></div>'.repeat(4); return; }
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    const siteAgeEl = el('siteAge');
+    if (siteAgeEl) siteAgeEl.innerHTML =
+      `<div class="age-box"><div class="age-num">${String(days).padStart(2,'0')}</div><div class="age-label">দিন</div></div>
+       <div class="age-box"><div class="age-num">${String(hrs).padStart(2,'0')}</div><div class="age-label">ঘন্টা</div></div>
+       <div class="age-box"><div class="age-num">${String(mins).padStart(2,'0')}</div><div class="age-label">মিনিট</div></div>
+       <div class="age-box"><div class="age-num">${String(secs).padStart(2,'0')}</div><div class="age-label">সেকেন্ড</div></div>`;
+  }
+  update();
+  siteAgeTimer = setInterval(update, 1000);
+}
 
-    <!-- NOTIFICATIONS -->
-    <div id="page-notifications" class="page">
-      <div class="card">
-        <h3 class="section-h">🔔 Notifications</h3>
-        <div id="notifList"><p class="empty-msg">No notifications yet.</p></div>
-      </div>
-    </div>
+// ─────────────────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────────────────
+function showSection(sec) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = el('page-' + sec);
+  if (pg) { pg.classList.add('active'); lastPage = sec; }
+  if (sec === 'admin')         renderAdminPanel();
+  if (sec === 'wallet')        renderPaymentHistory();
+  if (sec === 'notifications') renderNotifications();
+  if (sec === 'team')          renderTeamLevels();
+  if (sec === 'help')          updateSupportLinks();
+}
+function goBack() { showSection(lastPage === 'history' ? 'home' : lastPage); }
 
-    <!-- JOB: FACEBOOK -->
-    <div id="page-job-facebook" class="page job-page">
-      <div class="card">
-        <div class="job-header-row"><span class="job-badge fb-badge">f Facebook Sell</span><span class="rate-badge" id="rate-facebook">Rate: ৳14.00</span></div>
-        <div class="job-notice" id="notice-facebook"></div>
-        <label class="field-label">UID / Profile Link</label>
-        <div class="input-group"><input type="text" id="fb-uid" placeholder="ID UID"/></div>
-        <label class="field-label">Login Email/Phone</label>
-        <div class="input-group"><input type="text" id="fb-email" placeholder="Email/Phone"/></div>
-        <label class="field-label">Password</label>
-        <div class="input-group"><input type="password" id="fb-pass" placeholder="Password"/></div>
-        <label class="field-label">2FA Key (Mandatory)</label>
-        <div class="input-group"><input type="text" id="fb-2fa" placeholder="Enter 2FA Key"/></div>
-        <button class="btn-blue-job" onclick="submitJob('facebook')">SUBMIT FACEBOOK ID</button>
-        <button class="btn-outline mt" onclick="viewHistory('facebook')">↺ View Activity History</button>
-      </div>
-    </div>
+function updateSupportLinks() {
+  const s = getSettings();
+  ['fbpage','tgchannel','ytchannel'].forEach(k => {
+    const lnk = el('link-' + k); if (lnk && s[k]) lnk.href = s[k];
+  });
+  const a1 = el('link-admin1'); if (a1 && s.admin1link) a1.href = s.admin1link;
+  // Welcome modal buttons
+  const jtg = el('joinTgBtn');   if (jtg) jtg.onclick = () => s.tgchannel  && window.open(s.tgchannel,'_blank');
+  const a1b = el('admin1Btn');   if (a1b) a1b.onclick = () => s.admin1link && window.open(s.admin1link,'_blank');
+  const a2b = el('admin2Btn');   if (a2b) a2b.onclick = () => s.admin2link && window.open(s.admin2link,'_blank');
+}
 
-    <!-- JOB: GMAIL -->
-    <div id="page-job-gmail" class="page job-page">
-      <div class="card">
-        <div class="job-video-btn"><span>▶ ভিডিও</span><small>এই প্রজেক্টের ভিডিও দেখতে এখানে ক্লিক করুন</small></div>
-        <div class="job-header-row"><span class="job-badge gm-badge">✉ Gmail Sell</span><span class="rate-badge" id="rate-gmail">Rate: ৳18.00</span></div>
-        <div class="job-notice" id="notice-gmail"></div>
-        <label class="field-label">জিমেইল এড্রেস</label>
-        <div class="input-group"><input type="email" id="gm-email" placeholder="example@gmail.com"/></div>
-        <label class="field-label">পাসওয়ার্ড</label>
-        <div class="input-group"><input type="password" id="gm-pass" placeholder="পাসওয়ার্ড লিখুন"/></div>
-        <button class="btn-red-job" onclick="submitJob('gmail')">SUBMIT GMAIL</button>
-        <button class="btn-outline mt" onclick="viewHistory('gmail')">↺ View Gmail History</button>
-      </div>
-    </div>
+// ─────────────────────────────────────────────────────────
+// TEAM / REFERRAL
+// ─────────────────────────────────────────────────────────
+async function renderTeamLevels() {
+  if (!currentUser) return;
+  // Count level-1 referrals from Firestore
+  const allUsers = await fsGetAll('users');
+  const level1 = allUsers.filter(u => String(u.referredBy) === String(currentUser.numId));
+  const tsEl = el('teamSize'); if (tsEl) tsEl.textContent = level1.length;
+  let html = '';
+  for (let l = 1; l <= 5; l++) {
+    const count = l === 1 ? level1.length : 0;
+    html += `<div class="level-row">
+      <span class="level-label">Level ${l} (${count})</span>
+      <button class="btn-view" onclick="viewLevelMembers(${l})">View</button>
+    </div>`;
+  }
+  const tlEl = el('teamLevels'); if (tlEl) tlEl.innerHTML = html;
+}
 
-    <!-- JOB: INSTAGRAM -->
-    <div id="page-job-instagram" class="page job-page">
-      <div class="card">
-        <div class="job-header-row"><span class="job-badge ig-badge">📷 Insta Sell</span><span class="rate-badge" id="rate-instagram">Rate: ৳3.00</span></div>
-        <div class="job-notice" id="notice-instagram"></div>
-        <label class="field-label">ইউজারনেম</label>
-        <div class="input-group"><input type="text" id="ig-user" placeholder="@username"/></div>
-        <label class="field-label">পাসওয়ার্ড</label>
-        <div class="input-group"><input type="password" id="ig-pass" placeholder="Password"/></div>
-        <label class="field-label">2FA Key</label>
-        <div class="input-group"><input type="text" id="ig-2fa" placeholder="2FA Key"/></div>
-        <button class="btn-pink-job" onclick="submitJob('instagram')">SUBMIT INSTAGRAM ID</button>
-        <button class="btn-outline mt" onclick="viewHistory('instagram')">↺ View Sales History</button>
-      </div>
-    </div>
-
-    <!-- HISTORY -->
-    <div id="page-history" class="page">
-      <div class="card">
-        <h3 class="section-h" id="historyTitle">Activity History</h3>
-        <div id="historyList"><p class="empty-msg">No history yet.</p></div>
-        <button class="btn-outline mt" onclick="goBack()">← Back</button>
-      </div>
-    </div>
-
-    <!-- ADMIN PANEL -->
-    <div id="page-admin" class="page">
-      <div class="admin-header-bar">⚙️ Admin Panel</div>
-      <div class="admin-tabs-wrap">
-        <button class="admin-tab active" onclick="adminTab('dashboard')">Dashboard</button>
-        <button class="admin-tab" onclick="adminTab('users')">Users</button>
-        <button class="admin-tab" onclick="adminTab('jobs')">Jobs</button>
-        <button class="admin-tab" onclick="adminTab('settings')">Settings</button>
-        <button class="admin-tab" onclick="adminTab('withdrawals')">Withdrawals</button>
-      </div>
-
-      <div id="admin-dashboard" class="admin-pane active">
-        <div class="admin-stats-grid">
-          <div class="admin-stat-card"><div class="stat-label">Total Users</div><div class="stat-val" id="stat-users">0</div></div>
-          <div class="admin-stat-card"><div class="stat-label">Active Users</div><div class="stat-val" id="stat-active">0</div></div>
-          <div class="admin-stat-card"><div class="stat-label">Total Jobs</div><div class="stat-val" id="stat-jobs">0</div></div>
-          <div class="admin-stat-card"><div class="stat-label">Pending W/D</div><div class="stat-val" id="stat-pending">0</div></div>
-        </div>
-        <div class="card mt">
-          <h4>Send Notification</h4>
-          <div class="input-group"><input type="text" id="notifMsg" placeholder="Notification message to all users..."/></div>
-          <button class="btn-main" onclick="sendNotification()">Send to All</button>
-        </div>
-        <div class="card mt">
-          <h4>Notice Ticker</h4>
-          <div class="input-group"><input type="text" id="tickerMsg" placeholder="Notice text..."/></div>
-          <button class="btn-main" onclick="updateTicker()">Update Ticker</button>
-        </div>
-        <div class="card mt">
-          <h4>🎁 Gift Code Management</h4>
-          <div class="input-group"><input type="text" id="giftCodeInput" placeholder="Gift code (e.g. EARN100)"/></div>
-          <div class="input-group"><input type="number" id="giftAmtInput" placeholder="Amount (৳)"/></div>
-          <button class="btn-main" onclick="createGiftCode()">Create Gift Code</button>
-          <div id="giftCodeList" class="mt"></div>
-        </div>
-      </div>
-
-      <div id="admin-users" class="admin-pane">
-        <div class="card">
-          <h4>All Users</h4>
-          <div class="input-group"><input type="text" id="searchUser" placeholder="Search by name or email..." oninput="renderAdminUsers()"/></div>
-          <div id="adminUsersList"></div>
-        </div>
-      </div>
-<div id="admin-jobs" class="admin-pane">
-    <div class="card">
-        <h4>Job Rate Settings</h4>
-        <div id="jobSettingsList"></div>
-    </div>
-    <div class="card mt">
-        <h4>Job Submissions</h4>
-        <div id="adminJobSubmissions"></div>
-    </div>
-</div>
-
-<div class="payment-box" id="bulk-payment-section">
-    <h3>Bulk Payment System</h3>
-    <textarea id="usernameList" placeholder="Enter usernames here..."></textarea>
-    <button onclick="processBulkPayments()" class="btn-green">Process Payments</button>
-</div>
-      
-      
-      <div id="admin-settings" class="admin-pane">
-        <div class="card">
-          <h4>Site Settings</h4>
-          <label class="field-label">Activation Fee (৳)</label>
-          <div class="input-group"><input type="number" id="sett-activefee" placeholder="30"/></div>
-          <label class="field-label">Referral Bonus (৳)</label>
-          <div class="input-group"><input type="number" id="sett-refbonus" placeholder="20"/></div>
-          <label class="field-label">Activation Bonus (৳)</label>
-          <div class="input-group"><input type="number" id="sett-activebonus" placeholder="20"/></div>
-          <label class="field-label">Min Withdrawal (৳)</label>
-          <div class="input-group"><input type="number" id="sett-minwithdraw" placeholder="50"/></div>
-          <label class="field-label">Site Launch Date</label>
-          <div class="input-group"><input type="date" id="sett-launchdate"/></div>
-          <button class="btn-main" onclick="saveSettings()">Save Settings</button>
-        </div>
-        <div class="card mt">
-          <h4>Links & Contacts</h4>
-          <label class="field-label">Admin 1 Telegram</label>
-          <div class="input-group"><input type="text" id="admin1link" placeholder="t.me/James_admin_BD..."/></div>
-          <label class="field-label">Admin 2 Telegram</label>
-          <div class="input-group"><input type="text" id="admin2link" placeholder="t.me/James_admin_BD..."/></div>
-          <label class="field-label">Telegram Channel</label>
-          <div class="input-group"><input type="text" id="tgchannel" placeholder="https://t.me/..."/></div>
-          <label class="field-label">Facebook Page</label>
-          <div class="input-group"><input type="text" id="fbpage" placeholder="https://fb.com/..."/></div>
-          <label class="field-label">YouTube Channel</label>
-          <div class="input-group"><input type="text" id="ytchannel" placeholder="https://youtube.com/..."/></div>
-          <label class="field-label">bKash Number</label>
-          <div class="input-group"><input type="text" id="bkashNum" placeholder="01XXXXXXXXX"/></div>
-          <label class="field-label">Nagad Number</label>
-          <div class="input-group"><input type="text" id="nagadNum" placeholder="0161978989"/></div>
-          <button class="btn-main" onclick="saveContacts()">Save All</button>
-        </div>
-        <div class="card mt">
-          <h4>Job Password Settings</h4>
-          <div id="jobPasswordSettings"></div>
-        </div>
-      </div>
-
-      <div id="admin-withdrawals" class="admin-pane">
-        <div class="card"><h4>Pending Withdrawals</h4><div id="adminWithdrawList"></div></div>
-      </div>
-    </div>
-
-  </div>
-
-  <nav class="bottom-nav">
-    <button class="nav-btn" onclick="showSection('help')"><span>🎧</span><small>Help</small></button>
-    <button class="nav-btn" onclick="showSection('wallet')"><span>💰</span><small>Wallet</small></button>
-    <button class="nav-btn home-btn" onclick="showSection('home')"><span>🏠</span><small>HOME</small></button>
-    <button class="nav-btn" onclick="showSection('team')"><span>👥</span><small>Team</small></button>
-    <button class="nav-btn" onclick="showSection('profile')"><span>👤</span><small>Profile</small></button>
-  </nav>
-</div>
-
-<!-- SIDE DRAWER -->
-<div id="menuOverlay" class="menu-overlay" onclick="closeMenu()"></div>
-<div id="sideMenu" class="side-menu">
-  <div class="side-menu-header"><span class="side-brand">⚡ BD TOP EARN</span><button onclick="closeMenu()">✕</button></div>
-  <div class="side-profile-card">
-    <div class="side-avatar">👤</div>
-    <div class="side-name" id="sideMenuName">User</div>
-    <div class="side-meta"><span class="side-id" id="sideMenuId">ID: ---</span> <span class="side-status" id="sideMenuStatus">● Inactive</span></div>
-    <div class="side-stats">
-      <div><small>BALANCE</small><br/>৳<span id="sideMenuBal">0.00</span></div>
-      <div><small>MEMBER SINCE</small><br/><span id="sideMenuSince">---</span></div>
-    </div>
-    <div class="side-actions-row">
-      <button class="btn-profile-sm" onclick="closeMenu();showSection('profile')">👥 Profile</button>
-      <button class="btn-support-sm" onclick="closeMenu();showSection('help')">🎧 Support</button>
-    </div>
-  </div>
-  <div class="side-section-label">HOME SELECTION</div>
-  <button class="side-item" onclick="closeMenu();showSection('home')">🏠 Dashboard</button>
-  <button class="side-item" onclick="closeMenu();showSection('profile')">👥 Profile Update</button>
-  <div class="side-section-label">FINANCE</div>
-  <button class="side-item" onclick="closeMenu();showSection('wallet')">💸 Withdraw Funds</button>
-  <button class="side-item" onclick="closeMenu();showSection('wallet')">🕐 Payment History</button>
-  <div class="side-section-label">TEAM &amp; SUPPORT</div>
-  <button class="side-item" onclick="closeMenu();showSection('team')">👥 My Team</button>
-  <button class="side-item" onclick="closeMenu();showSection('help')">🎧 Helpline</button>
-  <div id="adminMenuItem" style="display:none">
-    <div class="side-section-label">ADMIN</div>
-    <button class="side-item admin-menu-item" onclick="closeMenu();showSection('admin')">⚙️ Admin Panel</button>
-  </div>
-  <div class="side-section-label">ACCOUNT</div>
-  <button class="side-item logout-item" onclick="doLogout()">🚪 Log Out</button>
-</div>
-
-<!-- ACTIVATE MODAL -->
-<div id="activateModal" class="modal-overlay" style="display:none">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('activateModal')">✕</button>
-    <div class="unlock-icon">🔓</div>
-    <h3>Unlock Account</h3>
-    <p>আপনার অ্যাকাউন্টটি বর্তমানে ইনঅ্যাক্টিভ অবস্থায় রয়েছে। দ্রুত একটিভেশন করুন।</p>
-    <div class="fee-box">ONE-TIME FEE<br/><span class="fee-amt">৳<span id="activeFeeDisplay">30.00</span></span></div>
-    <button class="btn-purple" onclick="proceedActivate()">Activate Now ›</button>
-    <p class="muted-sm">Developed By <strong>Bangladesh Top Earn</strong></p>
-  </div>
-</div>
-
-<!-- WELCOME MODAL -->
-<div id="welcomeModal" class="modal-overlay" style="display:none">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('welcomeModal')">✕</button>
-    <div class="info-circle">ℹ</div>
-    <h3>Welcome!</h3>
-    <p>প্রতিদিন গিফট কোড দেওয়া হয় আমাদের টেলিগ্রাম চ্যানেলে। গিফট কোড বোনাস নিতে জয়েন করুন</p>
-    <button class="btn-tg" id="joinTgBtn" onclick="openLink('https://t.me/bd_unlimited_earn')">✈ Join Telegram</button>
-    <hr/>
-    <p class="red-text">যাদের ট্রানজেকশন সমস্যা তারা নিচের আইডিতে যোগাযোগ করবেন</p>
-    <div class="admin-btns-row">
-      <button class="btn-admin1" id="admin1Btn" onclick="openLink('t.me/James_admin_BD')">👤 এডমিন 1</button>
-      <button class="btn-admin2" id="admin2Btn" onclick="openLink('t.me/James_admin_BD')">👤 এডমিন 2</button>
-    </div>
-  </div>
-</div>
-
-<!-- PAYMENT MODAL -->
-<div id="paymentModal" class="modal-overlay" style="display:none">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('paymentModal')">✕</button>
-    <div class="checkout-title">CHECKOUT</div>
-    <div class="checkout-merchant">
-      <div class="merchant-logo-box">BD<br/>TOP</div>
-      <strong>BD TOP EARN</strong>
-    </div>
-    <div class="pay-method-label">Mobile Banking</div>
-    <div class="pay-methods">
-      <div class="pay-option" onclick="choosePay('bkash')"><span class="pay-name">bkash</span><span class="tag-personal">PERSONAL</span></div>
-      <div class="pay-option" onclick="choosePay('nagad')"><span class="pay-name">nagad</span><span class="tag-personal">PERSONAL</span></div>
-    </div>
-    <div class="payable-bar">PAYABLE AMOUNT <strong>৳<span id="payableAmt">30.00</span></strong></div>
-  </div>
-</div>
-
-<!-- PAY INSTRUCTIONS MODAL -->
-<div id="payInstructModal" class="modal-overlay" style="display:none">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('payInstructModal')">✕</button>
-    <h3 id="payMethodTitle">bKash Payment</h3>
-    <p>Send <strong>৳<span id="payInstAmt">30</span></strong> to this number:</p>
-    <div class="pay-number" id="payInstNumber">01619789895</div>
-    <p class="muted-sm">Send money then enter your Transaction ID below.</p>
-    <div class="input-group"><input type="text" id="txnId" placeholder="Transaction ID"/></div>
-    <button class="btn-main" onclick="confirmPayment()">Confirm Payment</button>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div id="toast" class="toast"></div>
-
-<script src="app.js"></script>
-</body>
-</html>
+async function viewLevelMembers(l) {
+  if (l !== 1) { toast('Level ' + l + ' শীঘ্রই আসছে।'); return; }
+  showLoading('লোড হচ্ছে...');
+  const allUsers = await fsGetAll('users');
+  const members  = allUsers.filter(u => String(u.
