@@ -487,7 +487,7 @@ function renderAdminPanel() {
   renderAdminDashboard();
 }
 
-function renderAdminDashboard() {
+Function renderAdminDashboard() {
   const users = getUsers();
   const subs = getSubmissions();
   const wds = getWithdrawals().filter(w => w.status === 'pending' || w.status === 'pending-activation');
@@ -497,6 +497,10 @@ function renderAdminDashboard() {
   document.getElementById('stat-jobs').textContent = subs.length;
   document.getElementById('stat-pending').textContent = wds.length;
 
+  // বাটনগুলো এখানে যোগ করা হলো
+  const container = document.getElementById('admin-dashboard'); 
+  // যদি আপনার ড্যাশবোর্ডের মূল কন্টেইনারের আইডি 'admin-dashboard' না হয়, তবে সঠিক আইডিটি বসান
+  
   const buttonHTML = `
     <div style="margin: 20px 0; padding: 10px; border: 1px solid #ddd;">
         <button class="btn-sm-green" onclick="copyJobData('facebook')">Copy Facebook</button>
@@ -505,11 +509,16 @@ function renderAdminDashboard() {
     </div>
   `;
   
+  // বাটনগুলো ড্যাশবোর্ডে ইনজেক্ট করা হচ্ছে
   if(document.getElementById('admin-dashboard')) {
       document.getElementById('admin-dashboard').insertAdjacentHTML('beforeend', buttonHTML);
   }
 
   renderGiftCodes();
+}
+আবার আপনি এখানে বাংলা এড করে দিয়েছেন বাংলা অফ করে দিবেন
+}
+
 }
 
 }
