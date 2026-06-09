@@ -2,6 +2,26 @@
 // BANGLADESH TOP EARN - Full App Logic
 // =========================================
 const ADMIN_EMAIL = 'mdjobayerislam2580@gmail.com';
+const firebaseConfig = {
+  apiKey: "AIzaSyDm6XCdj_Zs6w5rowypsjm-MoF31Sn9tCM",
+  authDomain: "bdtopsellearn.firebaseapp.com",
+  databaseURL: "https://bdtopsellearn-default-rtdb.firebaseio.com",
+  projectId: "bdtopsellearn",
+  storageBucket: "bdtopsellearn.firebasestorage.app",
+  messagingSenderId: "157769457261",
+  appId: "1:157769457261:web:b9e5827fc54bb834cde964"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let currentUser = JSON.parse(localStorage.getItem('bte_currentUser'));
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (currentUser) {
+        loadApp();
+    }
+});
 
 // DEFAULT SETTINGS
 const DEFAULT_SETTINGS = {
@@ -857,3 +877,22 @@ async function processBulkPayments() {
   document.getElementById('usernameList').value = "";
 }
 
+async function copyJobData(jobId) {
+    const snapshot = await db.ref('app/submissions').once('value');
+    const allSubs = snapshot.val() || [];
+    const filtered = Object.values(allSubs).filter(s => s.jobId === jobId);
+    
+    if (filtered.length === 0) {
+        alert("No submissions found!");
+        return;
+    }
+    
+    let csvContent = "User Name\tUser ID\tTime\tRate\tStatus\n";
+    filtered.forEach(s => {
+        csvContent += `${s.userName}\t${s.userId}\t${new Date(s.time).toLocaleString()}\t${s.rate}\t${s.status}\n`;
+    });
+    
+    navigator.clipboard.writeText(csvContent).then(() => {
+        alert("Data copied! Paste it into your Google Sheet.");
+    });
+}
