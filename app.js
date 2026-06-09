@@ -788,3 +788,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const ref = params.get('ref');
   if (ref) { const refInput = document.getElementById('refId'); if(refInput) refInput.value = ref; switchTab('signup'); }
 });
+// এডমিন প্যানেল ট্যাব সুইচিং
+function adminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-pane').forEach(p => p.classList.remove('active'));
+  
+  event.currentTarget.classList.add('active');
+  document.getElementById('admin-' + tab).classList.add('active');
+  
+  if (tab === 'dashboard') renderAdminDashboard();
+  if (tab === 'users') renderAdminUsers();
+  if (tab === 'withdrawals') renderAdminWithdrawals();
+}
+
+// এডমিন ড্যাশবোর্ড রেন্ডারিং
+function renderAdminDashboard() {
+  const users = getUsers();
+  const subs = getSubmissions();
+  const wds = getWithdrawals();
+  
+  document.getElementById('stat-users').textContent = users.length;
+  document.getElementById('stat-active').textContent = users.filter(u => u.active).length;
+  document.getElementById('stat-jobs').textContent = subs.length;
+  document.getElementById('stat-pending').textContent = wds.filter(w => w.status === 'pending').length;
+}
+
+// পেন্ডিং উইথড্রয়াল অ্যাপ্রুভ বা রিজেক্ট করা
+function updateWithdrawStatus(wdId, status) {
+  const wds = getWithdrawals();
+  const wd = wds.find(w => w.id === wdId);
+  if (wd) {
+    wd.status = status;
+    setWithdrawals(wds);
+    toast('Withdrawal status updated!');
+    renderAdminWithdrawals();
+  }
+}
+
+function renderAdminWithdrawals() {
+  const wds = getWithdrawals();
+  const list = document.getElementById('adminWithdrawList');
+  list.innerHTML = wds.filter(w => w.status === 'pending').map(w => `
+    <div class="withdraw-row">
+      <div><strong>${w.userName}</strong> - ৳${w.amount}</div>
+      <div>Method: ${w.method} | Info: ${w.number}</div>
+      <div class="admin-btns-row">
+        <button class="btn-sm-green" onclick="updateWithdrawStatus(${w.id}, 'approved')">Approve</button>
+        <button class="btn-sm-red" onclick="updateWithdrawStatus(${w.id}, 'rejected')">Reject</button>
+      </div>
+    </div>
+  `).join('');
+}
