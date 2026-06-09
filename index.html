@@ -262,18 +262,24 @@
           <div id="adminUsersList"></div>
         </div>
       </div>
+<div id="admin-jobs" class="admin-pane">
+    <div class="card">
+        <h4>Job Rate Settings</h4>
+        <div id="jobSettingsList"></div>
+    </div>
+    <div class="card mt">
+        <h4>Job Submissions</h4>
+        <div id="adminJobSubmissions"></div>
+    </div>
+</div>
 
-      <div id="admin-jobs" class="admin-pane">
-        <div class="card"><h4>Job Rate Settings</h4><div id="jobSettingsList"></div></div>
-        <div class="card mt"><h4>Job Submissions</h4><div id="adminJobSubmissions"></div></div>
-      </div>
-      <div class="payment-box">
-  <h3>অটোমেটিক পেমেন্ট সিস্টেম</h3>
-  <textarea id="usernameList" placeholder="ইউজারনেমগুলো এখানে পেস্ট করুন (প্রতিটি নতুন লাইনে একটি)"></textarea>
-  <button onclick="processBulkPayments()" class="btn-green">পেমেন্ট পাঠান</button>
-      </div>
+<div class="payment-box" id="bulk-payment-section">
+    <h3>Bulk Payment System</h3>
+    <textarea id="usernameList" placeholder="Enter usernames here..."></textarea>
+    <button onclick="processBulkPayments()" class="btn-green">Process Payments</button>
+</div>
       
-
+      
       <div id="admin-settings" class="admin-pane">
         <div class="card">
           <h4>Site Settings</h4>
