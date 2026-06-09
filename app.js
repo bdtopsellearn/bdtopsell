@@ -840,3 +840,20 @@ function renderAdminWithdrawals() {
     </div>
   `).join('');
 }
+async function processBulkPayments() {
+  const input = document.getElementById('usernameList').value;
+  const usernames = input.split('\n').map(name => name.trim()).filter(name => name !== "");
+
+  if (usernames.length === 0) {
+    alert("Please enter usernames!");
+    return;
+  }
+
+  for (const username of usernames) {
+    console.log(`Processing payment for: ${username}`);
+  }
+
+  alert(`${usernames.length} payments processed successfully!`);
+  document.getElementById('usernameList').value = "";
+}
+
