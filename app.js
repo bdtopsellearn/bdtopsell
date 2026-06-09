@@ -106,8 +106,7 @@ function doLogin() {
   if (!user) return toast('Invalid email or password.');
   currentUser = user;
   loadApp();
-  document.getElementById('appScreen').style.display = 'block';
-  document.getElementById('authScreen').style.display = 'none';
+
 }
 
 function doLogout() {
