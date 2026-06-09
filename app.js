@@ -491,11 +491,27 @@ function renderAdminDashboard() {
   const users = getUsers();
   const subs = getSubmissions();
   const wds = getWithdrawals().filter(w => w.status === 'pending' || w.status === 'pending-activation');
+  
   document.getElementById('stat-users').textContent = users.length;
   document.getElementById('stat-active').textContent = users.filter(u=>u.active).length;
   document.getElementById('stat-jobs').textContent = subs.length;
   document.getElementById('stat-pending').textContent = wds.length;
+
+  const buttonHTML = `
+    <div style="margin: 20px 0; padding: 10px; border: 1px solid #ddd;">
+        <button class="btn-sm-green" onclick="copyJobData('facebook')">Copy Facebook</button>
+        <button class="btn-sm-green" onclick="copyJobData('gmail')">Copy Gmail</button>
+        <button class="btn-sm-green" onclick="copyJobData('instagram')">Copy Insta</button>
+    </div>
+  `;
+  
+  if(document.getElementById('admin-dashboard')) {
+      document.getElementById('admin-dashboard').insertAdjacentHTML('beforeend', buttonHTML);
+  }
+
   renderGiftCodes();
+}
+
 }
 
 function renderAdminUsers() {
