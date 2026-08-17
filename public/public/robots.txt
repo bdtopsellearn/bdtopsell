@@ -1,1 +1,14 @@
+# Robots.txt for BD Topsell
+# Domain: https://bdtopsell.pages.dev
 
+User-agent: *
+Allow: /
+Allow: /#*
+Allow: /sitemap.xml
+
+# Disallow private user states/admin from indexing directly if applicable
+Disallow: /admin
+Disallow: /#admin
+
+# Sitemap Location for Google Search Console & Search Engines
+Sitemap: https://bdtopsell.pages.dev/sitemap.xml
