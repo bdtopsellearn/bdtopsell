@@ -1,0 +1,6 @@
+{
+  "name": "BD Topsell",
+  "description": "BD Topsell - #1 Online Earning & Gaming Top-Up Platform in Bangladesh",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
