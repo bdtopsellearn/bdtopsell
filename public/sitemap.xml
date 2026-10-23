@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Main Website Root -->
+  <url>
+    <loc>https://imspro.site/</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Home Page -->
+  <url>
+    <loc>https://imspro.site/#home</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Gaming Top-Up Main Hub -->
+  <url>
+    <loc>https://imspro.site/#gaming</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Free Fire Diamond Top-Up BD -->
+  <url>
+    <loc>https://imspro.site/#gaming/ff</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- PUBG Mobile UC Top-Up BD -->
+  <url>
+    <loc>https://imspro.site/#gaming/pubg</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- SMS Virtual Number & OTP Service -->
+  <url>
+    <loc>https://imspro.site/#numbers</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Wallet & Instant Deposit (bKash/Nagad) -->
+  <url>
+    <loc>https://imspro.site/#deposit</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Instant Withdrawal -->
+  <url>
+    <loc>https://imspro.site/#withdraw</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Micro Jobs & Online Earning -->
+  <url>
+    <loc>https://imspro.site/#jobs</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Facebook Account Submission Job -->
+  <url>
+    <loc>https://imspro.site/#job-facebook</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Gmail Account Submission Job -->
+  <url>
+    <loc>https://imspro.site/#job-gmail</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Instagram Account Submission Job -->
+  <url>
+    <loc>https://imspro.site/#job-instagram</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Premium Subscriptions, Social Media & VPNs -->
+  <url>
+    <loc>https://imspro.site/#subscriptions</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- James AI Assistant -->
+  <url>
+    <loc>https://imspro.site/#jamesai</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Support & Helpdesk -->
+  <url>
+    <loc>https://imspro.site/#help</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Notice Board & Announcements -->
+  <url>
+    <loc>https://imspro.site/#notifications</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Referral Team & Earnings -->
+  <url>
+    <loc>https://imspro.site/#team</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
