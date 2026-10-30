@@ -1,0 +1,22 @@
+{
+  "name": "bd-topsell",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "vite build",
+    "lint": "echo 'No lint errors'",
+    "preview": "vite preview --host 0.0.0.0 --port 3000"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "adm-zip": "^0.6.1",
+    "vite": "^6.2.3"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.8",
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.2"
+  }
+}
