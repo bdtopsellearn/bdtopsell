@@ -1,4 +1,4 @@
-// TempMailGo Real Multi-Provider Engine for BD TopSell
+// TempMailGo Real Multi-Provider Engine for IMS PRO
 // Integrates 5 providers: Inboxes.com (GetAirMail/Nada), Mail.tm, Guerrilla Mail, DropMail, and Mailinator
 // Optimized for Real Instagram & Facebook Verification OTP Delivery with Auto-Failover
 

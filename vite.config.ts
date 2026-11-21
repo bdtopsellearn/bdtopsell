@@ -883,7 +883,7 @@ export default defineConfig({
         });
 
         // ════════════════════════════════════════════════════════════════════
-        //  BD TOPSELL CLOUD PLATFORM - REST API MIDDLEWARES
+        //  IMS PRO CLOUD PLATFORM - REST API MIDDLEWARES
         // ════════════════════════════════════════════════════════════════════
 
         server.middlewares.use('/api/cloud/overview', async (req, res) => {
@@ -1853,7 +1853,7 @@ export default defineConfig({
 
         // (b) Dynamic XML Sitemap for Googlebot & Search Engines
         server.middlewares.use('/sitemap.xml', (req, res) => {
-          const host = req.headers['x-forwarded-host'] || req.headers.host || 'bdtopsell.pages.dev';
+          const host = req.headers['x-forwarded-host'] || req.headers.host || 'imspro.site';
           const proto = req.headers['x-forwarded-proto'] || 'https';
           const xml = generateSitemapXml(String(host), String(proto));
           res.setHeader('Content-Type', 'application/xml; charset=utf-8');
@@ -1864,7 +1864,7 @@ export default defineConfig({
 
         // (c) Dynamic Robots.txt
         server.middlewares.use('/robots.txt', (req, res) => {
-          const host = req.headers['x-forwarded-host'] || req.headers.host || 'bdtopsell.pages.dev';
+          const host = req.headers['x-forwarded-host'] || req.headers.host || 'imspro.site';
           const proto = req.headers['x-forwarded-proto'] || 'https';
           const txt = generateRobotsTxt(String(host), String(proto));
           res.setHeader('Content-Type', 'text/plain; charset=utf-8');
@@ -1919,7 +1919,7 @@ export default defineConfig({
           res.setHeader('Access-Control-Allow-Origin', '*');
           try {
             const cfg = getSeoConfig();
-            const host = (req.headers['x-forwarded-host'] || req.headers.host || 'bdtopsell.pages.dev') as string;
+            const host = (req.headers['x-forwarded-host'] || req.headers.host || 'imspro.site') as string;
             const proto = (req.headers['x-forwarded-proto'] || 'https') as string;
             const liveUrl = `${proto}://${host}/`;
             

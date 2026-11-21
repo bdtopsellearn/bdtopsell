@@ -144,10 +144,10 @@ export function getSubscriptionSiteRoot(subscriptionId: string): string {
 </head>
 <body>
   <div class="card">
-    <div class="badge">🚀 BD TOPSELL CLOUD HOSTING ACTIVE</div>
+    <div class="badge">🚀 IMS PRO CLOUD HOSTING ACTIVE</div>
     <h1>Website Ready for Deployment!</h1>
     <p>Your subscription is online. Upload your website ZIP file or use the built-in File Manager to replace this page with your HTML/PHP/JS application.</p>
-    <div class="footer">Hosted on BD TopSell High-Speed NVMe Cloud Infrastructure</div>
+    <div class="footer">Hosted on IMS PRO High-Speed NVMe Cloud Infrastructure</div>
   </div>
 </body>
 </html>`;
@@ -214,7 +214,7 @@ function createInitialMetadata(subscriptionId: string, projectName?: string): Ho
   return {
     subscriptionId,
     projectName: projectName || `Hosting-${subscriptionId.slice(0, 6)}`,
-    subdomain: `site-${subscriptionId.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 10)}.bdtopsell.cloud`,
+    subdomain: `site-${subscriptionId.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 10)}.imspro.cloud`,
     currentVersion: 'v1.0.0',
     activeDeploymentId: 'dep-init',
     lastDeployedAt: new Date().toISOString(),

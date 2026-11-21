@@ -7,7 +7,7 @@ import http from 'http';
 import AdmZip from 'adm-zip';
 
 // ════════════════════════════════════════════════════════════════════════
-//  BD TOPSELL CLOUD PLATFORM - PRODUCTION CLOUD & DEPLOYMENT ENGINE
+//  IMS PRO CLOUD PLATFORM - PRODUCTION CLOUD & DEPLOYMENT ENGINE
 // ════════════════════════════════════════════════════════════════════════
 
 export interface PipelineStep {
@@ -93,11 +93,14 @@ export interface CloudVPS {
   node: string;
   plan: string;
   ip: string;
+  ipAddress?: string;
   ipv6: string;
+  location?: string;
   os: string;
   status: 'running' | 'stopped' | 'rebooting';
   cpuCores: number;
   ramMb: number;
+  ramGb?: number;
   diskGb: number;
   bandwidthUsedGb: number;
   bandwidthTotalGb: number;
@@ -281,7 +284,7 @@ function getInitialState(): CloudState {
         internalPort: 8000,
         status: 'running',
         health: 'healthy',
-        subdomain: 'laravel-api.bdtopsell.cloud',
+        subdomain: 'laravel-api.imspro.cloud',
         sslStatus: 'active',
         serverNode: 'DHK-SGP-01',
         cpuLimit: 2,
@@ -316,7 +319,7 @@ function getInitialState(): CloudState {
               { name: '5. Isolated Container Build', status: 'passed', message: 'Layer cache utilized, build finished', timestamp: '11:20:18' },
               { name: '6. Container Spin-up', status: 'passed', message: 'Container listening on internal port 8000', timestamp: '11:20:20' },
               { name: '7. HTTP Health Check', status: 'passed', message: 'GET / returned HTTP 200 OK (14ms)', timestamp: '11:20:22' },
-              { name: '8. Subdomain Routing', status: 'passed', message: 'Reverse proxy bound to laravel-api.bdtopsell.cloud', timestamp: '11:20:23' },
+              { name: '8. Subdomain Routing', status: 'passed', message: 'Reverse proxy bound to laravel-api.imspro.cloud', timestamp: '11:20:23' },
               { name: '9. ZeroSSL Automation', status: 'passed', message: 'TLS 1.3 certificate active', timestamp: '11:20:24' },
               { name: '10. Live Traffic Promotion', status: 'passed', message: 'Active production deployment', timestamp: '11:20:24' }
             ],
@@ -327,7 +330,7 @@ function getInitialState(): CloudState {
               '[BUILD] Application key already specified',
               '[RUNTIME] Container started on internal port 8000',
               '[HEALTH] HTTP GET / returned 200 in 14ms',
-              '[PROXY] Subdomain laravel-api.bdtopsell.cloud activated with ZeroSSL certificate'
+              '[PROXY] Subdomain laravel-api.imspro.cloud activated with ZeroSSL certificate'
             ]
           }
         ],
@@ -357,7 +360,7 @@ function getInitialState(): CloudState {
         user: 'Admin',
         ip: '103.145.118.2',
         timestamp: new Date().toISOString(),
-        details: 'BD TOPSELL Cloud Control Plane initialized with multi-server orchestration.'
+        details: 'IMS PRO Cloud Control Plane initialized with multi-server orchestration.'
       }
     ]
   };
@@ -584,11 +587,11 @@ export function analyzeProjectFiles(fileList: string[], packageJsonContent?: any
 
 export function generateUniqueSubdomain(baseSlug: string): string {
   const cleanBase = baseSlug.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '') || 'app';
-  let candidate = `${cleanBase}.bdtopsell.cloud`;
+  let candidate = `${cleanBase}.imspro.cloud`;
   let counter = 1;
 
   while (state.projects.some(p => p.subdomain.toLowerCase() === candidate.toLowerCase())) {
-    candidate = `${cleanBase}-${counter}.bdtopsell.cloud`;
+    candidate = `${cleanBase}-${counter}.imspro.cloud`;
     counter++;
   }
   return candidate;
@@ -824,7 +827,7 @@ async function executePipelineAsync(project: CloudProject, deployment: Deploymen
     } else {
       // Default Scaffold if empty
       if (!fs.existsSync(path.join(releaseDir, 'index.js')) && !fs.existsSync(path.join(releaseDir, 'package.json'))) {
-        fs.writeFileSync(path.join(releaseDir, 'index.js'), `// BD TOPSell Cloud Generated Service: ${project.name}\nconst http = require('http');\nconst port = process.env.PORT || ${project.internalPort};\nhttp.createServer((req, res) => {\n  res.writeHead(200, { 'Content-Type': 'application/json' });\n  res.end(JSON.stringify({ status: 'healthy', project: '${project.name}', timestamp: new Date().toISOString() }));\n}).listen(port, () => console.log('Listening on port ' + port));\n`);
+        fs.writeFileSync(path.join(releaseDir, 'index.js'), `// IMS PRO Cloud Generated Service: ${project.name}\nconst http = require('http');\nconst port = process.env.PORT || ${project.internalPort};\nhttp.createServer((req, res) => {\n  res.writeHead(200, { 'Content-Type': 'application/json' });\n  res.end(JSON.stringify({ status: 'healthy', project: '${project.name}', timestamp: new Date().toISOString() }));\n}).listen(port, () => console.log('Listening on port ' + port));\n`);
         fs.writeFileSync(path.join(releaseDir, 'package.json'), JSON.stringify({ name: project.slug, version: '1.0.0', main: 'index.js', scripts: { start: 'node index.js' } }, null, 2));
       }
     }
@@ -1217,12 +1220,17 @@ export function createVPS(input: {
 
   const ip = `103.145.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 250) + 2}`;
 
+  const loc = input.location || 'Singapore (SGP-01 Tier 3)';
   const vps: CloudVPS = {
     id,
     name: input.name,
+    node: loc,
+    plan: input.planId || 'vps_starter',
+    ip,
     ipAddress: ip,
+    ipv6: `2400:6180:0:d0::${crypto.randomBytes(2).toString('hex')}:1`,
     status: 'running',
-    location: input.location || 'Singapore (SGP-01 Tier 3)',
+    location: loc,
     os: input.os || 'Ubuntu 22.04 LTS (x86_64)',
     cpuCores,
     ramGb,
@@ -1301,7 +1309,7 @@ export function executeVpsTerminalCommand(cmd: string): string {
 
   if (trimmed === 'docker ps' || trimmed.startsWith('docker ps')) {
     return `CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS         PORTS                    NAMES
-a4f91c29e102   bdtopsell/runtime:node "node index.js"          2 hours ago     Up 2 hours     0.0.0.0:4101->3000/tcp   cnt-main-service
+a4f91c29e102   imspro/runtime:node "node index.js"          2 hours ago     Up 2 hours     0.0.0.0:4101->3000/tcp   cnt-main-service
 f8b193aa4012   postgres:16.4-alpine   "docker-entrypoint.s…"   5 hours ago     Up 5 hours     0.0.0.0:5432->5432/tcp   cnt-pg-cluster
 710eec9a1820   redis:7.2-alpine       "docker-entrypoint.s…"   1 day ago       Up 1 day       0.0.0.0:6379->6379/tcp   cnt-redis-cache`;
   }

@@ -56,7 +56,7 @@ function buildMasterSystemPrompt(context?: JamesChatRequest['context']): string 
   const userName = context?.userName || 'User';
   const balance = context?.balance !== undefined ? context?.balance.toFixed(2) : '0.00';
 
-  return `You are James AI (জেমস এআই) 🤖, the supreme full-stack developer, AI reasoning engine, and intelligent assistant for BD Topsell (বিডি টপসেল) platform.
+  return `You are James AI (জেমস এআই) 🤖, the supreme full-stack developer, AI reasoning engine, and intelligent assistant for IMS PRO (আইএমএস প্রো) platform.
 
 Current User: ${userName}
 Current Balance: ৳${balance}
@@ -74,7 +74,7 @@ Core Capabilities & Guidelines:
      2. Plan dependencies and file structure
      3. Ensure complete error handling and asynchronous logic
      [/THINKING]
-4. **BD Topsell Platform Knowledge**:
+4. **IMS PRO Platform Knowledge**:
    - Gaming Top-Up (Free Fire Diamond, PUBG UC, Mobile Legends, COD).
    - ID Submissions & Micro-jobs (Facebook, Gmail, Instagram account monetization).
    - Number System & Live OTP Portal (#getnumber — Services, Countries, Multi-Panel Captcha/Non-Captcha/API OTP Receiver, Live Traffic, Leaderboard, Referral Commissions).
@@ -112,7 +112,7 @@ async function fetchPollinationsAi(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'BD-Topsell-JamesAI/3.0'
+        'User-Agent': 'IMS-PRO-JamesAI/3.0'
       },
       body: payload,
       signal: AbortSignal.timeout(3000)
@@ -205,7 +205,7 @@ function generateSynthesizedCodeResponse(userQuery: string): string {
 আপনার প্রশ্নটির জন্য আমি প্রস্তুত। আপনি চাইলে:
 1. 🤖 **যেকোনো টেলিগ্রাম বট (Payment, Airdrop, Forwarder, Scraper) পুরো কোড তৈরি করে নিতে পারেন।**
 2. 💻 **Python, JavaScript, PHP, HTML/CSS ওয়েবসাইট ও স্ক্রিপ্ট তৈরি করতে পারেন।**
-3. 💰 **BD Topsell-এর ওয়ালেট, গেমিং টপ-আপ ও মাইক্রো-জব সংক্রান্ত সহায়তা পেতে পারেন।**
+3. 💰 **IMS PRO-এর ওয়ালেট, গেমিং টপ-আপ ও মাইক্রো-জব সংক্রান্ত সহায়তা পেতে পারেন।**
 
 কোন কোডিং বা স্ক্রিপ্ট দরকার হলে বিস্তারিত জানান, আমি পুরো কোড ও ফাইল আকারে বুঝিয়ে দিচ্ছি!`;
 }
