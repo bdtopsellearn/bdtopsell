@@ -4663,456 +4663,887 @@ div#jdStatusArea { padding: 0 18px; }
   margin-bottom: 6px;
   font-size: 12px;
 }
-/* ══ NUMBER SYSTEM PORTAL (OriginalBotNu Web Edition) ══ */
-.ns-wrap { max-width: 960px; margin: 0 auto; padding-bottom: 24px; }
-.ns-hero {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 16px;
-  padding: 16px 18px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+/* ══ NUMBER SYSTEM PORTAL (IMS PRO Web SaaS Edition) ══ */
+#page-numberpage,
+#admin-numbersys {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
 }
-.ns-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.ns-title { font-size: 17px; font-weight: 800; color: #0f172a; margin: 0; letter-spacing: -0.01em; }
-.ns-meta-line { font-size: 12px; color: #475569; margin-top: 3px; font-weight: 500; }
-.ns-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-variant-numeric: tabular-nums; }
+.ns-wrap { max-width: 1100px; margin: 0 auto; padding-bottom: 48px; }
+.ns-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Shared Crisp Controls & Large Tactile Buttons */
+.ns-btn {
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: transform 0.14s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.ns-btn:hover { border-color: #94a3b8; background: #f8fafc; box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06); }
+.ns-btn:active { transform: scale(0.98); }
+.ns-btn-lg { min-height: 50px; padding: 12px 22px; font-size: 14.5px; font-weight: 800; border-radius: 12px; }
+.ns-btn-sm { min-height: 36px; padding: 6px 12px; font-size: 12px; border-radius: 9px; }
+.ns-btn-primary {
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+}
+.ns-btn-primary:hover {
+  background: linear-gradient(135deg, #0369a1, #1d4ed8);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.34);
+  color: #ffffff;
+}
+.ns-btn-dark {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+}
+.ns-btn-dark:hover { background: #1e293b; border-color: #1e293b; color: #ffffff; }
+.ns-btn-green {
+  background: linear-gradient(135deg, #16a34a, #059669);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.26);
+}
+.ns-btn-green:hover {
+  background: linear-gradient(135deg, #15803d, #047857);
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.34);
+  color: #ffffff;
+}
+.ns-btn-red {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.2);
+}
+.ns-btn-red:hover { background: #b91c1c; border-color: #b91c1c; color: #ffffff; }
+
+.ns-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 13px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 11px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  background: #ffffff;
+  color: #0f172a;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ns-input:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14); }
+textarea.ns-input { min-height: 88px; resize: vertical; }
+input[type="file"].ns-input { padding: 8px 10px; background: #f8fafc; }
+
+.ns-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.035);
+}
+.ns-card-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ns-table-wrap { overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; }
+.ns-table { width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; }
+.ns-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 800;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 12px 13px;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+.ns-table td { padding: 12px 13px; border-bottom: 1px solid #f1f5f9; color: #0f172a; vertical-align: middle; }
+.ns-table tbody tr:hover td { background: #f8fafc; }
+.ns-bar-track { height: 7px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-top: 4px; }
+.ns-bar-fill { height: 100%; background: #0284c7; border-radius: 99px; }
+
+/* Admin Sub-Navigation Tabs */
 .ns-tabs {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
-  padding: 6px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  padding: 7px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  margin-bottom: 16px;
   scrollbar-width: none;
 }
 .ns-tabs::-webkit-scrollbar { display: none; }
 .ns-tab-btn {
   border: none;
   background: transparent;
-  color: #475569;
-  font-size: 12.5px;
+  color: #94a3b8;
+  font-family: inherit;
+  font-size: 13px;
   font-weight: 700;
-  padding: 8px 13px;
-  border-radius: 9px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-.ns-tab-btn.active {
-  background: #0f172a;
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.16);
-}
-.ns-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 12px;
-}
-.ns-card-title {
-  font-size: 14px;
-  font-weight: 800;
-  color: #0f172a;
-  margin: 0 0 10px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  gap: 7px;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
 }
-.ns-svc-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-  gap: 8px;
+.ns-tab-btn:hover { color: #f8fafc; background: rgba(255, 255, 255, 0.07); }
+.ns-tab-btn:active { transform: scale(0.98); }
+.ns-tab-btn.active {
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
 }
-.ns-svc-btn {
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  border-radius: 11px;
-  padding: 10px 8px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
-  color: #0f172a;
-}
-.ns-svc-btn:hover { border-color: #0284c7; background: #f0f9ff; }
-.ns-svc-btn.selected { border-color: #0284c7; background: #e0f2fe; box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15); }
-.ns-country-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-  gap: 10px;
-}
-.ns-country-btn {
-  border: 1.5px solid #e2e8f0;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 12px;
-  text-align: left;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: border-color 0.15s ease, transform 0.1s ease;
-}
-.ns-country-btn:hover { border-color: #0284c7; transform: translateY(-1px); }
-.ns-active-box {
-  background: #0f172a;
-  color: #f8fafc;
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  border: 1px solid #1e293b;
-}
-.ns-active-num {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-  font-size: 21px;
-  font-weight: 800;
-  color: #38bdf8;
-  letter-spacing: 0.03em;
-}
-.ns-otp-item {
-  border: 1.5px solid #86efac;
-  background: #f0fdf4;
-  border-radius: 12px;
-  padding: 13px 14px;
-  margin-bottom: 10px;
-}
-.ns-otp-code-pill {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-  font-size: 20px;
-  font-weight: 900;
-  color: #14532d;
-  background: #dcfce7;
-  border: 1px solid #86efac;
-  border-radius: 8px;
-  padding: 4px 12px;
-  display: inline-block;
-}
-.ns-btn {
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  color: #0f172a;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 7px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.ns-btn-primary { background: #0284c7; border-color: #0284c7; color: #ffffff; }
-.ns-btn-dark { background: #0f172a; border-color: #0f172a; color: #ffffff; }
-.ns-btn-green { background: #16a34a; border-color: #16a34a; color: #ffffff; }
-.ns-btn-red { background: #dc2626; border-color: #dc2626; color: #ffffff; }
-.ns-input {
-  width: 100%;
-  padding: 8px 11px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 13px;
-  background: #ffffff;
-  color: #0f172a;
-  outline: none;
-  box-sizing: border-box;
-}
-.ns-input:focus { border-color: #0284c7; }
-.ns-table-wrap { overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; }
-.ns-table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
-.ns-table th { background: #f8fafc; color: #475569; font-weight: 800; padding: 9px 10px; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
-.ns-table td { padding: 9px 10px; border-bottom: 1px solid #f1f5f9; color: #0f172a; vertical-align: middle; }
-.ns-bar-track { height: 7px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-top: 4px; }
-.ns-bar-fill { height: 100%; background: #0284c7; border-radius: 99px; }
 
-/* ══ PREMIUM USER NUMBER PORTAL (#page-numberpage .nsu-*) ══ */
-#page-numberpage .ns-wrap { max-width: 1020px; margin: 0 auto; padding-bottom: 32px; }
-.nsu-hero {
-  background: linear-gradient(135deg, #090f1d 0%, #0f172a 60%, #0c2340 100%);
-  border: 1px solid rgba(56, 189, 248, 0.24);
+/* Admin Hero & KPI Cards */
+.nsa-hero {
+  background:
+    radial-gradient(90% 140% at 95% 0%, rgba(56, 189, 248, 0.2) 0%, transparent 55%),
+    linear-gradient(135deg, #090f1d 0%, #0f172a 60%, #11223d 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 18px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  color: #f8fafc;
+}
+.nsa-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.nsa-kpi-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 11px 13px;
+}
+.nsa-kpi-lbl { font-size: 10.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+.nsa-kpi-val { font-size: 18px; font-weight: 800; color: #f8fafc; margin-top: 3px; font-variant-numeric: tabular-nums; }
+
+/* ══ PREMIUM USER NUMBER PORTAL (#page-numberpage .nsu-*) — Dark Navy SaaS Edition ══ */
+#page-numberpage.active {
+  background:
+    radial-gradient(95% 55% at 50% 0%, #102a4c 0%, #071222 52%, #050a14 100%);
+  min-height: 100vh;
+  color: #f8fafc;
+}
+#page-numberpage .ns-wrap { max-width: 1060px; margin: 0 auto; padding-bottom: 96px; }
+#page-numberpage .ns-btn {
+  background: rgba(15, 29, 52, 0.9);
+  border-color: rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+}
+#page-numberpage .ns-btn:hover {
+  background: rgba(30, 50, 84, 0.95);
+  border-color: #38bdf8;
+  color: #ffffff;
+}
+#page-numberpage .ns-btn-primary {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.34);
+}
+#page-numberpage .ns-btn-dark {
+  background: rgba(15, 29, 52, 0.95);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+}
+#page-numberpage .ns-btn-dark:hover {
+  background: rgba(14, 165, 233, 0.16);
+  color: #ffffff;
+}
+#page-numberpage .ns-input {
+  background: rgba(7, 16, 31, 0.9);
+  border-color: rgba(148, 163, 184, 0.24);
+  color: #f8fafc;
+}
+#page-numberpage .ns-input::placeholder { color: #64748b; }
+#page-numberpage .ns-input:focus {
+  border-color: #0ea5e9;
+  background: #071224;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+}
+#page-numberpage .ns-table-wrap {
+  background: #0a1528;
+  border-color: rgba(148, 163, 184, 0.18);
+}
+#page-numberpage .ns-table th {
+  background: #07101f;
+  color: #94a3b8;
+  border-bottom-color: rgba(148, 163, 184, 0.18);
+}
+#page-numberpage .ns-table td {
+  color: #e2e8f0;
+  border-bottom-color: rgba(148, 163, 184, 0.1);
+}
+#page-numberpage .ns-table tbody tr:hover td {
+  background: rgba(14, 165, 233, 0.08);
+}
+
+/* Top Hero Bar */
+.nsu-hero {
+  background:
+    radial-gradient(85% 140% at 95% 0%, rgba(14, 165, 233, 0.22) 0%, transparent 55%),
+    linear-gradient(145deg, rgba(11, 23, 43, 0.96) 0%, rgba(7, 15, 29, 0.98) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 20px;
   padding: 18px 20px;
   margin-bottom: 14px;
   color: #f8fafc;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 12px 28px rgba(9, 15, 29, 0.22);
+  box-shadow: 0 12px 32px rgba(2, 8, 20, 0.45);
 }
 .nsu-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .nsu-back-btn {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.06);
   color: #f8fafc;
-  font-size: 12px;
+  font-family: inherit;
+  font-size: 13px;
   font-weight: 700;
-  padding: 9px 14px;
-  border-radius: 10px;
+  min-height: 44px;
+  padding: 10px 15px;
+  border-radius: 12px;
   cursor: pointer;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
 }
-.nsu-back-btn:hover { background: rgba(255, 255, 255, 0.16); }
-.nsu-title { font-size: 18px; font-weight: 800; color: #ffffff; margin: 0; letter-spacing: -0.015em; }
-.nsu-meta-line { font-size: 12px; color: #94a3b8; margin-top: 4px; font-weight: 500; }
+.nsu-back-btn:hover { background: rgba(255, 255, 255, 0.14); border-color: #38bdf8; }
+.nsu-back-btn:active { transform: scale(0.98); }
+.nsu-wallet-cta {
+  border: none;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 6px 18px rgba(14, 165, 233, 0.35);
+  transition: transform 0.12s ease, filter 0.15s ease;
+}
+.nsu-wallet-cta:hover { filter: brightness(1.08); }
+.nsu-wallet-cta:active { transform: scale(0.98); }
+
+.nsu-title { font-size: 19px; font-weight: 800; color: #ffffff; margin: 0; letter-spacing: -0.02em; line-height: 1.25; }
+.nsu-meta-line { font-size: 12px; color: #94a3b8; margin-top: 3px; font-weight: 500; }
+
+/* 5-Column Ledger Strip */
 .nsu-kpi-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 9px;
   margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
 }
 .nsu-kpi-box {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 11px;
-  padding: 9px 11px;
+  background: rgba(6, 13, 25, 0.72);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 12px;
+  padding: 10px 12px;
 }
-.nsu-kpi-lbl { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.04em; }
-.nsu-kpi-val { font-size: 15px; font-weight: 800; color: #f8fafc; margin-top: 2px; font-variant-numeric: tabular-nums; }
+.nsu-kpi-lbl { font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+.nsu-kpi-val { font-size: 16.5px; font-weight: 800; color: #ffffff; margin-top: 3px; font-variant-numeric: tabular-nums; }
+
+/* Segmented Capsule Bar (Matches Screenshot Top Bar) */
 .nsu-tabs {
   display: flex;
+  align-items: center;
   gap: 6px;
+  padding: 5px;
+  background: #060d18;
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  border-radius: 16px;
+  margin-bottom: 16px;
   overflow-x: auto;
-  padding: 6px;
-  background: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 14px;
-  margin-bottom: 14px;
   scrollbar-width: none;
+  box-shadow: 0 8px 24px rgba(2, 8, 20, 0.45);
 }
 .nsu-tabs::-webkit-scrollbar { display: none; }
 .nsu-tab-btn {
   border: none;
   background: transparent;
-  color: #94a3b8;
-  font-size: 12.5px;
+  color: #cbd5e1;
+  font-family: inherit;
+  font-size: 13.5px;
   font-weight: 700;
-  padding: 10px 15px;
-  border-radius: 10px;
+  min-height: 46px;
+  padding: 10px 16px;
+  border-radius: 12px;
   cursor: pointer;
   white-space: nowrap;
-  flex-shrink: 0;
-  transition: all 0.16s ease;
-}
-.nsu-tab-btn:hover { color: #f8fafc; background: rgba(255, 255, 255, 0.06); }
-.nsu-tab-btn.active {
-  background: linear-gradient(135deg, #0284c7, #2563eb);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
-}
-.nsu-mode-bar {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-.nsu-mode-btn {
-  border: 1.5px solid #cbd5e1;
-  background: #ffffff;
-  color: #334155;
-  font-size: 12.5px;
-  font-weight: 800;
-  padding: 9px 14px;
-  border-radius: 11px;
-  cursor: pointer;
+  flex: 1 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  transition: all 0.14s ease;
+  justify-content: center;
+  gap: 7px;
+  transition: background 0.16s ease, color 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease;
 }
-.nsu-mode-btn:hover { border-color: #0284c7; color: #0284c7; }
-.nsu-mode-btn.active {
-  background: #0f172a;
-  border-color: #0f172a;
-  color: #38bdf8;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
+.nsu-tab-btn:hover { color: #ffffff; background: rgba(255, 255, 255, 0.06); }
+.nsu-tab-btn:active { transform: scale(0.98); }
+.nsu-tab-btn.active {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.42);
 }
-.nsu-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
+
+/* Search Range ID Spotlight Card (Matches Screenshot Blue Card) */
+.nsu-spotlight-card {
+  background:
+    radial-gradient(100% 140% at 85% 15%, rgba(14, 165, 233, 0.22) 0%, transparent 60%),
+    linear-gradient(160deg, rgba(16, 40, 74, 0.72) 0%, rgba(10, 22, 44, 0.94) 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.34);
+  border-radius: 18px;
   padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 30px rgba(2, 12, 30, 0.45), inset 0 1px 0 rgba(125, 211, 252, 0.14);
+}
+.nsu-spotlight-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
   margin-bottom: 14px;
-  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.035);
+}
+.nsu-spotlight-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0ea5e9, #1d4ed8);
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 18px rgba(14, 165, 233, 0.32);
+}
+.nsu-spotlight-title {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+.nsu-direct-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(14, 165, 233, 0.14);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: #38bdf8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 2px 9px;
+  border-radius: 7px;
+  margin-bottom: 6px;
+}
+.nsu-spotlight-desc {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.45;
+  font-weight: 500;
+}
+.nsu-spotlight-btn {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 12px;
+  background: rgba(14, 165, 233, 0.12);
+  border: 1.5px solid #0ea5e9;
+  color: #38bdf8;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+}
+.nsu-spotlight-btn:hover {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.36);
+}
+.nsu-spotlight-btn:active { transform: scale(0.985); }
+
+/* Mode Selector Cards */
+.nsu-mode-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.nsu-mode-btn {
+  border: 1.5px solid rgba(148, 163, 184, 0.18);
+  background: #0b172b;
+  color: #e2e8f0;
+  font-family: inherit;
+  min-height: 62px;
+  padding: 12px 14px;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  transition: transform 0.14s ease, border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.nsu-mode-btn:hover {
+  border-color: #38bdf8;
+  background: #0f213d;
+  transform: translateY(-1px);
+}
+.nsu-mode-btn:active { transform: scale(0.985); }
+.nsu-mode-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+.nsu-mode-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.nsu-mode-title { font-size: 13.5px; font-weight: 800; color: #ffffff; line-height: 1.2; }
+.nsu-mode-sub { font-size: 11px; font-weight: 600; color: #94a3b8; line-height: 1.2; }
+.nsu-mode-btn.active {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.24) 0%, #0d2342 100%);
+  border-color: #0ea5e9;
+  box-shadow: 0 8px 22px rgba(14, 165, 233, 0.22), 0 0 0 1px rgba(56, 189, 248, 0.24);
+}
+.nsu-mode-btn.active .nsu-mode-icon {
+  background: rgba(14, 165, 233, 0.25);
+  border-color: rgba(56, 189, 248, 0.5);
+}
+.nsu-mode-btn.active .nsu-mode-sub { color: #7dd3fc; }
+
+/* Dark Glass Section Cards */
+.nsu-card {
+  background: rgba(11, 23, 43, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 16px;
+  color: #f8fafc;
+  box-shadow: 0 10px 28px rgba(2, 8, 20, 0.36);
 }
 .nsu-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
 }
-.nsu-step-title { font-size: 14.5px; font-weight: 800; color: #0f172a; margin: 0; display: flex; align-items: center; gap: 8px; }
+.nsu-step-title { font-size: 15px; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 9px; }
 .nsu-step-num {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  background: #0f172a;
+  width: 27px;
+  height: 27px;
+  border-radius: 9px;
+  background: rgba(14, 165, 233, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.4);
   color: #38bdf8;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 900;
+  flex-shrink: 0;
 }
+
+/* Filter Input Bar (Matches Screenshot 🔍 ফিল্টার...) */
+.nsu-filter-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 15px;
+  border: 1.5px solid rgba(148, 163, 184, 0.22);
+  border-radius: 13px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #f8fafc;
+  background: rgba(15, 29, 52, 0.85);
+  outline: none;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.nsu-filter-input::placeholder { color: #94a3b8; }
+.nsu-filter-input:focus { border-color: #0ea5e9; background: #0b182e; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18); }
+
+/* Brand Service Cards (Matches Screenshot 2-Column Dark Navy Tiles with White App Icon Box) */
 .nsu-svc-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
 }
 .nsu-svc-card {
-  border: 1.5px solid #e2e8f0;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-  border-radius: 14px;
-  padding: 12px 10px;
+  position: relative;
+  border: 1.5px solid rgba(148, 163, 184, 0.18);
+  background: #0c192e;
+  border-radius: 16px;
+  min-height: 142px;
+  padding: 18px 12px 15px;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
-  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: transform 0.14s ease, border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
-.nsu-svc-card:hover { border-color: #38bdf8; transform: translateY(-2px); }
+.nsu-svc-card:hover {
+  border-color: #38bdf8;
+  background: #102341;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.16);
+}
+.nsu-svc-card:active { transform: scale(0.98); }
 .nsu-svc-card.selected {
-  border-color: #0284c7;
-  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+  border-color: #0ea5e9;
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.2) 0%, #0d2140 100%);
+  box-shadow: 0 8px 26px rgba(14, 165, 233, 0.24), 0 0 0 2px rgba(56, 189, 248, 0.25);
 }
-.nsu-svc-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+.nsu-svc-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 15px;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 28px;
+  box-shadow: 0 6px 16px rgba(2, 8, 20, 0.35);
+  flex-shrink: 0;
 }
+.nsu-svc-logo svg { width: 34px; height: 34px; display: block; }
+.nsu-svc-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 11px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nsu-svc-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 7px;
+  flex-wrap: wrap;
+}
+.nsu-svc-countries { font-size: 12px; font-weight: 700; color: #94a3b8; }
+.nsu-price-pill {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 800;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.16);
+  border: 1px solid rgba(52, 211, 153, 0.34);
+  padding: 2px 10px;
+  border-radius: 99px;
+}
+
 .nsu-search-input {
   width: 100%;
-  max-width: 260px;
-  padding: 8px 12px;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 12.5px;
-  color: #0f172a;
-  background: #f8fafc;
+  max-width: 280px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1.5px solid rgba(148, 163, 184, 0.22);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #f8fafc;
+  background: rgba(7, 16, 31, 0.88);
   outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
-.nsu-search-input:focus { border-color: #0284c7; background: #ffffff; }
+.nsu-search-input::placeholder { color: #94a3b8; }
+.nsu-search-input:focus { border-color: #0ea5e9; background: #071224; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.16); }
+
+/* Country Action Cards (Dark Navy + Built-In Big Cyan CTA Bar) */
 .nsu-country-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(252px, 1fr));
+  gap: 12px;
 }
 .nsu-country-card {
-  border: 1.5px solid #e2e8f0;
-  background: #ffffff;
-  border-radius: 13px;
-  padding: 12px 13px;
+  border: 1.5px solid rgba(148, 163, 184, 0.18);
+  background: #0d1b32;
+  border-radius: 16px;
+  padding: 15px;
   text-align: left;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
+  gap: 12px;
+  color: #f8fafc;
+  transition: transform 0.14s ease, border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
-.nsu-country-card:hover { border-color: #0284c7; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(2, 132, 199, 0.1); }
+.nsu-country-card:hover {
+  border-color: #38bdf8;
+  background: #112442;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(14, 165, 233, 0.16);
+}
+.nsu-country-card:active { transform: scale(0.985); }
+.nsu-country-cta {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 11px;
+  background: rgba(14, 165, 233, 0.14);
+  border: 1.5px solid #0ea5e9;
+  color: #38bdf8;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nsu-country-card:hover .nsu-country-cta {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #ffffff;
+}
 .nsu-flag-box {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.22);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 23px;
   flex-shrink: 0;
 }
+
+/* Active Claimed Number Terminal */
 .nsu-terminal {
-  background: linear-gradient(145deg, #090e1a 0%, #0f172a 65%, #0c2340 100%);
+  background:
+    radial-gradient(80% 130% at 100% 0%, rgba(14, 165, 233, 0.2) 0%, transparent 55%),
+    linear-gradient(145deg, #091326 0%, #0e203d 100%);
   color: #f8fafc;
-  border-radius: 15px;
-  padding: 15px 17px;
-  margin-bottom: 10px;
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 18px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  border: 1.5px solid rgba(56, 189, 248, 0.36);
+  box-shadow: 0 10px 26px rgba(2, 8, 20, 0.45);
 }
 .nsu-terminal-num {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-variant-numeric: tabular-nums;
-  font-size: 22px;
+  font-size: clamp(22px, 4vw, 28px);
   font-weight: 800;
   color: #38bdf8;
   letter-spacing: 0.03em;
+  word-break: break-all;
+  line-height: 1.2;
+}
+.nsu-terminal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
 }
 .nsu-tbtn {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(148, 163, 184, 0.26);
+  background: rgba(255, 255, 255, 0.07);
   color: #f8fafc;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 8px 12px;
-  border-radius: 9px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  min-height: 48px;
+  padding: 11px 18px;
+  border-radius: 12px;
   cursor: pointer;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 1 1 135px;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
 }
-.nsu-tbtn:hover { background: rgba(255, 255, 255, 0.18); }
-.nsu-tbtn-sky { background: linear-gradient(135deg, #0284c7, #2563eb); border-color: transparent; color: #ffffff; }
+.nsu-tbtn:hover { background: rgba(255, 255, 255, 0.15); border-color: #38bdf8; }
+.nsu-tbtn:active { transform: scale(0.98); }
+.nsu-tbtn-sky {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border-color: transparent;
+  color: #ffffff;
+  flex: 2 1 195px;
+  font-size: 15px;
+  min-height: 52px;
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.42);
+}
+.nsu-tbtn-sky:hover {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.5);
+}
+
+/* Live OTP Card (Dark Emerald Vault + Big Copy OTP CTA) */
 .nsu-otp-card {
-  border: 1.5px solid #bbf7d0;
-  border-left: 4px solid #16a34a;
-  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
-  border-radius: 13px;
-  padding: 13px 15px;
+  border: 1.5px solid rgba(52, 211, 153, 0.42);
+  background: linear-gradient(160deg, rgba(16, 185, 129, 0.12) 0%, #0b192d 100%);
+  border-radius: 18px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  color: #f8fafc;
+  box-shadow: 0 8px 24px rgba(2, 12, 24, 0.36);
+}
+.nsu-otp-vault {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(6, 14, 26, 0.85);
+  border: 1px solid rgba(52, 211, 153, 0.34);
+  border-radius: 14px;
+  padding: 12px 14px;
   margin-bottom: 10px;
 }
 .nsu-otp-badge {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-variant-numeric: tabular-nums;
-  font-size: 21px;
+  font-size: 26px;
   font-weight: 900;
-  color: #14532d;
-  background: #dcfce7;
-  border: 1.5px solid #86efac;
-  border-radius: 9px;
-  padding: 4px 13px;
-  letter-spacing: 0.05em;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.16);
+  border: 1.5px solid rgba(52, 211, 153, 0.45);
+  border-radius: 11px;
+  padding: 7px 17px;
+  letter-spacing: 0.08em;
   display: inline-block;
+  cursor: pointer;
 }
-.nsu-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.nsu-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
 .nsu-range-tag {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  background: #f8fafc;
-  border: 1px solid #cbd5e1;
-  color: #0f172a;
-  padding: 7px 11px;
-  border-radius: 10px;
-  font-size: 12px;
+  gap: 8px;
+  background: #0d1d36;
+  border: 1.5px solid rgba(148, 163, 184, 0.22);
+  color: #f8fafc;
+  min-height: 48px;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.13s ease;
+  transition: all 0.14s ease;
 }
-.nsu-range-tag:hover { border-color: #0284c7; background: #e0f2fe; color: #0369a1; }
+.nsu-range-tag:hover { border-color: #38bdf8; background: rgba(14, 165, 233, 0.16); color: #ffffff; transform: translateY(-1px); }
+.nsu-range-tag:active { transform: scale(0.98); }
 .nsu-store-card {
-  border: 1.5px solid #e2e8f0;
-  background: #ffffff;
-  border-radius: 13px;
-  padding: 13px;
+  border: 1.5px solid rgba(148, 163, 184, 0.18);
+  background: #0d1c34;
+  color: #f8fafc;
+  border-radius: 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  gap: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.nsu-store-card:hover { border-color: #38bdf8; box-shadow: 0 8px 22px rgba(14, 165, 233, 0.15); }
+.nsu-empty-box {
+  text-align: center;
+  padding: 24px 16px;
+  color: #94a3b8;
+  font-size: 13px;
+  background: rgba(6, 13, 25, 0.65);
+  border: 1.5px dashed rgba(148, 163, 184, 0.25);
+  border-radius: 14px;
+}
+
+/* Responsive Mobile Ergonomics */
+@media (max-width: 640px) {
+  .nsu-hero { padding: 14px; border-radius: 16px; }
+  .nsu-tab-btn { font-size: 12.5px; min-height: 44px; padding: 8px 12px; }
+  .nsu-mode-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .nsu-mode-btn { min-height: 58px; padding: 10px 11px; gap: 9px; }
+  .nsu-mode-icon { width: 34px; height: 34px; font-size: 17px; }
+  .nsu-mode-title { font-size: 12.5px; }
+  .nsu-mode-sub { font-size: 10.5px; }
+  .nsu-card { padding: 15px; border-radius: 16px; }
+  .nsu-svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .nsu-svc-card { min-height: 136px; padding: 16px 10px 14px; }
+  .nsu-svc-logo { width: 52px; height: 52px; border-radius: 14px; }
+  .nsu-country-grid { grid-template-columns: 1fr; gap: 10px; }
+  .nsu-search-input { max-width: 100%; }
+  .nsu-terminal { padding: 15px; }
+  .nsu-terminal-actions .nsu-tbtn-sky { flex: 1 1 100%; }
+  .nsu-otp-badge { font-size: 22px; }
 }
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet"/></noscript>
 </head>
 <body>
 
@@ -6252,85 +6683,129 @@ div#jdStatusArea { padding: 0 18px; }
       <div class="ns-wrap">
         <div class="nsu-hero">
           <div class="nsu-hero-top">
-            <div style="display:flex;align-items:center;gap:12px">
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
               <button type="button" class="nsu-back-btn" onclick="showSection('home')">← Back</button>
               <div>
-                <h2 class="nsu-title">📱 Number System &amp; Live OTP Terminal</h2>
+                <h2 class="nsu-title">Number System &amp; Live OTP Workspace</h2>
                 <div class="nsu-meta-line" id="nsHeroMetaLine">Stock Numbers · Live Console &amp; Custom Range · Paid WhatsApp OTP · VPN &amp; Proxy Store</div>
               </div>
             </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button type="button" class="nsu-back-btn" onclick="showSection('wallet')">💳 Deposit / Withdraw</button>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button type="button" class="nsu-wallet-cta" onclick="showSection('wallet')">💳 Deposit / Withdraw</button>
             </div>
           </div>
 
           <div class="nsu-kpi-row">
             <div class="nsu-kpi-box">
               <div class="nsu-kpi-lbl">Wallet Balance</div>
-              <div class="nsu-kpi-val" id="nsKpiWallet">৳0.00</div>
+              <div class="nsu-kpi-val ns-mono" id="nsKpiWallet">৳0.00</div>
             </div>
             <div class="nsu-kpi-box">
               <div class="nsu-kpi-lbl">V1 Stock</div>
-              <div class="nsu-kpi-val" id="nsKpiV1Stock">0</div>
+              <div class="nsu-kpi-val ns-mono" id="nsKpiV1Stock">0</div>
             </div>
             <div class="nsu-kpi-box">
               <div class="nsu-kpi-lbl">Paid WA Stock</div>
-              <div class="nsu-kpi-val" id="nsKpiWaStock">0</div>
+              <div class="nsu-kpi-val ns-mono" id="nsKpiWaStock">0</div>
             </div>
             <div class="nsu-kpi-box">
               <div class="nsu-kpi-lbl">Default OTP Rate</div>
-              <div class="nsu-kpi-val" id="nsKpiOtpRate">৳0.50</div>
+              <div class="nsu-kpi-val ns-mono" id="nsKpiOtpRate">৳0.50</div>
             </div>
             <div class="nsu-kpi-box">
               <div class="nsu-kpi-lbl">Dollar Rate</div>
-              <div class="nsu-kpi-val" id="nsKpiDollarRate">৳129.5/$</div>
+              <div class="nsu-kpi-val ns-mono" id="nsKpiDollarRate">৳129.5/$</div>
             </div>
           </div>
         </div>
 
-        <!-- Primary Workspace Tabs -->
+        <!-- Primary Workspace Tabs (Matches Screenshot Top Capsule Bar) -->
         <div class="nsu-tabs">
-          <button type="button" class="nsu-tab-btn active" id="nsTabBtnGet" onclick="nsUserTab('get')">📱 Get Number &amp; OTP</button>
-          <button type="button" class="nsu-tab-btn" id="nsTabBtnTraffic" onclick="nsUserTab('traffic')">📊 Live Traffic &amp; Stock</button>
-          <button type="button" class="nsu-tab-btn" id="nsTabBtnStore" onclick="nsUserTab('store')">🛒 VPN, Proxy &amp; Premium</button>
-          <button type="button" class="nsu-tab-btn" id="nsTabBtnRewards" onclick="nsUserTab('rewards')">🏆 Rewards, Ranks &amp; Refer</button>
+          <button type="button" class="nsu-tab-btn active" id="nsTabBtnGet" onclick="nsUserTab('get')">📱 Service</button>
+          <button type="button" class="nsu-tab-btn" id="nsTabBtnRange" onclick="nsOpenRangeIdQuick()">🔍 Range ID</button>
+          <button type="button" class="nsu-tab-btn" id="nsTabBtnTraffic" onclick="nsUserTab('traffic')">📡 Live Traffic</button>
+          <button type="button" class="nsu-tab-btn" id="nsTabBtnStore" onclick="nsUserTab('store')">🛒 Store</button>
+          <button type="button" class="nsu-tab-btn" id="nsTabBtnRewards" onclick="nsUserTab('rewards')">🏆 Rewards</button>
         </div>
 
         <!-- TAB 1: GET NUMBER & LIVE OTP -->
         <div id="nsPaneGet">
-          <!-- Mode Selector -->
+          <!-- Mode Selector Cards -->
           <div class="nsu-mode-bar">
-            <button type="button" class="nsu-mode-btn active" id="nsModeBtnV1" onclick="nsSwitchNumberMode('v1')">📦 Stock Numbers (V1)</button>
-            <button type="button" class="nsu-mode-btn" id="nsModeBtnV2" onclick="nsSwitchNumberMode('v2')">📡 Live Console &amp; Custom Range (V2)</button>
-            <button type="button" class="nsu-mode-btn" id="nsModeBtnV3" onclick="nsSwitchNumberMode('v3')">🔮 V3 Panel</button>
-            <button type="button" class="nsu-mode-btn" id="nsModeBtnPaidWa" onclick="nsSwitchNumberMode('paidwa')">💬 Paid WhatsApp OTP</button>
+            <button type="button" class="nsu-mode-btn active" id="nsModeBtnV1" onclick="nsSwitchNumberMode('v1')">
+              <span class="nsu-mode-icon">📦</span>
+              <span class="nsu-mode-text">
+                <span class="nsu-mode-title">Stock Numbers (V1)</span>
+                <span class="nsu-mode-sub">Instant Country Pool</span>
+              </span>
+            </button>
+            <button type="button" class="nsu-mode-btn" id="nsModeBtnV2" onclick="nsSwitchNumberMode('v2')">
+              <span class="nsu-mode-icon">🔍</span>
+              <span class="nsu-mode-text">
+                <span class="nsu-mode-title">Live Console (V2)</span>
+                <span class="nsu-mode-sub">Range ID &amp; Custom Prefix</span>
+              </span>
+            </button>
+            <button type="button" class="nsu-mode-btn" id="nsModeBtnV3" onclick="nsSwitchNumberMode('v3')">
+              <span class="nsu-mode-icon">🔮</span>
+              <span class="nsu-mode-text">
+                <span class="nsu-mode-title">V3 Panel</span>
+                <span class="nsu-mode-sub">Direct Service Pool</span>
+              </span>
+            </button>
+            <button type="button" class="nsu-mode-btn" id="nsModeBtnPaidWa" onclick="nsSwitchNumberMode('paidwa')">
+              <span class="nsu-mode-icon">💬</span>
+              <span class="nsu-mode-text">
+                <span class="nsu-mode-title">Paid WhatsApp OTP</span>
+                <span class="nsu-mode-sub">4m Auto-Refund Guarantee</span>
+              </span>
+            </button>
           </div>
 
           <!-- Active Claimed Numbers Vault + Paid WA Orders -->
           <div id="nsActiveNumbersWrap" style="display:none"></div>
 
-          <!-- MODE V1: STOCK NUMBERS -->
+          <!-- MODE V1: STOCK NUMBERS + RANGE ID SPOTLIGHT -->
           <div id="nsModePaneV1">
-            <div class="nsu-card">
-              <div class="nsu-card-head">
-                <div class="nsu-step-title"><span class="nsu-step-num">1</span> Select Service / App</div>
-                <span style="font-size:12px;color:#0284c7;font-weight:700" id="nsSelectedSvcBadge">None selected</span>
+            <!-- Section Header -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:4px 0 12px">
+              <div style="font-size:15px;font-weight:800;color:#e2e8f0;display:flex;align-items:center;gap:8px">
+                <span>📱</span> <span>সার্ভিস সিলেক্ট করুন</span>
               </div>
-              <div class="nsu-svc-grid" id="nsUserServicesGrid">
-                <div style="color:#64748b;font-size:12.5px">Loading services...</div>
-              </div>
+              <span style="font-size:12.5px;color:#38bdf8;font-weight:800" id="nsSelectedSvcBadge">None selected</span>
             </div>
 
+            <!-- Glowing Spotlight Card (Matches Screenshot Search Range ID Card) -->
+            <div class="nsu-spotlight-card">
+              <div class="nsu-spotlight-top">
+                <div class="nsu-spotlight-icon">🔎</div>
+                <div style="min-width:0;flex:1">
+                  <div class="nsu-spotlight-title">Search Range ID to Number</div>
+                  <div class="nsu-direct-tag">⚡ DIRECT</div>
+                  <div class="nsu-spotlight-desc">রেঞ্জ আইডি (যেমন 225, 224, 880) দিয়ে সরাসরি নাম্বার বের করুন</div>
+                </div>
+              </div>
+              <button type="button" class="nsu-spotlight-btn" onclick="nsOpenRangeIdQuick()">সার্চ করুন →</button>
+            </div>
+
+            <!-- Service Grid + Filter (Matches Screenshot "বা সার্ভিস সিলেক্ট করুন:") -->
+            <div style="font-size:14.5px;font-weight:800;color:#f8fafc;margin:0 0 10px">বা সার্ভিস সিলেক্ট করুন:</div>
+            <input type="text" id="nsServiceSearchInput" class="nsu-filter-input" placeholder="🔍 ফিল্টার..." oninput="nsRenderUserServices()"/>
+            <div class="nsu-svc-grid" id="nsUserServicesGrid" style="margin-bottom:18px">
+              <div class="nsu-empty-box" style="grid-column:1/-1">Loading services...</div>
+            </div>
+
+            <!-- Step 2: Country Selector -->
             <div class="nsu-card" id="nsCountryStepCard">
               <div class="nsu-card-head">
                 <div class="nsu-step-title"><span class="nsu-step-num">2</span> <span id="nsCountryStepTitle">Select Country</span></div>
-                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-                  <input type="text" id="nsCountrySearchInput" class="nsu-search-input" placeholder="🔍 Search country..." oninput="nsRenderUserCountriesForService()"/>
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;width:auto;max-width:100%">
+                  <input type="text" id="nsCountrySearchInput" class="nsu-search-input" placeholder="🔍 Search country or code..." oninput="nsRenderUserCountriesForService()"/>
                   <button type="button" class="ns-btn" onclick="nsRefreshUserState()">🔄 Refresh</button>
                 </div>
               </div>
               <div class="nsu-country-grid" id="nsUserCountriesGrid">
-                <div style="color:#64748b;font-size:12.5px">Select a service above to view available countries.</div>
+                <div class="nsu-empty-box" style="grid-column:1/-1">Select a service above to view available countries.</div>
               </div>
             </div>
           </div>
@@ -6339,21 +6814,21 @@ div#jdStatusArea { padding: 0 18px; }
           <div id="nsModePaneV2" style="display:none">
             <div class="nsu-card">
               <div class="nsu-card-head">
-                <div class="nsu-step-title"><span class="nsu-step-num">📡</span> Live Console &amp; Custom Range <span id="nsV2PanelTag" style="font-size:11px;color:#0284c7;font-weight:800"></span></div>
+                <div class="nsu-step-title"><span class="nsu-step-num">🔍</span> Live Console &amp; Custom Range <span id="nsV2PanelTag" style="font-size:12px;color:#38bdf8;font-weight:800"></span></div>
                 <button type="button" class="ns-btn" onclick="nsLoadV2LiveAccess()">🔄 Sync Live Ranges</button>
               </div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px 12px;margin-bottom:14px">
-                <input type="text" id="nsV2CustomPrefix" class="ns-input ns-mono" style="flex:1;min-width:170px;max-width:260px" placeholder="Custom prefix e.g. 8801, 91, 44"/>
-                <select id="nsV2CustomSid" class="ns-input" style="max-width:170px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;align-items:center;background:rgba(6,13,25,0.75);border:1px solid rgba(56,189,248,0.24);border-radius:14px;padding:14px;margin-bottom:16px">
+                <input type="text" id="nsV2CustomPrefix" class="ns-input ns-mono" placeholder="Custom Range ID e.g. 225, 224, 880"/>
+                <select id="nsV2CustomSid" class="ns-input">
                   <option value="Facebook">Facebook</option>
                   <option value="WhatsApp">WhatsApp</option>
                   <option value="Instagram">Instagram</option>
                   <option value="Telegram">Telegram</option>
                   <option value="Google">Google</option>
                 </select>
-                <button type="button" class="ns-btn ns-btn-primary" onclick="nsV2ClaimCustomPrefix()">⚡ Allocate Custom Range</button>
+                <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" onclick="nsV2ClaimCustomPrefix()">⚡ সার্চ ও নাম্বার নিন</button>
               </div>
-              <div id="nsV2ConsoleBody"><div style="color:#64748b;font-size:12.5px">Loading live ranges...</div></div>
+              <div id="nsV2ConsoleBody"><div class="nsu-empty-box">Loading live ranges...</div></div>
             </div>
           </div>
 
@@ -6364,7 +6839,7 @@ div#jdStatusArea { padding: 0 18px; }
                 <div class="nsu-step-title"><span class="nsu-step-num">🔮</span> V3 Panel Instant Services</div>
                 <button type="button" class="ns-btn" onclick="nsLoadV3Services()">🔄 Refresh V3</button>
               </div>
-              <div id="nsV3ServicesBody"><div style="color:#64748b;font-size:12.5px">Loading V3 services...</div></div>
+              <div id="nsV3ServicesBody"><div class="nsu-empty-box">Loading V3 services...</div></div>
             </div>
           </div>
 
@@ -6372,21 +6847,21 @@ div#jdStatusArea { padding: 0 18px; }
           <div id="nsModePanePaidWa" style="display:none">
             <div class="nsu-card">
               <div class="nsu-card-head">
-                <div class="nsu-step-title"><span class="nsu-step-num" style="background:#16a34a;color:#fff">💬</span> Paid WhatsApp OTP Numbers</div>
-                <span class="ns-mono" id="nsPaidWaPriceTag" style="font-size:12.5px;font-weight:800;color:#15803d;background:#dcfce7;padding:4px 10px;border-radius:8px">$0.125 USDT</span>
+                <div class="nsu-step-title"><span class="nsu-step-num" style="background:rgba(16,185,129,0.22);border-color:rgba(52,211,153,0.45);color:#34d399">💬</span> Paid WhatsApp OTP Numbers</div>
+                <span class="ns-mono" id="nsPaidWaPriceTag" style="font-size:13px;font-weight:800;color:#34d399">$0.125 USDT</span>
               </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:end;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin-bottom:14px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;align-items:end;background:rgba(6,13,25,0.75);border:1px solid rgba(52,211,153,0.24);border-radius:14px;padding:16px;margin-bottom:14px">
                 <div>
-                  <div style="font-size:12px;font-weight:700;color:#475569;margin-bottom:4px">Available Live Stock: <strong class="ns-mono" id="nsPaidWaAvailCount" style="color:#0f172a">0</strong></div>
-                  <label style="font-size:11.5px;font-weight:700;color:#475569">Quantity (1–25)</label>
-                  <input type="number" min="1" max="25" value="1" id="nsPaidWaQtyInput" class="ns-input ns-mono"/>
+                  <div style="font-size:13px;font-weight:700;color:#cbd5e1;margin-bottom:6px">Available Live Stock: <strong class="ns-mono" id="nsPaidWaAvailCount" style="color:#34d399;font-size:15px">0</strong></div>
+                  <label style="font-size:12px;font-weight:700;color:#94a3b8;display:block;margin-bottom:4px">Quantity (1–25)</label>
+                  <input type="number" min="1" max="25" value="1" id="nsPaidWaQtyInput" class="ns-input ns-mono" style="font-size:16px;font-weight:800"/>
                 </div>
-                <div style="display:flex;gap:8px;flex-wrap:wrap">
-                  <button type="button" class="ns-btn ns-btn-green" style="padding:10px 18px" onclick="nsBuyPaidWaNumbers()">💳 Buy Paid WA Number(s)</button>
+                <div>
+                  <button type="button" class="ns-btn ns-btn-green ns-btn-lg" style="width:100%" onclick="nsBuyPaidWaNumbers()">💳 Buy Paid WA Number(s)</button>
                 </div>
               </div>
-              <div style="font-size:12px;color:#475569;margin-bottom:10px">
-                • Numbers include a 4-minute live OTP window. If no OTP arrives before timeout, the number is automatically refunded back to your wallet.
+              <div style="font-size:12.5px;color:#94a3b8;margin-bottom:14px;line-height:1.5">
+                Numbers include a 4-minute live OTP window. If no OTP arrives before timeout, the full amount is automatically refunded to your wallet.
               </div>
               <div id="nsPaidWaOrdersList"></div>
             </div>
@@ -6395,15 +6870,18 @@ div#jdStatusArea { padding: 0 18px; }
           <!-- LIVE OTP INBOX -->
           <div class="nsu-card">
             <div class="nsu-card-head">
-              <div class="nsu-step-title"><span class="nsu-step-num" style="background:#16a34a;color:#fff">✓</span> Live OTP Messages</div>
-              <div style="display:flex;align-items:center;gap:8px">
-                <span style="font-size:11.5px;color:#16a34a;font-weight:700" id="nsScannerStatusText">3s Live Scanner Active</span>
-                <button type="button" class="ns-btn" onclick="nsRefreshActiveAndOtp(true)">Refresh OTPs</button>
+              <div class="nsu-step-title"><span class="nsu-step-num" style="background:rgba(16,185,129,0.22);border-color:rgba(52,211,153,0.45);color:#34d399">✓</span> Live OTP Messages</div>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <span style="font-size:12px;color:#34d399;font-weight:800;display:inline-flex;align-items:center;gap:6px" id="nsScannerStatusText">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#34d399;display:inline-block"></span>
+                  3s Live Scanner Active
+                </span>
+                <button type="button" class="ns-btn ns-btn-dark" onclick="nsRefreshActiveAndOtp(true)">🔄 Check / Refresh OTPs</button>
               </div>
             </div>
             <div id="nsOtpInboxWrap">
-              <div style="text-align:center;padding:20px;color:#64748b;font-size:13px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px">
-                No OTP messages received yet. Claim or buy a number above to receive SMS codes automatically.
+              <div class="nsu-empty-box">
+                No OTP messages received yet. Select a service &amp; country above to claim a number and receive SMS codes automatically.
               </div>
             </div>
           </div>
@@ -6414,9 +6892,9 @@ div#jdStatusArea { padding: 0 18px; }
           <div class="nsu-card">
             <div class="nsu-card-head">
               <div class="nsu-step-title">📊 Live OTP Traffic &amp; Carrier Ranges</div>
-              <button type="button" class="ns-btn" onclick="nsLoadTrafficReport(false)">🔄 Refresh Traffic</button>
+              <button type="button" class="ns-btn ns-btn-dark" onclick="nsLoadTrafficReport(false)">🔄 Refresh Traffic</button>
             </div>
-            <div id="nsUserTrafficWrap"><div style="color:#64748b;font-size:12.5px">Loading live traffic...</div></div>
+            <div id="nsUserTrafficWrap"><div class="nsu-empty-box">Loading live traffic...</div></div>
           </div>
 
           <div class="nsu-card">
@@ -6424,7 +6902,7 @@ div#jdStatusArea { padding: 0 18px; }
               <div class="nsu-step-title">🌍 Available V1 Country Stock</div>
               <input type="text" id="nsDirSearchInput" class="nsu-search-input" placeholder="🔍 Filter service or country..." oninput="nsRenderAllAvailableCountries()"/>
             </div>
-            <div id="nsAllCountriesWrap"><div style="color:#64748b;font-size:12.5px">Loading stock...</div></div>
+            <div id="nsAllCountriesWrap"><div class="nsu-empty-box">Loading stock...</div></div>
           </div>
         </div>
 
@@ -6433,9 +6911,9 @@ div#jdStatusArea { padding: 0 18px; }
           <div class="nsu-card">
             <div class="nsu-card-head">
               <div class="nsu-step-title">💎 Telegram Premium &amp; 🛡️ VPN / Proxy Store</div>
-              <span class="ns-mono" style="font-size:12px;color:#0284c7;font-weight:800" id="nsStoreWalletHint">Pay directly via Wallet</span>
+              <span class="ns-mono" style="font-size:13px;color:#38bdf8;font-weight:800" id="nsStoreWalletHint">Pay directly via Wallet</span>
             </div>
-            <div id="nsStoreCatalogWrap"><div style="color:#64748b;font-size:12.5px">Loading store...</div></div>
+            <div id="nsStoreCatalogWrap"><div class="nsu-empty-box">Loading store...</div></div>
           </div>
 
           <div class="nsu-card">
@@ -6469,7 +6947,7 @@ div#jdStatusArea { padding: 0 18px; }
               <div class="nsu-step-title">🏆 Top OTP Users &amp; Referrers</div>
               <button type="button" class="ns-btn" onclick="nsLoadLeaderboard(false)">🔄 Refresh</button>
             </div>
-            <div id="nsUserLeaderboardWrap"><div style="color:#64748b;font-size:12.5px">Loading leaderboard...</div></div>
+            <div id="nsUserLeaderboardWrap"><div class="nsu-empty-box">Loading leaderboard...</div></div>
           </div>
         </div>
       </div>
@@ -10769,43 +11247,45 @@ div#jdStatusArea { padding: 0 18px; }
 
       <!-- ADMIN: NUMBER SYSTEM MASTER CONTROL -->
       <div id="admin-numbersys" class="admin-pane">
-        <div class="card" style="border:1.5px solid #0284c7;background:#ffffff">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px">
-            <div>
-              <h4 class="card-title" style="margin:0;color:#0f172a">📱 Number System &amp; Multi-Panel OTP Control</h4>
-              <div style="font-size:12px;color:#64748b;margin-top:2px">Stock &amp; Paid WA Numbers, V2 Live Console &amp; V3 Services, 3-Mode Panels, Rewards, VPN/Proxy Store &amp; Demo OTP</div>
+        <div class="card" style="border:1px solid #cbd5e1;background:#ffffff;border-radius:18px;padding:18px">
+          <div class="nsa-hero">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+              <div>
+                <h4 class="nsu-title" style="margin:0">📱 Number System &amp; Multi-Panel Control</h4>
+                <div class="nsu-meta-line" style="margin-top:4px">Stock &amp; Paid WA Numbers, V2 Live Console &amp; V3 Services, 3-Mode Panels, Rewards, Store &amp; Demo OTP</div>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button type="button" class="nsu-back-btn" onclick="initNumberSystemAdmin()">🔄 Refresh All</button>
+                <button type="button" class="nsu-wallet-cta" onclick="nsAdmDownloadBackup()">📦 Download ZIP Backup</button>
+              </div>
             </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button type="button" class="ns-btn" onclick="initNumberSystemAdmin()">🔄 Refresh All</button>
-              <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmDownloadBackup()">📦 Download ZIP Backup</button>
-            </div>
-          </div>
 
-          <!-- Top KPI Strip -->
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:8px;margin-bottom:14px">
-            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px">
-              <div style="font-size:10.5px;color:#64748b;font-weight:700">V1 STOCK</div>
-              <div class="ns-mono" style="font-size:15px;font-weight:800;color:#0f172a" id="nsAdmStatV1">0</div>
-            </div>
-            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px">
-              <div style="font-size:10.5px;color:#64748b;font-weight:700">PAID WA STOCK</div>
-              <div class="ns-mono" style="font-size:15px;font-weight:800;color:#16a34a" id="nsAdmStatWa">0</div>
-            </div>
-            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px">
-              <div style="font-size:10.5px;color:#64748b;font-weight:700">SERVICES</div>
-              <div class="ns-mono" style="font-size:15px;font-weight:800;color:#0284c7" id="nsAdmStatServices">0</div>
-            </div>
-            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px">
-              <div style="font-size:10.5px;color:#64748b;font-weight:700">PANELS</div>
-              <div class="ns-mono" style="font-size:15px;font-weight:800;color:#0f172a" id="nsAdmStatPanels">0 / 0</div>
-            </div>
-            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px">
-              <div style="font-size:10.5px;color:#64748b;font-weight:700">PENDING ORDERS</div>
-              <div class="ns-mono" style="font-size:15px;font-weight:800;color:#dc2626" id="nsAdmStatPending">0</div>
-            </div>
-            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px">
-              <div style="font-size:10.5px;color:#64748b;font-weight:700">USERS / OTPS</div>
-              <div class="ns-mono" style="font-size:15px;font-weight:800;color:#b45309" id="nsAdmStatUsers">0 / 0</div>
+            <!-- Top KPI Strip -->
+            <div class="nsa-kpi-grid">
+              <div class="nsa-kpi-card">
+                <div class="nsa-kpi-lbl">V1 Stock</div>
+                <div class="nsa-kpi-val ns-mono" id="nsAdmStatV1">0</div>
+              </div>
+              <div class="nsa-kpi-card">
+                <div class="nsa-kpi-lbl">Paid WA Stock</div>
+                <div class="nsa-kpi-val ns-mono" style="color:#4ade80" id="nsAdmStatWa">0</div>
+              </div>
+              <div class="nsa-kpi-card">
+                <div class="nsa-kpi-lbl">Services</div>
+                <div class="nsa-kpi-val ns-mono" style="color:#38bdf8" id="nsAdmStatServices">0</div>
+              </div>
+              <div class="nsa-kpi-card">
+                <div class="nsa-kpi-lbl">Panels</div>
+                <div class="nsa-kpi-val ns-mono" id="nsAdmStatPanels">0 / 0</div>
+              </div>
+              <div class="nsa-kpi-card">
+                <div class="nsa-kpi-lbl">Pending Orders</div>
+                <div class="nsa-kpi-val ns-mono" style="color:#f87171" id="nsAdmStatPending">0</div>
+              </div>
+              <div class="nsa-kpi-card">
+                <div class="nsa-kpi-lbl">Users / OTPs</div>
+                <div class="nsa-kpi-val ns-mono" style="color:#fbbf24" id="nsAdmStatUsers">0 / 0</div>
+              </div>
             </div>
           </div>
 
@@ -10816,21 +11296,21 @@ div#jdStatusArea { padding: 0 18px; }
             <button type="button" class="ns-tab-btn" id="nsAdmTabBtnPanels" onclick="nsAdmSubTab('panels')">📡 Panels &amp; API Keys</button>
             <button type="button" class="ns-tab-btn" id="nsAdmTabBtnRewards" onclick="nsAdmSubTab('rewards')">💰 Rewards &amp; Payments</button>
             <button type="button" class="ns-tab-btn" id="nsAdmTabBtnStore" onclick="nsAdmSubTab('store')">🛒 Buy Service Store</button>
-            <button type="button" class="ns-tab-btn" id="nsAdmTabBtnTraffic" onclick="nsAdmSubTab('traffic')">📊 Traffic, Stats &amp; Demo OTP</button>
+            <button type="button" class="ns-tab-btn" id="nsAdmTabBtnTraffic" onclick="nsAdmSubTab('traffic')">📊 Traffic &amp; Demo OTP</button>
           </div>
 
           <!-- TAB 1: STOCK & PAID WA NUMBERS -->
           <div id="nsAdmPaneStock">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px;margin-bottom:14px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:16px">
               <!-- V1 Bulk Upload -->
               <div class="ns-card" style="margin:0;background:#f8fafc">
                 <div class="ns-card-title"><span>📥 V1 Bulk Number Upload (.txt / .csv / .xlsx / Paste)</span></div>
-                <div style="display:grid;gap:8px">
+                <div style="display:grid;gap:10px">
                   <select id="nsAdmUploadSvcKey" class="ns-input"><option value="">-- Select Service --</option></select>
                   <input type="text" id="nsAdmUploadCountryOverride" class="ns-input" placeholder="Country override (Leave blank to auto-detect from prefix)"/>
                   <input type="file" id="nsAdmUploadFileInput" accept=".txt,.csv,.xlsx" class="ns-input"/>
                   <textarea id="nsAdmUploadTextarea" rows="3" class="ns-input ns-mono" placeholder="Or paste numbers (one per line or space/comma separated)"></textarea>
-                  <button type="button" class="ns-btn ns-btn-green" onclick="nsAdmUploadNumbers()">Upload V1 Stock</button>
+                  <button type="button" class="ns-btn ns-btn-green ns-btn-lg" style="width:100%" onclick="nsAdmUploadNumbers()">📤 Upload V1 Stock</button>
                 </div>
               </div>
 
@@ -10838,13 +11318,13 @@ div#jdStatusArea { padding: 0 18px; }
               <div class="ns-card" style="margin:0;background:#f8fafc">
                 <div class="ns-card-title">
                   <span>💬 Paid WhatsApp Number &amp; OTP URL Upload</span>
-                  <button type="button" class="ns-btn ns-btn-red" onclick="nsAdmClearPaidWaStock()">Clear WA</button>
+                  <button type="button" class="ns-btn ns-btn-red ns-btn-sm" onclick="nsAdmClearPaidWaStock()">Clear WA</button>
                 </div>
-                <div style="display:grid;gap:8px">
-                  <div style="font-size:11.5px;color:#475569">Format: <span class="ns-mono">+8801712345678 | https://otp-link...</span> (or 2-column CSV/XLSX)</div>
+                <div style="display:grid;gap:10px">
+                  <div style="font-size:12px;color:#475569">Format: <span class="ns-mono">+8801712345678 | https://otp-link...</span> (or 2-column CSV/XLSX)</div>
                   <input type="file" id="nsAdmWaFileInput" accept=".txt,.csv,.xlsx" class="ns-input"/>
                   <textarea id="nsAdmWaTextarea" rows="3" class="ns-input ns-mono" placeholder="+8801712345678 | https://panel.example/sms/123"></textarea>
-                  <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmUploadWaLinks()">Upload Paid WA Links</button>
+                  <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" style="width:100%" onclick="nsAdmUploadWaLinks()">💬 Upload Paid WA Links</button>
                 </div>
               </div>
             </div>
@@ -10855,30 +11335,30 @@ div#jdStatusArea { padding: 0 18px; }
                 <span>📦 V1 Stock Inventory by Service &amp; Country</span>
                 <button type="button" class="ns-btn ns-btn-red" onclick="nsAdmClearStock('all')">🗑 Sob Clear (All V1 Stock)</button>
               </div>
-              <div id="nsAdmStockMatrixWrap"><div style="color:#64748b;font-size:12.5px">Loading stock...</div></div>
+              <div id="nsAdmStockMatrixWrap"><div style="color:#64748b;font-size:13px">Loading stock...</div></div>
             </div>
 
             <!-- Paid WA Refund Batches & Recent Orders -->
             <div class="ns-card" style="background:#ffffff">
               <div class="ns-card-title"><span>♻️ Paid WA Refund Batches &amp; Recent Orders</span></div>
-              <div id="nsAdmPaidWaBatchesWrap"><div style="color:#64748b;font-size:12.5px">Loading...</div></div>
+              <div id="nsAdmPaidWaBatchesWrap"><div style="color:#64748b;font-size:13px">Loading...</div></div>
             </div>
           </div>
 
           <!-- TAB 2: SERVICES & LIVE CONSOLE -->
           <div id="nsAdmPaneServices" style="display:none">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:14px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:16px">
               <!-- Add V1 Service -->
               <div class="ns-card" style="margin:0;background:#f8fafc">
                 <div class="ns-card-title"><span>➕ Add V1 Service</span></div>
-                <div style="display:grid;gap:8px">
-                  <div style="display:flex;gap:8px;flex-wrap:wrap">
-                    <input type="text" id="nsAdmNewSvcName" class="ns-input" style="flex:2;min-width:130px" placeholder="Service name (e.g. Facebook)"/>
-                    <input type="text" id="nsAdmNewSvcIcon" class="ns-input" style="flex:1;min-width:65px" placeholder="Icon e.g. 📘"/>
+                <div style="display:grid;gap:10px">
+                  <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <input type="text" id="nsAdmNewSvcName" class="ns-input" style="flex:2;min-width:140px" placeholder="Service name (e.g. Facebook)"/>
+                    <input type="text" id="nsAdmNewSvcIcon" class="ns-input" style="flex:1;min-width:75px" placeholder="Icon e.g. 📘"/>
                   </div>
-                  <div style="display:flex;gap:8px">
-                    <input type="number" step="0.01" id="nsAdmNewSvcReward" class="ns-input" placeholder="Reward BDT per OTP (e.g. 0.50)"/>
-                    <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmAddService()">Add Service</button>
+                  <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <input type="number" step="0.01" id="nsAdmNewSvcReward" class="ns-input" style="flex:1;min-width:150px" placeholder="Reward BDT per OTP (e.g. 0.50)"/>
+                    <button type="button" class="ns-btn ns-btn-primary" style="flex:1;min-width:130px" onclick="nsAdmAddService()">➕ Add Service</button>
                   </div>
                 </div>
               </div>
@@ -10886,19 +11366,19 @@ div#jdStatusArea { padding: 0 18px; }
               <!-- V2 Active Panel & Mode Switch -->
               <div class="ns-card" style="margin:0;background:#f8fafc">
                 <div class="ns-card-title"><span>📡 V2 Active Live Panel &amp; User Modes</span></div>
-                <div style="display:grid;gap:8px">
-                  <div style="display:flex;gap:6px;flex-wrap:wrap">
-                    <button type="button" class="ns-btn" id="nsAdmV2Btn_fastx" onclick="nsAdmSetV2Panel('fastx')">FastX</button>
-                    <button type="button" class="ns-btn" id="nsAdmV2Btn_stex" onclick="nsAdmSetV2Panel('stex')">Stex</button>
-                    <button type="button" class="ns-btn" id="nsAdmV2Btn_voltex" onclick="nsAdmSetV2Panel('voltex')">Voltex</button>
-                    <button type="button" class="ns-btn" id="nsAdmV2Btn_mk" onclick="nsAdmSetV2Panel('mk')">MK</button>
+                <div style="display:grid;gap:12px">
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <button type="button" class="ns-btn" style="flex:1" id="nsAdmV2Btn_fastx" onclick="nsAdmSetV2Panel('fastx')">FastX</button>
+                    <button type="button" class="ns-btn" style="flex:1" id="nsAdmV2Btn_stex" onclick="nsAdmSetV2Panel('stex')">Stex</button>
+                    <button type="button" class="ns-btn" style="flex:1" id="nsAdmV2Btn_voltex" onclick="nsAdmSetV2Panel('voltex')">Voltex</button>
+                    <button type="button" class="ns-btn" style="flex:1" id="nsAdmV2Btn_mk" onclick="nsAdmSetV2Panel('mk')">MK</button>
                   </div>
-                  <div style="display:flex;gap:14px;flex-wrap:wrap;padding-top:4px">
-                    <label style="font-size:12px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:6px;cursor:pointer">
-                      <input type="checkbox" id="nsAdmChkV2Mode" onchange="nsAdmToggleModes()"/> V2 Live Console Enabled
+                  <div style="display:flex;gap:16px;flex-wrap:wrap;padding-top:4px">
+                    <label style="font-size:13px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px;cursor:pointer;min-height:36px">
+                      <input type="checkbox" id="nsAdmChkV2Mode" onchange="nsAdmToggleModes()" style="width:18px;height:18px"/> V2 Live Console Enabled
                     </label>
-                    <label style="font-size:12px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:6px;cursor:pointer">
-                      <input type="checkbox" id="nsAdmChkV3Mode" onchange="nsAdmToggleModes()"/> V3 Panel Enabled
+                    <label style="font-size:13px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px;cursor:pointer;min-height:36px">
+                      <input type="checkbox" id="nsAdmChkV3Mode" onchange="nsAdmToggleModes()" style="width:18px;height:18px"/> V3 Panel Enabled
                     </label>
                   </div>
                 </div>
@@ -10914,7 +11394,7 @@ div#jdStatusArea { padding: 0 18px; }
             <!-- 12-Platform Live Console Range Configuration -->
             <div class="ns-card">
               <div class="ns-card-title"><span>🎛️ 12-Platform Live Console Config (Custom Dial Ranges)</span></div>
-              <div id="nsAdmConsoleGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px"></div>
+              <div id="nsAdmConsoleGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px"></div>
             </div>
           </div>
 
@@ -10923,13 +11403,13 @@ div#jdStatusArea { padding: 0 18px; }
             <!-- Simple 3-Mode Connect Panel -->
             <div class="ns-card" style="background:#f8fafc">
               <div class="ns-card-title"><span>➕ Connect SMS Panel (3 Simple Modes)</span></div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-bottom:8px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:10px">
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">Panel Name</label>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Panel Name</label>
                   <input type="text" id="nsAdmPanelName" class="ns-input" placeholder="e.g. Orange / INTS / IVA"/>
                 </div>
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">Connection Mode</label>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Connection Mode</label>
                   <select id="nsAdmPanelMode" class="ns-input" onchange="nsAdmTogglePanelModeFields()">
                     <option value="web_login">🌐 Web Login Panel (INTS / Xisora / HTML)</option>
                     <option value="api_key">⚡ API Key Panel (JSON Auto-Probe)</option>
@@ -10937,67 +11417,67 @@ div#jdStatusArea { padding: 0 18px; }
                   </select>
                 </div>
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">Scan Interval (sec ≥ 3)</label>
-                  <input type="number" min="3" id="nsAdmPanelInterval" class="ns-input" value="8"/>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Scan Interval (sec ≥ 3)</label>
+                  <input type="number" min="3" id="nsAdmPanelInterval" class="ns-input ns-mono" value="8"/>
                 </div>
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">Panel Login / Base URL</label>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Panel Login / Base URL</label>
                   <input type="text" id="nsAdmPanelUrl" class="ns-input" placeholder="https://example.com/login"/>
                 </div>
               </div>
 
-              <div id="nsAdmPanelFieldsWeb" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-bottom:10px">
+              <div id="nsAdmPanelFieldsWeb" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:12px">
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">Username</label>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Username</label>
                   <input type="text" id="nsAdmPanelUser" class="ns-input" placeholder="Panel username"/>
                 </div>
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">Password</label>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Password</label>
                   <input type="password" id="nsAdmPanelPass" class="ns-input" placeholder="Panel password"/>
                 </div>
               </div>
 
-              <div id="nsAdmPanelFieldsApi" style="display:none;margin-bottom:10px">
-                <label style="font-size:11px;font-weight:700;color:#475569">API Key / Bearer Token</label>
+              <div id="nsAdmPanelFieldsApi" style="display:none;margin-bottom:12px">
+                <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">API Key / Bearer Token</label>
                 <input type="text" id="nsAdmPanelApiKey" class="ns-input ns-mono" placeholder="Paste API key or token"/>
               </div>
 
-              <div id="nsAdmPanelFieldsIva" style="display:none;margin-bottom:10px">
-                <label style="font-size:11px;font-weight:700;color:#475569">IVA SMS Browser Cookie</label>
+              <div id="nsAdmPanelFieldsIva" style="display:none;margin-bottom:12px">
+                <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">IVA SMS Browser Cookie</label>
                 <textarea id="nsAdmPanelIvaCookie" rows="2" class="ns-input ns-mono" placeholder="Paste full Cookie header from browser DevTools"></textarea>
               </div>
 
-              <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmAddPanel()">Verify &amp; Connect Panel</button>
+              <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" onclick="nsAdmAddPanel()">⚡ Verify &amp; Connect Panel</button>
             </div>
 
             <!-- Connected Panels List -->
-            <div id="nsAdmPanelsList" style="margin-bottom:14px"></div>
+            <div id="nsAdmPanelsList" style="margin-bottom:16px"></div>
 
             <!-- Panel Sample Preview Box -->
-            <div id="nsAdmPanelPreviewBox" style="display:none;background:#0f172a;color:#e2e8f0;border-radius:12px;padding:14px;margin-bottom:14px">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                <strong id="nsAdmPanelPreviewTitle" style="color:#38bdf8;font-size:13px">Panel Sample Output</strong>
-                <button type="button" class="ns-btn" onclick="document.getElementById('nsAdmPanelPreviewBox').style.display='none'">Close</button>
+            <div id="nsAdmPanelPreviewBox" style="display:none;background:#0f172a;color:#e2e8f0;border-radius:14px;padding:16px;margin-bottom:16px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                <strong id="nsAdmPanelPreviewTitle" style="color:#38bdf8;font-size:13.5px">Panel Sample Output</strong>
+                <button type="button" class="ns-btn ns-btn-sm" onclick="document.getElementById('nsAdmPanelPreviewBox').style.display='none'">Close</button>
               </div>
-              <pre id="nsAdmPanelPreviewBody" class="ns-mono" style="margin:0;font-size:11.5px;white-space:pre-wrap;word-break:break-word;max-height:240px;overflow:auto"></pre>
+              <pre id="nsAdmPanelPreviewBody" class="ns-mono" style="margin:0;font-size:12px;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto"></pre>
             </div>
 
             <!-- V2 / V3 / Augestel Panel Keys -->
             <div class="ns-card" style="background:#f8fafc">
               <div class="ns-card-title"><span>🔑 V2 / Augestel Panel API Keys &amp; Endpoints</span></div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-bottom:10px">
-                <div><label style="font-size:11px;font-weight:700;color:#475569">FastX Base URL</label><input type="text" id="nsKeyFastxBase" class="ns-input ns-mono"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">FastX API Key</label><input type="password" id="nsKeyFastxKey" class="ns-input ns-mono" placeholder="Enter FastX Key"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Stex Base URL</label><input type="text" id="nsKeyStexBase" class="ns-input ns-mono"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Stex API Key</label><input type="password" id="nsKeyStexKey" class="ns-input ns-mono" placeholder="Enter Stex Key"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Voltex Base URL</label><input type="text" id="nsKeyVoltexBase" class="ns-input ns-mono"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Voltex API Key</label><input type="password" id="nsKeyVoltexKey" class="ns-input ns-mono" placeholder="Enter Voltex Key"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">MK Base URL</label><input type="text" id="nsKeyMkBase" class="ns-input ns-mono"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">MK API Key</label><input type="password" id="nsKeyMkKey" class="ns-input ns-mono" placeholder="Enter MK Key"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Augestel Base URL</label><input type="text" id="nsKeyAugBase" class="ns-input ns-mono"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Augestel Token</label><input type="password" id="nsKeyAugKey" class="ns-input ns-mono" placeholder="Enter Augestel Token"/></div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:14px">
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">FastX Base URL</label><input type="text" id="nsKeyFastxBase" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">FastX API Key</label><input type="password" id="nsKeyFastxKey" class="ns-input ns-mono" placeholder="Enter FastX Key"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Stex Base URL</label><input type="text" id="nsKeyStexBase" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Stex API Key</label><input type="password" id="nsKeyStexKey" class="ns-input ns-mono" placeholder="Enter Stex Key"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Voltex Base URL</label><input type="text" id="nsKeyVoltexBase" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Voltex API Key</label><input type="password" id="nsKeyVoltexKey" class="ns-input ns-mono" placeholder="Enter Voltex Key"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">MK Base URL</label><input type="text" id="nsKeyMkBase" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">MK API Key</label><input type="password" id="nsKeyMkKey" class="ns-input ns-mono" placeholder="Enter MK Key"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Augestel Base URL</label><input type="text" id="nsKeyAugBase" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Augestel Token</label><input type="password" id="nsKeyAugKey" class="ns-input ns-mono" placeholder="Enter Augestel Token"/></div>
               </div>
-              <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmSavePanelKeys()">💾 Save Panel API Keys</button>
+              <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" onclick="nsAdmSavePanelKeys()">💾 Save Panel API Keys</button>
             </div>
           </div>
 
@@ -11005,29 +11485,29 @@ div#jdStatusArea { padding: 0 18px; }
           <div id="nsAdmPaneRewards" style="display:none">
             <div class="ns-card" style="background:#f8fafc">
               <div class="ns-card-title"><span>💰 Reward Rates, Currency &amp; Number Rules</span></div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin-bottom:12px">
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Default OTP Reward (৳)</label><input type="number" step="0.01" id="nsSettReward" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Currency Symbol</label><input type="text" id="nsSettCurrency" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Dollar Rate (1 USDT = ৳)</label><input type="number" step="0.1" id="nsSettDollarRate" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Min Withdraw (৳)</label><input type="number" step="1" id="nsSettMinWithdraw" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Refer Commission (%)</label><input type="number" step="0.5" min="0" max="100" id="nsSettReferPct" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Numbers Per Batch (1–10)</label><input type="number" min="1" max="10" id="nsSettBatch" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Valid Time (Minutes)</label><input type="number" min="1" max="1440" id="nsSettValidMins" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Paid WA Price (USDT)</label><input type="number" step="0.001" id="nsSettWaPrice" class="ns-input"/></div>
-                <div><label style="font-size:11px;font-weight:700;color:#475569">Paid WA Timeout (Sec)</label><input type="number" min="60" id="nsSettWaTimeout" class="ns-input"/></div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin-bottom:14px">
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Default OTP Reward (৳)</label><input type="number" step="0.01" id="nsSettReward" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Currency Symbol</label><input type="text" id="nsSettCurrency" class="ns-input"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Dollar Rate (1 USDT = ৳)</label><input type="number" step="0.1" id="nsSettDollarRate" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Min Withdraw (৳)</label><input type="number" step="1" id="nsSettMinWithdraw" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Refer Commission (%)</label><input type="number" step="0.5" min="0" max="100" id="nsSettReferPct" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Numbers Per Batch (1–10)</label><input type="number" min="1" max="10" id="nsSettBatch" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Valid Time (Minutes)</label><input type="number" min="1" max="1440" id="nsSettValidMins" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Paid WA Price (USDT)</label><input type="number" step="0.001" id="nsSettWaPrice" class="ns-input ns-mono"/></div>
+                <div><label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Paid WA Timeout (Sec)</label><input type="number" min="60" id="nsSettWaTimeout" class="ns-input ns-mono"/></div>
               </div>
-              <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px">
-                <label style="font-size:12px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:6px;cursor:pointer">
-                  <input type="checkbox" id="nsSettPuranoOtp"/> ♻️ Purano OTP Resend (Allow expired/older assignments)
+              <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px">
+                <label style="font-size:13px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px;cursor:pointer;min-height:36px">
+                  <input type="checkbox" id="nsSettPuranoOtp" style="width:18px;height:18px"/> ♻️ Purano OTP Resend (Allow expired/older assignments)
                 </label>
-                <label style="font-size:12px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:6px;cursor:pointer">
-                  <input type="checkbox" id="nsSettTrafficEnabled"/> 📊 User Live Traffic Tab Enabled
+                <label style="font-size:13px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px;cursor:pointer;min-height:36px">
+                  <input type="checkbox" id="nsSettTrafficEnabled" style="width:18px;height:18px"/> 📊 User Live Traffic Tab Enabled
                 </label>
-                <label style="font-size:12px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:6px;cursor:pointer">
-                  <input type="checkbox" id="nsSettLbEnabled"/> 🏆 Leaderboard Enabled
+                <label style="font-size:13px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:8px;cursor:pointer;min-height:36px">
+                  <input type="checkbox" id="nsSettLbEnabled" style="width:18px;height:18px"/> 🏆 Leaderboard Enabled
                 </label>
               </div>
-              <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmSaveSettings()">💾 Save All Reward &amp; System Rules</button>
+              <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" onclick="nsAdmSaveSettings()">💾 Save All Reward &amp; System Rules</button>
             </div>
 
             <!-- Per-Service OTP Rewards -->
@@ -11039,46 +11519,46 @@ div#jdStatusArea { padding: 0 18px; }
             <!-- Manual User Wallet Balance +/- -->
             <div class="ns-card" style="background:#f8fafc">
               <div class="ns-card-title"><span>💳 Manual User Wallet Balance Adjustment (+/-)</span></div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px;align-items:end">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:10px;align-items:end">
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">User UID / Email / Numeric ID</label>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">User UID / Email / Numeric ID</label>
                   <input type="text" id="nsAdmBalUserQuery" class="ns-input" placeholder="UID, email, or numeric ID"/>
                 </div>
                 <div>
-                  <label style="font-size:11px;font-weight:700;color:#475569">Amount (৳)</label>
+                  <label style="font-size:11.5px;font-weight:700;color:#475569;display:block;margin-bottom:4px">Amount (৳)</label>
                   <input type="number" step="0.01" id="nsAdmBalAmount" class="ns-input ns-mono" placeholder="e.g. 50"/>
                 </div>
-                <div style="display:flex;gap:6px">
-                  <button type="button" class="ns-btn ns-btn-green" onclick="nsAdmAdjustWalletBalance(1)">➕ Add (+)</button>
-                  <button type="button" class="ns-btn ns-btn-red" onclick="nsAdmAdjustWalletBalance(-1)">➖ Deduct (-)</button>
+                <div style="display:flex;gap:8px">
+                  <button type="button" class="ns-btn ns-btn-green" style="flex:1" onclick="nsAdmAdjustWalletBalance(1)">➕ Add (+)</button>
+                  <button type="button" class="ns-btn ns-btn-red" style="flex:1" onclick="nsAdmAdjustWalletBalance(-1)">➖ Deduct (-)</button>
                 </div>
               </div>
-              <div id="nsAdmBalResult" style="font-size:12px;color:#334155;margin-top:8px"></div>
+              <div id="nsAdmBalResult" style="font-size:13px;color:#334155;margin-top:10px"></div>
             </div>
           </div>
 
           <!-- TAB 5: BUY SERVICE STORE (VPN, PROXY, TELEGRAM PREMIUM) -->
           <div id="nsAdmPaneStore" style="display:none">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:14px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-bottom:16px">
               <!-- Telegram Premium Pricing -->
               <div class="ns-card" style="margin:0;background:#f8fafc">
                 <div class="ns-card-title"><span>💎 Telegram Premium Prices (৳ BDT)</span></div>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
-                  <div><label style="font-size:11px;font-weight:700">3 Months</label><input type="number" id="nsAdmPrem3M" class="ns-input ns-mono"/></div>
-                  <div><label style="font-size:11px;font-weight:700">6 Months</label><input type="number" id="nsAdmPrem6M" class="ns-input ns-mono"/></div>
-                  <div><label style="font-size:11px;font-weight:700">1 Year</label><input type="number" id="nsAdmPrem1Y" class="ns-input ns-mono"/></div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px">
+                  <div><label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:4px">3 Months</label><input type="number" id="nsAdmPrem3M" class="ns-input ns-mono"/></div>
+                  <div><label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:4px">6 Months</label><input type="number" id="nsAdmPrem6M" class="ns-input ns-mono"/></div>
+                  <div><label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:4px">1 Year</label><input type="number" id="nsAdmPrem1Y" class="ns-input ns-mono"/></div>
                 </div>
-                <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmSavePremiumPrices()">Save Premium Prices</button>
+                <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" style="width:100%" onclick="nsAdmSavePremiumPrices()">💾 Save Premium Prices</button>
               </div>
 
               <!-- Add VPN / Proxy Product -->
               <div class="ns-card" style="margin:0;background:#f8fafc">
                 <div class="ns-card-title"><span>🛡️ Add VPN / Proxy Package</span></div>
-                <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-bottom:8px">
+                <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:10px">
                   <input type="text" id="nsAdmProdName" class="ns-input" placeholder="Product Name (e.g. NORD)"/>
                   <input type="text" id="nsAdmProdIcon" class="ns-input" placeholder="Icon 🛡️"/>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
                   <input type="text" id="nsAdmProdDur" class="ns-input" placeholder="7D / 1GB"/>
                   <input type="number" id="nsAdmProdPrice" class="ns-input ns-mono" placeholder="Price ৳"/>
                   <select id="nsAdmProdCat" class="ns-input">
@@ -11086,7 +11566,7 @@ div#jdStatusArea { padding: 0 18px; }
                     <option value="proxy">Proxy</option>
                   </select>
                 </div>
-                <button type="button" class="ns-btn ns-btn-green" onclick="nsAdmAddVpnProduct()">Add Package</button>
+                <button type="button" class="ns-btn ns-btn-green ns-btn-lg" style="width:100%" onclick="nsAdmAddVpnProduct()">➕ Add Package</button>
               </div>
             </div>
 
@@ -11105,28 +11585,28 @@ div#jdStatusArea { padding: 0 18px; }
 
           <!-- TAB 6: TRAFFIC, STATS & DEMO OTP -->
           <div id="nsAdmPaneTraffic" style="display:none">
-            <div style="display:grid;gap:12px">
+            <div style="display:grid;gap:14px">
               <!-- Demo OTP Simulator -->
               <div class="ns-card" style="margin:0;background:#f8fafc">
                 <div class="ns-card-title"><span>🧪 Demo OTP Simulator &amp; Feed Manager</span></div>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
-                  <div style="display:grid;gap:6px">
-                    <div style="font-size:12px;font-weight:800;color:#0f172a">⚡ Instant One-Shot Demo OTP</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px">
+                  <div style="display:grid;gap:8px">
+                    <div style="font-size:13px;font-weight:800;color:#0f172a">⚡ Instant One-Shot Demo OTP</div>
                     <input type="text" id="nsDemoNum" class="ns-input ns-mono" value="8801712345678" placeholder="Number (e.g. 8801712345678)"/>
                     <input type="text" id="nsDemoSender" class="ns-input" value="WhatsApp" placeholder="Sender / Service"/>
                     <input type="text" id="nsDemoCode" class="ns-input ns-mono" value="842915" placeholder="OTP Code"/>
-                    <button type="button" class="ns-btn ns-btn-dark" onclick="nsAdmSendDemoOtp()">Fire Instant Demo OTP</button>
-                    <div id="nsDemoResult" style="font-size:12px;color:#0f172a"></div>
+                    <button type="button" class="ns-btn ns-btn-dark ns-btn-lg" onclick="nsAdmSendDemoOtp()">⚡ Fire Instant Demo OTP</button>
+                    <div id="nsDemoResult" style="font-size:12.5px;color:#0f172a"></div>
                   </div>
-                  <div style="display:grid;gap:6px">
-                    <div style="font-size:12px;font-weight:800;color:#0f172a">🔁 Add Auto-Demo Feed Config</div>
+                  <div style="display:grid;gap:8px">
+                    <div style="font-size:13px;font-weight:800;color:#0f172a">🔁 Add Auto-Demo Feed Config</div>
                     <input type="text" id="nsDemoCfgName" class="ns-input" placeholder="Feed Name (e.g. Live WA Demo)"/>
-                    <div style="display:flex;gap:6px">
+                    <div style="display:flex;gap:8px">
                       <input type="number" id="nsDemoCfgDigits" class="ns-input ns-mono" value="6" placeholder="Digits"/>
                       <input type="number" id="nsDemoCfgInterval" class="ns-input ns-mono" value="15" placeholder="Interval (s)"/>
                     </div>
                     <input type="text" id="nsDemoCfgNums" class="ns-input ns-mono" placeholder="Numbers comma separated (8801711112222, 9198...)"/>
-                    <button type="button" class="ns-btn ns-btn-primary" onclick="nsAdmAddDemoConfig()">Save Auto-Demo Feed</button>
+                    <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" onclick="nsAdmAddDemoConfig()">💾 Save Auto-Demo Feed</button>
                     <div id="nsAdmDemoConfigsWrap" style="margin-top:4px"></div>
                   </div>
                 </div>
@@ -11138,7 +11618,7 @@ div#jdStatusArea { padding: 0 18px; }
                   <span>📊 Admin Unmasked Live Traffic Monitor</span>
                   <button type="button" class="ns-btn" onclick="nsLoadTrafficReport(true)">🔄 Refresh</button>
                 </div>
-                <div id="nsAdmTrafficWrap"><div style="color:#64748b;font-size:12px">Click Refresh or switch to this tab to load live traffic.</div></div>
+                <div id="nsAdmTrafficWrap"><div style="color:#64748b;font-size:13px">Click Refresh or switch to this tab to load live traffic.</div></div>
               </div>
 
               <!-- Unmasked Leaderboard -->
@@ -11147,7 +11627,7 @@ div#jdStatusArea { padding: 0 18px; }
                   <span>🏆 Admin Unmasked OTP &amp; Referrer Rankings</span>
                   <button type="button" class="ns-btn" onclick="nsLoadLeaderboard(true)">🔄 Refresh</button>
                 </div>
-                <div id="nsAdmLeaderboardWrap"><div style="color:#64748b;font-size:12px">Loading...</div></div>
+                <div id="nsAdmLeaderboardWrap"><div style="color:#64748b;font-size:13px">Loading...</div></div>
               </div>
             </div>
           </div>
@@ -27460,8 +27940,14 @@ function nsUserTab(tab) {
     const pane = document.getElementById('nsPane' + map[k]);
     const btn = document.getElementById('nsTabBtn' + map[k]);
     if (pane) pane.style.display = k === tab ? 'block' : 'none';
-    if (btn) btn.classList.toggle('active', k === tab);
+    if (btn) btn.classList.toggle('active', k === tab && !(tab === 'get' && nsState.currentMode === 'v2'));
   });
+  const rangeBtn = document.getElementById('nsTabBtnRange');
+  if (rangeBtn) rangeBtn.classList.toggle('active', tab === 'get' && nsState.currentMode === 'v2');
+  if (tab === 'get' && nsState.currentMode === 'v2') {
+    const getBtn = document.getElementById('nsTabBtnGet');
+    if (getBtn) getBtn.classList.add('active');
+  }
   if (tab === 'traffic') {
     nsLoadTrafficReport(false);
     nsRenderAllAvailableCountries();
@@ -27474,6 +27960,24 @@ function nsUserTab(tab) {
 }
 window.nsUserTab = nsUserTab;
 
+function nsOpenRangeIdQuick() {
+  nsState.currentMode = 'v2';
+  nsUserTab('get');
+  nsSwitchNumberMode('v2');
+  const getBtn = document.getElementById('nsTabBtnGet');
+  const rangeBtn = document.getElementById('nsTabBtnRange');
+  if (getBtn) getBtn.classList.remove('active');
+  if (rangeBtn) rangeBtn.classList.add('active');
+  setTimeout(() => {
+    const inp = document.getElementById('nsV2CustomPrefix');
+    if (inp) {
+      inp.focus();
+      inp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 60);
+}
+window.nsOpenRangeIdQuick = nsOpenRangeIdQuick;
+
 function nsSwitchNumberMode(mode) {
   nsState.currentMode = mode;
   const map = { v1: 'V1', v2: 'V2', v3: 'V3', paidwa: 'PaidWa' };
@@ -27483,11 +27987,46 @@ function nsSwitchNumberMode(mode) {
     if (btn) btn.classList.toggle('active', k === mode);
     if (pane) pane.style.display = k === mode ? 'block' : 'none';
   });
+  const getBtn = document.getElementById('nsTabBtnGet');
+  const rangeBtn = document.getElementById('nsTabBtnRange');
+  if (getBtn && rangeBtn && document.getElementById('nsPaneGet')?.style.display !== 'none') {
+    rangeBtn.classList.toggle('active', mode === 'v2');
+    getBtn.classList.toggle('active', mode !== 'v2');
+  }
   if (mode === 'v2') nsLoadV2LiveAccess();
   if (mode === 'v3') nsLoadV3Services();
   if (mode === 'paidwa') nsRenderPaidWaOrders();
 }
 window.nsSwitchNumberMode = nsSwitchNumberMode;
+
+function nsGetServiceLogoHtml(serviceKey, label, fallbackIcon) {
+  const hay = `${serviceKey || ''} ${label || ''}`.toLowerCase();
+  if (hay.includes('whatsapp') || hay === 'wa') {
+    return `<svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" fill="#25D366"/><path d="M22.2 18.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.7-.3z" fill="#fff"/></svg>`;
+  }
+  if (hay.includes('telegram') || hay === 'tg') {
+    return `<svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" fill="#229ED9"/><path d="M22.4 10.6L9.1 15.7c-.9.4-.9.9-.2 1.1l3.4 1.1 7.9-5c.4-.2.7-.1.4.2l-6.4 5.8-.2 3.5c.3 0 .5-.2.7-.3l1.7-1.6 3.5 2.6c.6.4 1.1.2 1.3-.6l2.3-10.9c.2-.9-.3-1.3-1.1-1z" fill="#fff"/></svg>`;
+  }
+  if (hay.includes('instagram') || hay === 'ig') {
+    return `<svg viewBox="0 0 32 32" fill="none"><defs><linearGradient id="nsIgG" x1="4" y1="28" x2="28" y2="4" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FD5949"/><stop offset="0.5" stop-color="#D6249F"/><stop offset="1" stop-color="#285AEB"/></linearGradient></defs><rect x="4" y="4" width="24" height="24" rx="7" fill="url(#nsIgG)"/><rect x="8.5" y="8.5" width="15" height="15" rx="4.5" stroke="#fff" stroke-width="2"/><circle cx="16" cy="16" r="3.6" stroke="#fff" stroke-width="2"/><circle cx="20.8" cy="11.2" r="1.2" fill="#fff"/></svg>`;
+  }
+  if (hay.includes('facebook') || hay === 'fb') {
+    return `<svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" fill="#1877F2"/><path d="M17.8 25v-8.1h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.5-1.5h1.7V7.5c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3h-2.7v3.1h2.7V25h3.2z" fill="#fff"/></svg>`;
+  }
+  if (hay.includes('google') || hay.includes('gmail') || hay.includes('youtube')) {
+    return `<svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#fff" stroke="#e2e8f0"/><path d="M24.2 16.2c0-.6-.1-1.2-.2-1.8H16v3.5h4.6c-.2 1-.8 1.9-1.7 2.5v2.1h2.7c1.6-1.5 2.6-3.7 2.6-6.3z" fill="#4285F4"/><path d="M16 24.5c2.3 0 4.2-.8 5.6-2.1l-2.7-2.1c-.8.5-1.7.8-2.9.8-2.2 0-4.1-1.5-4.8-3.5H8.4v2.2c1.4 2.8 4.3 4.7 7.6 4.7z" fill="#34A853"/><path d="M11.2 17.6c-.2-.5-.3-1.1-.3-1.6s.1-1.1.3-1.6v-2.2H8.4C7.8 13.3 7.5 14.6 7.5 16s.3 2.7.9 3.8l2.8-2.2z" fill="#FBBC05"/><path d="M16 10.9c1.2 0 2.4.4 3.2 1.2l2.4-2.4C20.2 8.4 18.3 7.5 16 7.5c-3.3 0-6.2 1.9-7.6 4.7l2.8 2.2c.7-2 2.6-3.5 4.8-3.5z" fill="#EA4335"/></svg>`;
+  }
+  if (hay.includes('tiktok')) {
+    return `<svg viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="7" fill="#0F172A"/><path d="M18.2 9v10.2a3.2 3.2 0 11-2.3-3.1v-2.4a5.6 5.6 0 104.7 5.5V13.8a6 6 0 003.4 1.1v-2.3a3.7 3.7 0 01-3.4-3.6h-2.4z" fill="#fff"/></svg>`;
+  }
+  if (hay.includes('twitter') || hay === 'x') {
+    return `<svg viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="7" fill="#0F172A"/><path d="M19.8 9.5h2.3l-5 5.7 5.9 7.8h-4.6l-3.6-4.7-4.1 4.7H8.4l5.3-6.1-5.6-7.4h4.7l3.3 4.3 3.7-4.3z" fill="#fff"/></svg>`;
+  }
+  if (hay.includes('discord')) {
+    return `<svg viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="24" height="24" rx="7" fill="#5865F2"/><path d="M21.4 11.4a11.3 11.3 0 00-2.8-.9l-.4.8a10 10 0 00-4.4 0l-.4-.8a11.3 11.3 0 00-2.8.9c-1.8 2.7-2.2 5.3-2 7.9 1.2.9 2.4 1.4 3.5 1.8l.8-1.1c-.4-.2-.8-.4-1.2-.6l.3-.2c2.2 1 4.6 1 6.8 0l.3.2c-.4.2-.8.4-1.2.6l.8 1.1c1.1-.4 2.3-.9 3.5-1.8.3-3-.5-5.6-2-7.9zM13.5 17.6c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4zm5 0c-.7 0-1.2-.6-1.2-1.4s.5-1.4 1.2-1.4 1.2.6 1.2 1.4-.5 1.4-1.2 1.4z" fill="#fff"/></svg>`;
+  }
+  return `<span>${nsEsc(fallbackIcon || '🔔')}</span>`;
+}
 
 // ── V1 Stock Numbers ────────────────────────────────────────────────────────
 function nsRenderUserServices() {
@@ -27496,9 +28035,10 @@ function nsRenderUserServices() {
   const summary = nsState.userState.stockSummary || [];
   const s = nsState.userState.settings || {};
   const curSym = s.currency || '৳';
+  const q = (document.getElementById('nsServiceSearchInput')?.value || '').trim().toLowerCase();
 
   if (summary.length === 0) {
-    wrap.innerHTML = '<div style="grid-column:1/-1;color:#64748b;font-size:13px;padding:12px;background:#f8fafc;border-radius:10px">No services available right now. Admin can add services in Admin Panel.</div>';
+    wrap.innerHTML = '<div class="nsu-empty-box" style="grid-column:1/-1">No services available right now. Admin can add services in Admin Panel.</div>';
     return;
   }
 
@@ -27507,14 +28047,24 @@ function nsRenderUserServices() {
     nsState.selectedServiceKey = (withStock || summary[0]).serviceKey;
   }
 
-  wrap.innerHTML = summary.map((sv) => {
+  const filtered = summary.filter((sv) => !q || `${sv.serviceLabel} ${sv.serviceKey}`.toLowerCase().includes(q));
+  if (filtered.length === 0) {
+    wrap.innerHTML = '<div class="nsu-empty-box" style="grid-column:1/-1">আপনার ফিল্টার অনুযায়ী কোনো সার্ভিস পাওয়া যায়নি।</div>';
+    return;
+  }
+
+  wrap.innerHTML = filtered.map((sv) => {
     const activeCls = nsState.selectedServiceKey === sv.serviceKey ? ' selected' : '';
+    const countryCnt = Array.isArray(sv.countries) ? sv.countries.length : 0;
+    const logoHtml = nsGetServiceLogoHtml(sv.serviceKey, sv.serviceLabel, sv.serviceIcon);
     return `
       <button type="button" class="nsu-svc-card${activeCls}" onclick="nsSelectService('${nsEsc(sv.serviceKey)}')">
-        <div class="nsu-svc-icon">${nsEsc(sv.serviceIcon || '🔔')}</div>
-        <div style="font-size:13px;font-weight:800;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${nsEsc(sv.serviceLabel)}</div>
-        <div class="ns-mono" style="font-size:11px;color:${sv.totalAvailable > 0 ? '#16a34a' : '#64748b'};font-weight:700;margin-top:2px">${sv.totalAvailable.toLocaleString()} stock</div>
-        <div class="ns-mono" style="font-size:10.5px;color:#0284c7;font-weight:800;margin-top:2px">${nsEsc(curSym)}${Number(sv.rewardBdt || 0).toFixed(2)}/OTP</div>
+        <div class="nsu-svc-logo">${logoHtml}</div>
+        <div class="nsu-svc-name">${nsEsc(sv.serviceLabel)}</div>
+        <div class="nsu-svc-meta">
+          <span class="nsu-svc-countries">${countryCnt} দেশ · ${sv.totalAvailable.toLocaleString()}</span>
+          <span class="nsu-price-pill">${nsEsc(curSym)}${Number(sv.rewardBdt || 0).toFixed(2)}</span>
+        </div>
       </button>`;
   }).join('');
 }
@@ -27523,6 +28073,7 @@ function nsSelectService(serviceKey) {
   nsState.selectedServiceKey = String(serviceKey);
   nsRenderUserServices();
   nsRenderUserCountriesForService();
+  document.getElementById('nsCountryStepCard')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 window.nsSelectService = nsSelectService;
 
@@ -27548,27 +28099,28 @@ function nsRenderUserCountriesForService() {
   });
 
   if (!svc || countries.length === 0) {
-    grid.innerHTML = `<div style="grid-column:1/-1;color:#64748b;font-size:13px;padding:14px;background:#f8fafc;border-radius:10px">No available stock found${svc ? ' for ' + nsEsc(svc.serviceLabel) : ''}${q ? ' matching "' + nsEsc(q) + '"' : ''}. Try Live Console (V2) or Paid WA tab above!</div>`;
+    grid.innerHTML = `<div class="nsu-empty-box" style="grid-column:1/-1">No available stock found${svc ? ' for ' + nsEsc(svc.serviceLabel) : ''}${q ? ' matching "' + nsEsc(q) + '"' : ''}. Try Range ID (V2) or Paid WA above!</div>`;
     return;
   }
 
   const rewardUsdt = (Number(svc.rewardBdt || 0) / rate).toFixed(4);
   grid.innerHTML = countries.map((c) => `
     <button type="button" class="nsu-country-card" onclick="nsClaimCountry('${nsEsc(svc.serviceKey)}', ${nsEsc(JSON.stringify(c.countryName))}, false)">
-      <div style="display:flex;align-items:center;gap:9px;min-width:0">
-        <span class="nsu-flag-box">${nsEsc(c.emoji || '🌍')}</span>
-        <div style="min-width:0">
-          <div style="font-size:14px;font-weight:800;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${nsEsc(c.countryName)}</div>
-          <div class="ns-mono" style="font-size:11px;color:#64748b;font-weight:700">${nsEsc(c.iso2 || '')} · ${c.available.toLocaleString()} left</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%">
+        <div style="display:flex;align-items:center;gap:11px;min-width:0">
+          <span class="nsu-flag-box">${nsEsc(c.emoji || '🌍')}</span>
+          <div style="min-width:0">
+            <div style="font-size:15px;font-weight:800;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${nsEsc(c.countryName)}</div>
+            <div class="ns-mono" style="font-size:11.5px;color:#94a3b8;font-weight:700;margin-top:2px">${nsEsc(c.iso2 || '')} · ${c.available.toLocaleString()} available</div>
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase">OTP Rate</div>
+          <div class="ns-mono" style="font-size:14px;font-weight:800;color:#34d399">${nsEsc(curSym)}${Number(svc.rewardBdt || 0).toFixed(2)}</div>
+          <div class="ns-mono" style="font-size:10.5px;color:#38bdf8">$${rewardUsdt}</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #f1f5f9;padding-top:8px;width:100%">
-        <div>
-          <div style="font-size:10px;color:#64748b;font-weight:700;text-transform:uppercase">Reward / OTP</div>
-          <div class="ns-mono" style="font-size:13px;font-weight:800;color:#0284c7">${nsEsc(curSym)}${Number(svc.rewardBdt || 0).toFixed(2)} <span style="font-size:10.5px;color:#64748b">($${rewardUsdt})</span></div>
-        </div>
-        <span style="font-size:11.5px;font-weight:800;color:#0f172a;background:#f1f5f9;padding:5px 10px;border-radius:8px">Get Batch →</span>
-      </div>
+      <div class="nsu-country-cta">📱 Get Number Batch →</div>
     </button>`).join('');
 }
 window.nsRenderUserCountriesForService = nsRenderUserCountriesForService;
@@ -27606,26 +28158,26 @@ async function nsLoadV2LiveAccess() {
     if (tag) tag.textContent = `· Panel: ${data.panelName || 'FastX'}`;
     const enabledPlatforms = (data.platforms || []).filter((p) => p.enabled || (p.ranges && p.ranges.length > 0));
     if (enabledPlatforms.length === 0) {
-      body.innerHTML = '<div style="color:#64748b;font-size:12.5px;padding:12px;background:#f8fafc;border-radius:10px">No platforms enabled in Live Console yet. Admin can configure V2 API Keys and ranges in Admin Panel.</div>';
+      body.innerHTML = '<div class="nsu-empty-box">No platforms enabled in Live Console yet. Admin can configure V2 API Keys and ranges in Admin Panel.</div>';
       return;
     }
     body.innerHTML = enabledPlatforms.map((plat) => `
-      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px;background:#ffffff">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <strong style="font-size:13.5px;color:#0f172a">📡 ${nsEsc(plat.sid)}</strong>
-          <span class="ns-mono" style="font-size:11px;color:#0284c7;font-weight:700">${plat.ranges.length} ranges</span>
+      <div style="border:1px solid rgba(56,189,248,0.22);border-radius:14px;padding:14px;margin-bottom:12px;background:rgba(6,13,25,0.72)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <strong style="font-size:14px;color:#f8fafc">📡 ${nsEsc(plat.sid)}</strong>
+          <span class="ns-mono" style="font-size:11.5px;color:#38bdf8;font-weight:800">${plat.ranges.length} ranges</span>
         </div>
-        <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
           ${plat.ranges.length ? plat.ranges.map((r) => `
             <button type="button" class="nsu-range-tag" onclick="nsV2ClaimRange('${nsEsc(r.prefix)}','${nsEsc(plat.sid)}')">
               <span>${nsEsc(r.emoji || '🌍')}</span>
               <span>${nsEsc(r.countryName)}</span>
-              <span class="ns-mono" style="color:#0284c7">+${nsEsc(r.prefix)}</span>
-            </button>`).join('') : '<span style="font-size:12px;color:#64748b">No live ranges active right now — use Custom Prefix allocator above.</span>'}
+              <span class="ns-mono" style="color:#38bdf8">+${nsEsc(r.prefix)}</span>
+            </button>`).join('') : '<span style="font-size:12.5px;color:#94a3b8">No live ranges active right now — use Custom Range ID search above.</span>'}
         </div>
       </div>`).join('');
   } catch (e) {
-    body.innerHTML = `<div style="color:#dc2626;font-size:12.5px">${nsEsc(e.message)}</div>`;
+    body.innerHTML = `<div style="color:#f87171;font-size:12.5px">${nsEsc(e.message)}</div>`;
   }
 }
 window.nsLoadV2LiveAccess = nsLoadV2LiveAccess;
@@ -27664,28 +28216,31 @@ async function nsLoadV3Services() {
     const data = await nsApi('/v3/services', 'GET');
     nsState.v3Data = data;
     if (!data.enabled) {
-      body.innerHTML = '<div style="color:#64748b;font-size:13px;padding:12px">V3 Panel is currently disabled by Admin.</div>';
+      body.innerHTML = '<div class="nsu-empty-box">V3 Panel is currently disabled by Admin.</div>';
       return;
     }
     const list = data.services || [];
     if (list.length === 0) {
-      body.innerHTML = `<div style="color:#64748b;font-size:13px;padding:12px;background:#f8fafc;border-radius:10px">${data.configured ? 'No active V3 services returned by API right now.' : 'V3 API Base & Key not configured yet in Admin Panel.'}</div>`;
+      body.innerHTML = `<div class="nsu-empty-box">${data.configured ? 'No active V3 services returned by API right now.' : 'V3 API Base & Key not configured yet in Admin Panel.'}</div>`;
       return;
     }
-    body.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px">
+    body.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px">
       ${list.map((sv) => {
         const sid = sv.id || sv.service || sv.name || '';
         const title = sv.name || sv.service || sid;
         const cnt = sv.stock ?? sv.count ?? sv.available ?? '';
         return `
           <button type="button" class="nsu-country-card" onclick="nsV3ClaimService(${nsEsc(JSON.stringify(String(sid)))})">
-            <div style="font-size:14px;font-weight:800;color:#0f172a">🔮 ${nsEsc(title)}</div>
-            <div class="ns-mono" style="font-size:11.5px;color:#0284c7;font-weight:700">${cnt !== '' ? `${cnt} available` : 'Instant Allocate →'}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px">
+              <div style="font-size:15px;font-weight:800;color:#ffffff">🔮 ${nsEsc(title)}</div>
+              <div class="ns-mono" style="font-size:12px;color:#34d399;font-weight:800">${cnt !== '' ? `${cnt} left` : 'Ready'}</div>
+            </div>
+            <div class="nsu-country-cta">⚡ Allocate Number →</div>
           </button>`;
       }).join('')}
     </div>`;
   } catch (e) {
-    body.innerHTML = `<div style="color:#dc2626;font-size:12.5px">${nsEsc(e.message)}</div>`;
+    body.innerHTML = `<div style="color:#f87171;font-size:12.5px">${nsEsc(e.message)}</div>`;
   }
 }
 window.nsLoadV3Services = nsLoadV3Services;
@@ -27765,29 +28320,30 @@ function nsRenderPaidWaOrders() {
   if (!wrap) return;
   const list = nsState.paidWaOrders || [];
   if (list.length === 0) {
-    wrap.innerHTML = '<div style="font-size:12.5px;color:#64748b;padding:10px;background:#f8fafc;border-radius:10px">No Paid WhatsApp orders yet.</div>';
+    wrap.innerHTML = '<div class="nsu-empty-box">No Paid WhatsApp orders yet.</div>';
     return;
   }
   wrap.innerHTML = list.map((o) => {
     const statusBadge = o.status === 'completed'
-      ? '<span style="background:#dcfce7;color:#15803d;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800">● OTP RECEIVED</span>'
+      ? '<span style="background:rgba(16,185,129,0.18);border:1px solid rgba(52,211,153,0.4);color:#34d399;padding:3px 9px;border-radius:7px;font-size:11px;font-weight:800">● OTP RECEIVED</span>'
       : o.status === 'refunded'
-      ? '<span style="background:#fee2e2;color:#b91c1c;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800">♻️ AUTO-REFUNDED</span>'
-      : `<span style="background:#fef3c7;color:#b45309;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:800">⏳ <span data-ns-expires="${o.deadlineMs}">...</span></span>`;
+      ? '<span style="background:rgba(239,68,68,0.18);border:1px solid rgba(248,113,113,0.4);color:#f87171;padding:3px 9px;border-radius:7px;font-size:11px;font-weight:800">♻️ AUTO-REFUNDED</span>'
+      : `<span style="background:rgba(245,158,11,0.18);border:1px solid rgba(251,191,36,0.4);color:#fbbf24;padding:3px 9px;border-radius:7px;font-size:11px;font-weight:800">⏳ <span data-ns-expires="${o.deadlineMs}">...</span></span>`;
 
     return `
-      <div class="nsu-terminal" style="margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
-          <div style="font-size:12px;color:#cbd5e1;font-weight:700">💬 Paid WhatsApp · Cost: ৳${Number(o.chargedBdt || 0).toFixed(2)}</div>
+      <div class="nsu-terminal">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+          <div style="font-size:12.5px;color:#cbd5e1;font-weight:700">💬 Paid WhatsApp · Cost: <strong class="ns-mono" style="color:#fff">৳${Number(o.chargedBdt || 0).toFixed(2)}</strong></div>
           <div>${statusBadge}</div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-          <div class="nsu-terminal-num" onclick="nsCopyText('${nsEsc(o.number)}','WA Number')" style="cursor:pointer">${nsEsc(o.number)}</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-            ${o.otp ? `<span class="nsu-otp-badge" onclick="nsCopyText('${nsEsc(o.otp)}','WA OTP')" style="cursor:pointer">${nsEsc(o.otp)}</span>` : ''}
-            <button type="button" class="nsu-tbtn nsu-tbtn-sky" onclick="nsCopyText('${nsEsc(o.number)}','WA Number')">📋 Copy</button>
-            ${o.status === 'pending' ? `<button type="button" class="nsu-tbtn" onclick="nsPaidWaGetOtp('${nsEsc(o.orderId)}')">📩 Get OTP Now</button>` : ''}
-          </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <div class="nsu-terminal-num" onclick="nsCopyText('${nsEsc(o.number)}','WA Number')" style="cursor:pointer" title="Tap to copy">${nsEsc(o.number)}</div>
+          ${o.otp ? `<span class="nsu-otp-badge" onclick="nsCopyText('${nsEsc(o.otp)}','WA OTP')">${nsEsc(o.otp)}</span>` : ''}
+        </div>
+        <div class="nsu-terminal-actions">
+          <button type="button" class="nsu-tbtn nsu-tbtn-sky" onclick="nsCopyText('${nsEsc(o.number)}','WA Number')">📋 Copy WA Number</button>
+          ${o.otp ? `<button type="button" class="nsu-tbtn" style="background:#16a34a;border-color:transparent" onclick="nsCopyText('${nsEsc(o.otp)}','WA OTP')">✓ Copy OTP</button>` : ''}
+          ${o.status === 'pending' ? `<button type="button" class="nsu-tbtn" onclick="nsPaidWaGetOtp('${nsEsc(o.orderId)}')">📩 Get OTP Now</button>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -27814,20 +28370,18 @@ function nsRenderActiveNumbers() {
     return `
       <div class="nsu-terminal">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-          <div style="font-size:12.5px;font-weight:700;color:#cbd5e1">
+          <div style="font-size:13px;font-weight:700;color:#cbd5e1">
             ${nsEsc(n.emoji || '🌍')} <strong style="color:#fff">${nsEsc(n.countryName)}</strong> (${nsEsc(n.iso2 || '')}) · ${nsEsc(n.serviceName)} · <span style="color:#38bdf8">${nsEsc(String(n.source || 'v1').toUpperCase())}</span>${n.panelSource ? ` (${nsEsc(n.panelSource)})` : ''}
           </div>
-          <div class="ns-mono" style="font-size:12px;font-weight:800;color:#fbbf24;background:rgba(251,191,36,0.12);padding:3px 9px;border-radius:7px">
+          <div class="ns-mono" style="font-size:12.5px;font-weight:800;color:#fbbf24;background:rgba(251,191,36,0.14);padding:4px 10px;border-radius:8px">
             ⏳ <span data-ns-expires="${n.expiresAtMs}">${mm}:${ss}</span>
           </div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-          <div class="nsu-terminal-num" onclick="nsCopyText('${nsEsc(displayNum)}','Number')" style="cursor:pointer" title="Tap to copy">${nsEsc(displayNum)}</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <button type="button" class="nsu-tbtn nsu-tbtn-sky" onclick="nsCopyText('${nsEsc(displayNum)}','Number')">📋 Copy Number</button>
-            <button type="button" class="nsu-tbtn" onclick="nsToggleCc('${nsEsc(n.id)}')">${stripped ? '➕ Add CC (+)' : '✂️ Remove CC'}</button>
-            ${n.source === 'v1' ? `<button type="button" class="nsu-tbtn" onclick="nsClaimCountry('${nsEsc(n.serviceKey)}', ${nsEsc(JSON.stringify(n.countryName))}, true)">🔄 Change Number</button>` : ''}
-          </div>
+        <div class="nsu-terminal-num" onclick="nsCopyText('${nsEsc(displayNum)}','Number')" style="cursor:pointer" title="Tap to copy">${nsEsc(displayNum)}</div>
+        <div class="nsu-terminal-actions">
+          <button type="button" class="nsu-tbtn nsu-tbtn-sky" onclick="nsCopyText('${nsEsc(displayNum)}','Number')">📋 Copy Number</button>
+          <button type="button" class="nsu-tbtn" onclick="nsToggleCc('${nsEsc(n.id)}')">${stripped ? '➕ Add CC (+)' : '✂️ Remove CC'}</button>
+          ${n.source === 'v1' ? `<button type="button" class="nsu-tbtn" onclick="nsClaimCountry('${nsEsc(n.serviceKey)}', ${nsEsc(JSON.stringify(n.countryName))}, true)">🔄 Change Number</button>` : ''}
         </div>
       </div>`;
   }).join('');
@@ -27911,30 +28465,30 @@ function nsRenderOtpInbox() {
   const list = nsState.deliveries || [];
   const curSym = nsState.userState?.settings?.currency || '৳';
   if (list.length === 0) {
-    wrap.innerHTML = '<div style="text-align:center;padding:20px;color:#64748b;font-size:13px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px">No OTP messages received yet. Claim or buy a number above to receive SMS codes automatically.</div>';
+    wrap.innerHTML = '<div class="nsu-empty-box">No OTP messages received yet. Claim or buy a number above to receive SMS codes automatically.</div>';
     return;
   }
   wrap.innerHTML = list.map((d) => `
     <div class="nsu-otp-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
-        <div style="font-size:13.5px;font-weight:800;color:#0f172a">
-          ${nsEsc(d.emoji || '🌍')} ${nsEsc(d.iso2 || '')} ${nsEsc(d.serviceName || d.sender || 'OTP')} · <span class="ns-mono" style="color:#0284c7">${nsEsc(d.number)}</span>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <div style="font-size:14px;font-weight:800;color:#ffffff">
+          ${nsEsc(d.emoji || '🌍')} ${nsEsc(d.iso2 || '')} ${nsEsc(d.serviceName || d.sender || 'OTP')} · <span class="ns-mono" style="color:#38bdf8">${nsEsc(d.number)}</span>
         </div>
-        <div class="ns-mono" style="font-size:12px;font-weight:800;color:#15803d;background:#dcfce7;padding:3px 9px;border-radius:7px">
+        <div class="ns-mono" style="font-size:12.5px;font-weight:800;color:#34d399;background:rgba(16,185,129,0.16);border:1px solid rgba(52,211,153,0.35);padding:4px 10px;border-radius:8px">
           +${nsEsc(curSym)}${Number(d.rewardBdt || 0).toFixed(2)} ($${Number(d.rewardUsdt || 0).toFixed(4)})
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
-        <div class="nsu-otp-badge">${nsEsc(d.otpDash || d.otpCode || '---')}</div>
-        <div style="display:flex;gap:6px">
-          <button type="button" class="ns-btn ns-btn-green" onclick="nsCopyText('${nsEsc(d.otpCode)}','OTP')">📋 Copy OTP</button>
+      <div class="nsu-otp-vault">
+        <div class="nsu-otp-badge" onclick="nsCopyText('${nsEsc(d.otpCode)}','OTP')" title="Tap to copy OTP">${nsEsc(d.otpDash || d.otpCode || '---')}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;flex:1;justify-content:flex-end">
+          <button type="button" class="ns-btn ns-btn-green ns-btn-lg" style="min-width:155px" onclick="nsCopyText('${nsEsc(d.otpCode)}','OTP')">📋 Copy OTP Code</button>
           <button type="button" class="ns-btn" onclick="nsCopyText(${nsEsc(JSON.stringify(d.message || ''))},'SMS')">Copy SMS</button>
         </div>
       </div>
-      <div style="font-size:12.5px;color:#1e293b;background:#ffffff;border:1px solid #dcfce7;border-radius:9px;padding:9px 11px;word-break:break-word;line-height:1.5">
+      <div style="font-size:13px;color:#e2e8f0;background:rgba(6,13,25,0.72);border:1px solid rgba(52,211,153,0.22);border-radius:10px;padding:10px 13px;word-break:break-word;line-height:1.55">
         ${nsEsc(d.message)}
       </div>
-      <div style="font-size:11px;color:#64748b;margin-top:6px;font-weight:500">${nsEsc(new Date(d.createdAt || Date.now()).toLocaleString())} · Panel: ${nsEsc(d.panelName || 'SMS')}</div>
+      <div style="font-size:11.5px;color:#94a3b8;margin-top:8px;font-weight:600">${nsEsc(new Date(d.createdAt || Date.now()).toLocaleString())} · Panel: ${nsEsc(d.panelName || 'SMS')}</div>
     </div>`).join('');
 }
 
@@ -27946,20 +28500,25 @@ async function nsLoadTrafficReport(isAdminView) {
     const data = await nsApi(`/traffic${isAdminView ? '?admin=1' : ''}`, 'GET');
     const groups = Object.values(data.groups || {});
     const recentAll = data.recentAll || [];
+    const cardBg = isAdminView ? '#f8fafc' : 'rgba(6,13,25,0.72)';
+    const cardBorder = isAdminView ? '#e2e8f0' : 'rgba(148,163,184,0.2)';
+    const titleCol = isAdminView ? '#0f172a' : '#f8fafc';
+    const subCol = isAdminView ? '#475569' : '#94a3b8';
+    const rowBorder = isAdminView ? '#e2e8f0' : 'rgba(148,163,184,0.14)';
     target.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-        <div style="font-size:12px;font-weight:700;color:#475569">Live Panel: <strong style="color:#0284c7">${nsEsc(data.panelName || 'FastX')}</strong> · Total Tracked Hits: <strong class="ns-mono">${data.totalHits || 0}</strong></div>
+        <div style="font-size:12.5px;font-weight:700;color:${subCol}">Live Panel: <strong style="color:#38bdf8">${nsEsc(data.panelName || 'FastX')}</strong> · Total Tracked Hits: <strong class="ns-mono" style="color:${titleCol}">${data.totalHits || 0}</strong></div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:12px">
         ${groups.map((g) => `
-          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px">
-            <div style="font-size:13px;font-weight:800;color:#0f172a;margin-bottom:6px">${nsEsc(g.label)} (${g.hits?.length || 0} hits)</div>
-            ${(g.ranges && g.ranges.length) ? `<div style="font-size:11px;color:#0284c7;margin-bottom:6px" class="ns-mono">Ranges: ${g.ranges.map((r) => '+' + nsEsc(r)).join(', ')}</div>` : ''}
+          <div style="background:${cardBg};border:1px solid ${cardBorder};border-radius:14px;padding:13px">
+            <div style="font-size:13.5px;font-weight:800;color:${titleCol};margin-bottom:6px">${nsEsc(g.label)} (${g.hits?.length || 0} hits)</div>
+            ${(g.ranges && g.ranges.length) ? `<div style="font-size:11px;color:#38bdf8;margin-bottom:6px" class="ns-mono">Ranges: ${g.ranges.map((r) => '+' + nsEsc(r)).join(', ')}</div>` : ''}
             ${(g.hits && g.hits.length) ? g.hits.slice(0, 6).map((h) => `
-              <div style="display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;border-top:1px solid #e2e8f0">
-                <span class="ns-mono">${nsEsc(h.emoji || '')} ${nsEsc(h.number)}</span>
-                <span class="ns-mono" style="color:#16a34a;font-weight:800">${nsEsc(h.otpDash || '')} · ${nsEsc(h.timeAgo)}</span>
-              </div>`).join('') : '<div style="font-size:11.5px;color:#64748b">No hits yet</div>'}
+              <div style="display:flex;justify-content:space-between;font-size:11.5px;padding:5px 0;border-top:1px solid ${rowBorder}">
+                <span class="ns-mono" style="color:${titleCol}">${nsEsc(h.emoji || '')} ${nsEsc(h.number)}</span>
+                <span class="ns-mono" style="color:#34d399;font-weight:800">${nsEsc(h.otpDash || '')} · ${nsEsc(h.timeAgo)}</span>
+              </div>`).join('') : `<div style="font-size:11.5px;color:${subCol}">No hits yet</div>`}
           </div>`).join('')}
       </div>
       ${recentAll.length ? `
@@ -27972,7 +28531,7 @@ async function nsLoadTrafficReport(isAdminView) {
                   <td><strong>${nsEsc(h.serviceKey)}</strong></td>
                   <td>${nsEsc(h.emoji)} ${nsEsc(h.countryName)}</td>
                   <td class="ns-mono">${nsEsc(h.number)}</td>
-                  <td class="ns-mono" style="color:#16a34a;font-weight:800">${nsEsc(h.otpDash)}</td>
+                  <td class="ns-mono" style="color:#34d399;font-weight:800">${nsEsc(h.otpDash)}</td>
                   <td class="ns-mono">${h.hitCount}</td>
                   <td>${nsEsc(h.panelName)}</td>
                 </tr>`).join('')}
@@ -27980,7 +28539,7 @@ async function nsLoadTrafficReport(isAdminView) {
           </table>
         </div>` : ''}`;
   } catch (e) {
-    target.innerHTML = `<div style="color:#dc2626;font-size:12.5px">${nsEsc(e.message)}</div>`;
+    target.innerHTML = `<div style="color:#f87171;font-size:12.5px">${nsEsc(e.message)}</div>`;
   }
 }
 window.nsLoadTrafficReport = nsLoadTrafficReport;
@@ -27998,7 +28557,7 @@ function nsRenderAllAvailableCountries() {
     }
   }
   if (rows.length === 0) {
-    wrap.innerHTML = '<div style="color:#64748b;font-size:13px;padding:12px;background:#f8fafc;border-radius:10px">No V1 country stock matches your filter.</div>';
+    wrap.innerHTML = '<div class="nsu-empty-box">No V1 country stock matches your filter.</div>';
     return;
   }
   wrap.innerHTML = `
@@ -28009,9 +28568,9 @@ function nsRenderAllAvailableCountries() {
           ${rows.map(({ svc, c }) => `
             <tr>
               <td><strong>${nsEsc(svc.serviceIcon)} ${nsEsc(svc.serviceLabel)}</strong></td>
-              <td>${nsEsc(c.emoji)} <strong>${nsEsc(c.countryName)}</strong> <span class="ns-mono" style="color:#64748b;font-size:11px">${nsEsc(c.iso2)}</span></td>
-              <td class="ns-mono" style="color:#16a34a"><strong>${c.available.toLocaleString()}</strong></td>
-              <td class="ns-mono" style="color:#0284c7;font-weight:800">${nsEsc(curSym)}${Number(svc.rewardBdt || 0).toFixed(2)}</td>
+              <td>${nsEsc(c.emoji)} <strong>${nsEsc(c.countryName)}</strong> <span class="ns-mono" style="color:#94a3b8;font-size:11px">${nsEsc(c.iso2)}</span></td>
+              <td class="ns-mono" style="color:#34d399"><strong>${c.available.toLocaleString()}</strong></td>
+              <td class="ns-mono" style="color:#38bdf8;font-weight:800">${nsEsc(curSym)}${Number(svc.rewardBdt || 0).toFixed(2)}</td>
               <td style="text-align:right"><button type="button" class="ns-btn ns-btn-primary" onclick="nsClaimCountry('${nsEsc(svc.serviceKey)}', ${nsEsc(JSON.stringify(c.countryName))}, false)">Get Number</button></td>
             </tr>`).join('')}
         </tbody>
@@ -28039,34 +28598,34 @@ function nsRenderStoreTab() {
   ];
 
   catWrap.innerHTML = `
-    <div style="font-size:13px;font-weight:800;color:#0f172a;margin-bottom:8px">💎 Telegram Premium Subscriptions</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:16px">
+    <div style="font-size:14px;font-weight:800;color:#ffffff;margin-bottom:10px">💎 Telegram Premium Subscriptions</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px">
       ${premCards.map((p) => `
         <div class="nsu-store-card">
           <div>
-            <div style="font-size:13.5px;font-weight:800;color:#0f172a">💎 ${nsEsc(p.label)}</div>
-            <div class="ns-mono" style="font-size:16px;font-weight:900;color:#0284c7;margin-top:4px">৳${p.price.toLocaleString()}</div>
+            <div style="font-size:14.5px;font-weight:800;color:#ffffff">💎 ${nsEsc(p.label)}</div>
+            <div class="ns-mono" style="font-size:18px;font-weight:900;color:#38bdf8;margin-top:6px">৳${p.price.toLocaleString()}</div>
           </div>
-          <button type="button" class="ns-btn ns-btn-primary" onclick="nsBuyStoreItem('premium','tg_${p.dur}',${nsEsc(JSON.stringify(p.label))},'${p.dur}',${p.price})">🛒 Order Now</button>
+          <button type="button" class="ns-btn ns-btn-primary ns-btn-lg" style="width:100%" onclick="nsBuyStoreItem('premium','tg_${p.dur}',${nsEsc(JSON.stringify(p.label))},'${p.dur}',${p.price})">🛒 Order Now</button>
         </div>`).join('')}
     </div>
-    <div style="font-size:13px;font-weight:800;color:#0f172a;margin-bottom:8px">🛡️ VPN &amp; 🌐 Proxy Packages</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px">
+    <div style="font-size:14px;font-weight:800;color:#ffffff;margin-bottom:10px">🛡️ VPN &amp; 🌐 Proxy Packages</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px">
       ${prods.map((v) => `
         <div class="nsu-store-card">
           <div>
-            <div style="font-size:13.5px;font-weight:800;color:#0f172a">${nsEsc(v.icon || '🛡️')} ${nsEsc(v.name)}</div>
-            <div style="font-size:11.5px;color:#64748b;font-weight:700;margin-top:2px">${nsEsc(String(v.category || 'vpn').toUpperCase())} · ${nsEsc(v.duration)}</div>
-            <div class="ns-mono" style="font-size:15px;font-weight:900;color:#16a34a;margin-top:4px">৳${Number(v.price || 0).toLocaleString()}</div>
+            <div style="font-size:14.5px;font-weight:800;color:#ffffff">${nsEsc(v.icon || '🛡️')} ${nsEsc(v.name)}</div>
+            <div style="font-size:12px;color:#94a3b8;font-weight:700;margin-top:3px">${nsEsc(String(v.category || 'vpn').toUpperCase())} · ${nsEsc(v.duration)}</div>
+            <div class="ns-mono" style="font-size:17px;font-weight:900;color:#34d399;margin-top:6px">৳${Number(v.price || 0).toLocaleString()}</div>
           </div>
-          <button type="button" class="ns-btn ns-btn-dark" onclick="nsBuyStoreItem('${nsEsc(v.category)}','${nsEsc(v.id)}',${nsEsc(JSON.stringify(v.name))},${nsEsc(JSON.stringify(v.duration))},${Number(v.price || 0)})">💳 Buy with Wallet</button>
+          <button type="button" class="ns-btn ns-btn-green ns-btn-lg" style="width:100%" onclick="nsBuyStoreItem('${nsEsc(v.category)}','${nsEsc(v.id)}',${nsEsc(JSON.stringify(v.name))},${nsEsc(JSON.stringify(v.duration))},${Number(v.price || 0)})">💳 Buy with Wallet</button>
         </div>`).join('')}
     </div>`;
 
   if (ordWrap) {
     const myOrders = bs.myOrders || [];
     if (myOrders.length === 0) {
-      ordWrap.innerHTML = '<div style="font-size:12.5px;color:#64748b">No store orders placed yet.</div>';
+      ordWrap.innerHTML = '<div class="nsu-empty-box">No store orders placed yet.</div>';
     } else {
       ordWrap.innerHTML = `
         <div class="ns-table-wrap">
@@ -28078,8 +28637,8 @@ function nsRenderStoreTab() {
                   <td><strong>${nsEsc(o.serviceName)}</strong></td>
                   <td class="ns-mono">${nsEsc(o.duration)}</td>
                   <td class="ns-mono">৳${Number(o.priceBdt || 0).toFixed(2)}</td>
-                  <td><strong style="color:${o.status === 'completed' ? '#16a34a' : o.status === 'rejected' ? '#dc2626' : '#b45309'}">${nsEsc(o.status.toUpperCase())}</strong></td>
-                  <td class="ns-mono" style="font-size:11.5px">${o.deliveryNote ? nsEsc(o.deliveryNote) : '<span style="color:#64748b">Processing</span>'}</td>
+                  <td><strong style="color:${o.status === 'completed' ? '#34d399' : o.status === 'rejected' ? '#f87171' : '#fbbf24'}">${nsEsc(o.status.toUpperCase())}</strong></td>
+                  <td class="ns-mono" style="font-size:11.5px">${o.deliveryNote ? nsEsc(o.deliveryNote) : '<span style="color:#94a3b8">Processing</span>'}</td>
                 </tr>`).join('')}
             </tbody>
           </table>
@@ -28140,12 +28699,12 @@ function nsRenderRewardsAndReferTab() {
             ${services.map((sv) => `
               <tr>
                 <td><strong>${nsEsc(sv.icon)} ${nsEsc(sv.label)}</strong></td>
-                <td class="ns-mono" style="color:#16a34a;font-weight:800">${nsEsc(curSym)}${Number(sv.reward || 0).toFixed(2)}</td>
-                <td class="ns-mono" style="color:#0284c7">$${(Number(sv.reward || 0) / rate).toFixed(4)}</td>
+                <td class="ns-mono" style="color:#34d399;font-weight:800">${nsEsc(curSym)}${Number(sv.reward || 0).toFixed(2)}</td>
+                <td class="ns-mono" style="color:#38bdf8">$${(Number(sv.reward || 0) / rate).toFixed(4)}</td>
               </tr>`).join('')}
           </tbody>
         </table>
-      </div>` : '<div style="font-size:12.5px;color:#64748b">No services configured yet.</div>';
+      </div>` : '<div class="nsu-empty-box">No services configured yet.</div>';
   }
 
   if (refWrap) {
@@ -28154,24 +28713,24 @@ function nsRenderRewardsAndReferTab() {
     const refUrl = `${window.location.origin}/?ref=${encodeURIComponent(myRefCode)}#getnumber`;
     refWrap.innerHTML = `
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px">
-          <div style="font-size:10px;color:#64748b;font-weight:700">MY OTPS</div>
-          <div class="ns-mono" style="font-size:18px;font-weight:800;color:#0f172a">${um.otpCount || 0}</div>
+        <div style="background:rgba(6,13,25,0.75);border:1px solid rgba(148,163,184,0.2);border-radius:12px;padding:11px">
+          <div style="font-size:10px;color:#94a3b8;font-weight:700">MY OTPS</div>
+          <div class="ns-mono" style="font-size:18px;font-weight:800;color:#ffffff">${um.otpCount || 0}</div>
         </div>
-        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px">
-          <div style="font-size:10px;color:#15803d;font-weight:700">OTP EARNED</div>
-          <div class="ns-mono" style="font-size:16px;font-weight:800;color:#16a34a">৳${Number(um.totalEarnedBdt || 0).toFixed(2)}</div>
+        <div style="background:rgba(16,185,129,0.12);border:1px solid rgba(52,211,153,0.3);border-radius:12px;padding:11px">
+          <div style="font-size:10px;color:#34d399;font-weight:700">OTP EARNED</div>
+          <div class="ns-mono" style="font-size:16px;font-weight:800;color:#34d399">৳${Number(um.totalEarnedBdt || 0).toFixed(2)}</div>
         </div>
-        <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:10px">
-          <div style="font-size:10px;color:#0369a1;font-weight:700">REFER EARNED</div>
-          <div class="ns-mono" style="font-size:16px;font-weight:800;color:#0284c7">৳${Number(um.referralEarningsBdt || 0).toFixed(2)}</div>
+        <div style="background:rgba(14,165,233,0.12);border:1px solid rgba(56,189,248,0.3);border-radius:12px;padding:11px">
+          <div style="font-size:10px;color:#38bdf8;font-weight:700">REFER EARNED</div>
+          <div class="ns-mono" style="font-size:16px;font-weight:800;color:#38bdf8">৳${Number(um.referralEarningsBdt || 0).toFixed(2)}</div>
         </div>
       </div>
-      <div style="font-size:12.5px;color:#334155;margin-bottom:10px">
-        Earn <strong style="color:#0284c7">${Number(s.referCommissionPct || 5)}% lifetime commission</strong> every time your invited users receive an OTP! Min Withdraw: <strong>৳${Number(s.minWithdraw || 50)}</strong>.
+      <div style="font-size:12.5px;color:#cbd5e1;margin-bottom:10px">
+        Earn <strong style="color:#38bdf8">${Number(s.referCommissionPct || 5)}% lifetime commission</strong> every time your invited users receive an OTP! Min Withdraw: <strong style="color:#ffffff">৳${Number(s.minWithdraw || 50)}</strong>.
       </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;background:#0f172a;padding:10px;border-radius:12px">
-        <input type="text" readonly class="ns-input ns-mono" style="flex:1;min-width:180px;background:#1e293b;border-color:#334155;color:#e2e8f0" value="${nsEsc(refUrl)}"/>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;background:rgba(6,13,25,0.85);border:1px solid rgba(56,189,248,0.22);padding:10px;border-radius:14px">
+        <input type="text" readonly class="ns-input ns-mono" style="flex:1;min-width:180px" value="${nsEsc(refUrl)}"/>
         <button type="button" class="nsu-tbtn nsu-tbtn-sky" onclick="nsCopyText('${nsEsc(refUrl)}','Referral Link')">📋 Copy Link</button>
       </div>`;
   }
@@ -28185,6 +28744,7 @@ async function nsLoadLeaderboard(isAdminView) {
     const data = await nsApi(`/leaderboard?uid=${uid}${isAdminView ? '&admin=1' : ''}`, 'GET');
     const topOtp = data.topOtpUsers || [];
     const topRef = data.topReferrers || [];
+    const emptyCol = isAdminView ? '#64748b' : '#94a3b8';
     target.innerHTML = `
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
         <div class="ns-table-wrap">
@@ -28195,9 +28755,9 @@ async function nsLoadLeaderboard(isAdminView) {
                 <tr>
                   <td class="ns-mono"><strong>#${u.rank}</strong></td>
                   <td>${nsEsc(u.displayName)}</td>
-                  <td class="ns-mono" style="color:#0284c7;font-weight:800">${u.otpCount}</td>
-                  <td class="ns-mono" style="text-align:right;color:#16a34a">৳${Number(u.totalEarnedBdt || 0).toFixed(2)}</td>
-                </tr>`).join('') : '<tr><td colspan="4" style="text-align:center;color:#64748b">No OTP activity yet.</td></tr>'}
+                  <td class="ns-mono" style="color:#38bdf8;font-weight:800">${u.otpCount}</td>
+                  <td class="ns-mono" style="text-align:right;color:#34d399">৳${Number(u.totalEarnedBdt || 0).toFixed(2)}</td>
+                </tr>`).join('') : `<tr><td colspan="4" style="text-align:center;color:${emptyCol}">No OTP activity yet.</td></tr>`}
             </tbody>
           </table>
         </div>
@@ -28210,14 +28770,14 @@ async function nsLoadLeaderboard(isAdminView) {
                   <td class="ns-mono"><strong>#${u.rank}</strong></td>
                   <td>${nsEsc(u.displayName)}</td>
                   <td class="ns-mono">${u.invited}</td>
-                  <td class="ns-mono" style="text-align:right;color:#16a34a">৳${Number(u.referralEarningsBdt || 0).toFixed(2)}</td>
-                </tr>`).join('') : '<tr><td colspan="4" style="text-align:center;color:#64748b">No referral earnings yet.</td></tr>'}
+                  <td class="ns-mono" style="text-align:right;color:#34d399">৳${Number(u.referralEarningsBdt || 0).toFixed(2)}</td>
+                </tr>`).join('') : `<tr><td colspan="4" style="text-align:center;color:${emptyCol}">No referral earnings yet.</td></tr>`}
             </tbody>
           </table>
         </div>
       </div>`;
   } catch (e) {
-    target.innerHTML = `<div style="color:#dc2626;font-size:12.5px">${nsEsc(e.message)}</div>`;
+    target.innerHTML = `<div style="color:#f87171;font-size:12.5px">${nsEsc(e.message)}</div>`;
   }
 }
 window.nsLoadLeaderboard = nsLoadLeaderboard;

@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.local
+.openbrowser
+OpenBrowser-main
+laravel_VPS_reselling_website-main
+azx0.py
+storage
+hosted_bots
+bot_accounts.json
+.DS_Store
+*.log
