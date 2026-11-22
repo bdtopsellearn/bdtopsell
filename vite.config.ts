@@ -86,6 +86,9 @@ import {
 import {
   handleNumberSystemApiRequest
 } from './number-system-engine';
+import {
+  handleFfTopupApiRequest
+} from './ff-topup-engine';
 
 export default defineConfig({
   server: {
@@ -1987,6 +1990,50 @@ export default defineConfig({
             res.statusCode = 500;
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ success: false, error: e?.message || 'Number System error' }));
+          }
+        });
+
+        // ══════════════════════════════════════════════════════════════════
+        // FREE FIRE DIAMOND & TOP-UP ENGINE API (Provider Dispatch, Sync, Pricing, Mr Ai Pay)
+        // ══════════════════════════════════════════════════════════════════
+        server.middlewares.use('/api/ff-topup', async (req: any, res: any) => {
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+          res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+          if (req.method === 'OPTIONS') {
+            res.statusCode = 204;
+            res.end();
+            return;
+          }
+          try {
+            const parsedUrl = new URL(req.url || '/', 'http://localhost');
+            let subPath = parsedUrl.pathname || '/';
+            if (!subPath.startsWith('/')) subPath = '/' + subPath;
+            if (subPath.length > 1 && subPath.endsWith('/')) subPath = subPath.slice(0, -1);
+
+            const body = req.method === 'POST' ? await parseJsonBody(req) : {};
+            const result = await handleFfTopupApiRequest(
+              subPath,
+              String(req.method || 'GET').toUpperCase(),
+              parsedUrl.searchParams,
+              body
+            );
+
+            res.statusCode = result.status || 200;
+            if (result.text !== undefined) {
+              res.setHeader('Content-Type', result.contentType || 'text/plain; charset=utf-8');
+              if (result.filename) {
+                res.setHeader('Content-Disposition', `attachment; filename="${result.filename}"`);
+              }
+              res.end(result.text);
+              return;
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(result.json ?? { success: true }));
+          } catch (e: any) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ success: false, error: e?.message || 'FF Top-Up engine error' }));
           }
         });
 

@@ -477,10 +477,11 @@ export function detectServiceFromSms(smsText: string): string {
 }
 
 export function canonicalServiceKey(name: string): string {
-  return String(name || '')
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '');
+  const raw = String(name || '').trim();
+  const slug = raw.toLowerCase().replace(/[^a-z0-9]+/g, '');
+  if (slug) return slug;
+  if (!raw) return '';
+  return 'svc_' + crypto.createHash('md5').update(raw).digest('hex').slice(0, 8);
 }
 
 function defaultConsoleConfig(): Record<string, NsConsolePlatformConfig> {
@@ -1982,6 +1983,8 @@ function buildStateSnapshot(db: NsDatabase, uid: string, isAdmin: boolean) {
       totalV1Available,
       totalServices: db.services.length,
       paidWaStock: db.waOtpLinks.length,
+      usedNumbersCount: db.usedNumbers.length,
+      activeAssignmentsCount: db.assignments.filter((a) => a.expiresAtMs > Date.now()).length,
       activePanels: db.panels.filter((p) => p.active).length,
       totalPanels: db.panels.length,
       totalUsers: Object.keys(db.users).length,
@@ -2074,15 +2077,37 @@ export async function handleNumberSystemApiRequest(
       return { status: 200, json: { success: true, service: svc } };
     }
     if (action === 'delete') {
-      const key = canonicalServiceKey(body.key || body.name || '');
-      db.services = db.services.filter((s) => s.key !== key);
-      delete db.stock[key];
+      const rawKey = String(body.key || body.name || '').trim();
+      const cKey = canonicalServiceKey(rawKey);
+      const before = db.services.length;
+      const matchedKeys = new Set<string>();
+      if (rawKey) matchedKeys.add(rawKey);
+      if (cKey) matchedKeys.add(cKey);
+      db.services = db.services.filter((s) => {
+        const hit =
+          s.key === rawKey ||
+          s.label === rawKey ||
+          (cKey && (s.key === cKey || canonicalServiceKey(s.key) === cKey || canonicalServiceKey(s.label) === cKey));
+        if (hit) {
+          matchedKeys.add(s.key);
+          matchedKeys.add(canonicalServiceKey(s.key));
+          return false;
+        }
+        return true;
+      });
+      for (const mk of matchedKeys) {
+        if (mk && db.stock[mk]) delete db.stock[mk];
+      }
+      db.assignments = db.assignments.filter(
+        (a) => !(matchedKeys.has(a.serviceKey) || matchedKeys.has(canonicalServiceKey(a.serviceKey)))
+      );
       saveDb();
-      return { status: 200, json: { success: true } };
+      return { status: 200, json: { success: true, removedCount: before - db.services.length } };
     }
     if (action === 'updateReward') {
-      const key = canonicalServiceKey(body.key || '');
-      const svc = db.services.find((s) => s.key === key);
+      const rawKey = String(body.key || '').trim();
+      const cKey = canonicalServiceKey(rawKey);
+      const svc = db.services.find((s) => s.key === rawKey || (cKey && canonicalServiceKey(s.key) === cKey));
       if (!svc) return { status: 404, json: { success: false, error: 'Service not found' } };
       svc.reward = Math.max(0, Number(body.reward || 0));
       saveDb();
@@ -2093,8 +2118,9 @@ export async function handleNumberSystemApiRequest(
 
   // 4. Bulk Upload V1 Numbers (auto-grouped by Country from phone dial code!)
   if (subPath === '/numbers/upload' && method === 'POST') {
-    const serviceKey = canonicalServiceKey(body.serviceKey || '');
-    const svc = db.services.find((s) => s.key === serviceKey);
+    const rawSvcKey = String(body.serviceKey || '').trim();
+    const serviceKey = canonicalServiceKey(rawSvcKey);
+    const svc = db.services.find((s) => s.key === rawSvcKey || s.key === serviceKey);
     if (!svc) return { status: 400, json: { success: false, error: 'Select a valid service first' } };
 
     const rawNums = extractNumbersFromUpload(String(body.fileName || 'paste.txt'), body.fileData, body.text);
@@ -2133,19 +2159,91 @@ export async function handleNumberSystemApiRequest(
     return { status: 200, json: { success: true, serviceName: svc.label, inserted, duplicates, perCountry } };
   }
 
-  // 5. Clear V1 Stock (Sob Clear: by country / by service / all)
+  // 4b. List Numbers in a Service / Country for Admin Inspection & Single-Number Delete
+  if (subPath === '/numbers/list' && method === 'GET') {
+    const rawSvc = String(searchParams.get('serviceKey') || '').trim();
+    const svcKey = db.stock[rawSvc] ? rawSvc : canonicalServiceKey(rawSvc);
+    const countryName = String(searchParams.get('countryName') || '').trim();
+    const svcMap = db.stock[svcKey] || {};
+    if (countryName) {
+      const matchedCountry = Object.keys(svcMap).find((k) => k === countryName || k.toLowerCase() === countryName.toLowerCase());
+      const arr = matchedCountry ? (svcMap[matchedCountry] || []) : [];
+      return {
+        status: 200,
+        json: {
+          success: true,
+          serviceKey: svcKey,
+          countryName: matchedCountry || countryName,
+          numbers: arr.slice(0, 300),
+          total: arr.length,
+        },
+      };
+    }
+    return {
+      status: 200,
+      json: {
+        success: true,
+        serviceKey: svcKey,
+        countries: Object.entries(svcMap).map(([c, nums]) => ({ countryName: c, count: nums.length })),
+      },
+    };
+  }
+
+  // 5. Clear V1 Stock (by number / country / service / used / assignments / all)
   if (subPath === '/numbers/clear' && method === 'POST') {
     const scope = String(body.scope || 'all');
-    const svcKey = canonicalServiceKey(body.serviceKey || '');
+    const rawSvc = String(body.serviceKey || '').trim();
+    const cSvc = canonicalServiceKey(rawSvc);
+    const svcKey = db.stock[rawSvc] ? rawSvc : cSvc;
     const countryName = String(body.countryName || '').trim();
+    const targetNumber = normalizeDigits(String(body.number || ''));
     let removed = 0;
 
-    if (scope === 'country' && svcKey && countryName && db.stock[svcKey]?.[countryName]) {
-      removed = db.stock[svcKey][countryName].length;
-      delete db.stock[svcKey][countryName];
+    if (scope === 'number' && targetNumber) {
+      if (svcKey && db.stock[svcKey]) {
+        const countries = countryName ? [countryName] : Object.keys(db.stock[svcKey]);
+        for (const c of countries) {
+          const matchedC = Object.keys(db.stock[svcKey]).find((k) => k === c || k.toLowerCase() === c.toLowerCase());
+          if (!matchedC) continue;
+          const arr = db.stock[svcKey][matchedC] || [];
+          const next = arr.filter((n) => normalizeDigits(n) !== targetNumber);
+          removed += arr.length - next.length;
+          if (next.length === 0) delete db.stock[svcKey][matchedC];
+          else db.stock[svcKey][matchedC] = next;
+        }
+      } else {
+        for (const sk of Object.keys(db.stock)) {
+          for (const ck of Object.keys(db.stock[sk])) {
+            const arr = db.stock[sk][ck] || [];
+            const next = arr.filter((n) => normalizeDigits(n) !== targetNumber);
+            removed += arr.length - next.length;
+            if (next.length === 0) delete db.stock[sk][ck];
+            else db.stock[sk][ck] = next;
+          }
+        }
+      }
+      const beforeUsed = db.usedNumbers.length;
+      db.usedNumbers = db.usedNumbers.filter((n) => normalizeDigits(n) !== targetNumber);
+      removed += Math.max(0, beforeUsed - db.usedNumbers.length);
+      db.assignments = db.assignments.filter((a) => normalizeDigits(a.number) !== targetNumber);
+    } else if (scope === 'country' && svcKey && countryName && db.stock[svcKey]) {
+      const matchedC = Object.keys(db.stock[svcKey]).find(
+        (k) => k === countryName || k.toLowerCase() === countryName.toLowerCase()
+      );
+      if (matchedC && db.stock[svcKey][matchedC]) {
+        removed = db.stock[svcKey][matchedC].length;
+        delete db.stock[svcKey][matchedC];
+      }
     } else if (scope === 'service' && svcKey && db.stock[svcKey]) {
       for (const arr of Object.values(db.stock[svcKey])) removed += arr.length;
       db.stock[svcKey] = {};
+      db.assignments = db.assignments.filter((a) => a.serviceKey !== svcKey && canonicalServiceKey(a.serviceKey) !== cSvc);
+    } else if (scope === 'used') {
+      removed = db.usedNumbers.length;
+      db.usedNumbers = [];
+    } else if (scope === 'assignments') {
+      removed = db.assignments.length;
+      db.assignments = [];
     } else if (scope === 'all') {
       for (const cMap of Object.values(db.stock)) {
         for (const arr of Object.values(cMap)) removed += arr.length;
@@ -2155,6 +2253,24 @@ export async function handleNumberSystemApiRequest(
       db.assignments = [];
     }
     saveDb();
+    return { status: 200, json: { success: true, removed } };
+  }
+
+  // 5b. Release / Delete User Active Assigned Number(s)
+  if (subPath === '/numbers/release' && method === 'POST') {
+    const uid = String(body.uid || '').trim();
+    const assignmentId = String(body.assignmentId || '').trim();
+    const releaseAll = Boolean(body.releaseAll);
+    const isAdmin = Boolean(body.isAdmin);
+    if (!uid && !isAdmin) return { status: 401, json: { success: false, error: 'Login required' } };
+    const before = db.assignments.length;
+    if (releaseAll) {
+      db.assignments = isAdmin && !uid ? [] : db.assignments.filter((a) => a.uid !== uid);
+    } else if (assignmentId) {
+      db.assignments = db.assignments.filter((a) => !(a.id === assignmentId && (isAdmin || a.uid === uid)));
+    }
+    const removed = before - db.assignments.length;
+    if (removed > 0) saveDb();
     return { status: 200, json: { success: true, removed } };
   }
 
@@ -2473,6 +2589,31 @@ export async function handleNumberSystemApiRequest(
     return { status: 200, json: { success: true, inserted, duplicates, totalStock: db.waOtpLinks.length } };
   }
 
+  if (subPath === '/wa/list' && method === 'GET') {
+    return {
+      status: 200,
+      json: {
+        success: true,
+        links: db.waOtpLinks.slice(0, 300),
+        total: db.waOtpLinks.length,
+      },
+    };
+  }
+
+  if (subPath === '/wa/delete' && method === 'POST') {
+    const id = String(body.id || '').trim();
+    const num = normalizeDigits(String(body.number || ''));
+    const before = db.waOtpLinks.length;
+    db.waOtpLinks = db.waOtpLinks.filter((x) => {
+      if (id && x.id === id) return false;
+      if (num && normalizeDigits(x.number) === num) return false;
+      return true;
+    });
+    const removed = before - db.waOtpLinks.length;
+    saveDb();
+    return { status: 200, json: { success: true, removed, totalStock: db.waOtpLinks.length } };
+  }
+
   if (subPath === '/wa/clear' && method === 'POST') {
     const removed = db.waOtpLinks.length;
     db.waOtpLinks = [];
@@ -2563,6 +2704,37 @@ export async function handleNumberSystemApiRequest(
     batch.approvedAt = new Date().toISOString();
     saveDb();
     return { status: 200, json: { success: true, batch } };
+  }
+
+  if (subPath === '/paid-wa/delete' && method === 'POST') {
+    const kind = String(body.kind || 'order');
+    const id = String(body.id || '').trim();
+    const uid = String(body.uid || '').trim();
+    const isAdmin = Boolean(body.isAdmin);
+    let removed = 0;
+
+    if (kind === 'batch' && id && isAdmin) {
+      const bBefore = db.paidWaRefundBatches.length;
+      db.paidWaRefundBatches = db.paidWaRefundBatches.filter((b) => b.batchId !== id);
+      removed = bBefore - db.paidWaRefundBatches.length;
+      for (const o of db.paidWaOrders) {
+        if (o.batchId === id) o.batchId = null;
+      }
+    } else if (kind === 'order' && id) {
+      const oBefore = db.paidWaOrders.length;
+      db.paidWaOrders = db.paidWaOrders.filter((o) => !(o.orderId === id && (isAdmin || (uid && o.uid === uid))));
+      removed = oBefore - db.paidWaOrders.length;
+    } else if (kind === 'clearCompleted' && isAdmin) {
+      const oBefore = db.paidWaOrders.length;
+      db.paidWaOrders = db.paidWaOrders.filter((o) => o.status === 'pending');
+      removed = oBefore - db.paidWaOrders.length;
+    } else if (kind === 'clearAll' && isAdmin) {
+      removed = db.paidWaOrders.length + db.paidWaRefundBatches.length;
+      db.paidWaOrders = [];
+      db.paidWaRefundBatches = [];
+    }
+    saveDb();
+    return { status: 200, json: { success: true, removed } };
   }
 
   // 15. Panel Manager (Simple 3-Mode Add + Test + Scan + Toggle + Cookie Update + Keys)
@@ -2765,7 +2937,8 @@ export async function handleNumberSystemApiRequest(
       if (!item) return { status: 404, json: { success: false, error: 'Product not found' } };
       item.price = Math.max(0, Number(body.price || 0));
     } else if (action === 'deleteVpn') {
-      db.buyService.vpnServices = db.buyService.vpnServices.filter((v) => v.id !== body.id);
+      const targetId = String(body.id || '').trim();
+      db.buyService.vpnServices = db.buyService.vpnServices.filter((v) => String(v.id) !== targetId);
     }
     saveDb();
     return { status: 200, json: { success: true, buyService: db.buyService } };
@@ -2812,6 +2985,27 @@ export async function handleNumberSystemApiRequest(
     ord.updatedAt = new Date().toISOString();
     saveDb();
     return { status: 200, json: { success: true, order: ord } };
+  }
+
+  if (subPath === '/buy-service/order-delete' && method === 'POST') {
+    const scope = String(body.scope || 'one');
+    const orderId = String(body.orderId || '').trim();
+    const uid = String(body.uid || '').trim();
+    const isAdmin = Boolean(body.isAdmin);
+    const before = db.buyService.orders.length;
+
+    if (scope === 'all' && isAdmin) {
+      db.buyService.orders = [];
+    } else if (scope === 'finished' && isAdmin) {
+      db.buyService.orders = db.buyService.orders.filter((o) => o.status === 'pending');
+    } else if (orderId) {
+      db.buyService.orders = db.buyService.orders.filter(
+        (o) => !(o.orderId === orderId && (isAdmin || (uid && o.uid === uid && o.status !== 'pending')))
+      );
+    }
+    const removed = before - db.buyService.orders.length;
+    saveDb();
+    return { status: 200, json: { success: true, removed } };
   }
 
   // 18. Live Traffic Monitor (grouped by WA, FB, IG, TG + ranges)
@@ -2949,6 +3143,48 @@ export async function handleNumberSystemApiRequest(
     const res = ingestIncomingOtps(db, 'demo', 'Demo Simulator', [{ number: num, otp, sms, service: svc }]);
     saveDb();
     return { status: 200, json: { success: true, number: '+' + num, otp, sender: svc, delivered: res.delivered } };
+  }
+
+  // 20b. Clear Traffic Hits / Delete OTP Deliveries / Delete User Stats
+  if (subPath === '/traffic/clear' && method === 'POST') {
+    const removed = db.recentTraffic.length;
+    db.recentTraffic = [];
+    if (body.clearSeen) db.seenKeys = [];
+    saveDb();
+    return { status: 200, json: { success: true, removed } };
+  }
+
+  if (subPath === '/deliveries/delete' && method === 'POST') {
+    const uid = String(body.uid || '').trim();
+    const deliveryId = String(body.deliveryId || '').trim();
+    const clearAll = Boolean(body.clearAll);
+    const isAdmin = Boolean(body.isAdmin);
+    if (!uid && !isAdmin) return { status: 401, json: { success: false, error: 'Login required' } };
+    const before = db.deliveries.length;
+    if (clearAll) {
+      db.deliveries = isAdmin && !uid ? [] : db.deliveries.filter((d) => d.uid !== uid);
+    } else if (deliveryId) {
+      db.deliveries = db.deliveries.filter((d) => !(d.id === deliveryId && (isAdmin || d.uid === uid)));
+    }
+    const removed = before - db.deliveries.length;
+    saveDb();
+    return { status: 200, json: { success: true, removed } };
+  }
+
+  if (subPath === '/users/delete' && method === 'POST') {
+    const uid = String(body.uid || '').trim();
+    const clearAll = Boolean(body.clearAll);
+    if (clearAll) {
+      db.users = {};
+      saveDb();
+      return { status: 200, json: { success: true } };
+    }
+    if (uid && db.users[uid]) {
+      delete db.users[uid];
+      saveDb();
+      return { status: 200, json: { success: true } };
+    }
+    return { status: 404, json: { success: false, error: 'User not found' } };
   }
 
   // 21. Backup ZIP Download
